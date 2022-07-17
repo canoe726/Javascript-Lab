@@ -1,0 +1,39 @@
+<html>
+  <head></head>
+  <body></body>
+  <script type="module">
+    import { curry, go, pipe, map, filter, reduce, log } from "../lib/curryUtils.js";
+
+    const add = (a, b) => a + b;
+
+    const range = l => {
+      let i = -1;
+      let res = [];
+      while (++i < l) {
+        res.push(i);
+      }
+      return res;
+    };
+    // log(range(5));
+    // log(range(2));
+
+    // let list = range(4);
+    // log(reduce(add, list));
+
+
+    const L = {};
+    L.range = function *(l) {
+      let i = -1;
+      while (++i < l) {
+        yield i;
+      }
+    }
+    let list = L.range(4);
+    log(list);
+    log(list.next());
+    log(list.next());
+    log(list.next());
+    log(reduce(add, list));
+
+  </script>
+</html>
