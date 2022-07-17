@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #eee;
+}
+
+.drop {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  box-shadow: inset 15px 15px 15px rgba(0, 0, 0, 0.1),
+  20px 30px 15px rgba(0, 0, 0, 0.07),
+  20px 25px 15px rgba(0, 0, 0, 0.05),
+  inset -15px -15px 20px rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.drop::before {
+  content: '';
+  position: absolute;
+  top: 55px;
+  left: 45px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.drop::after {
+  content: '';
+  position: absolute;
+  top: 45px;
+  left: 80px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.drop ion-icon {
+  font-size: 5em;
+  color: #444;
+}

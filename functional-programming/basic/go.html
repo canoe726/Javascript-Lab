@@ -1,0 +1,155 @@
+<html>
+  <head></head>
+  <body></body>
+
+  <script>
+    // curry
+    const curry = f => (first, ...args) => args.length
+      ? f(first, ...args)
+      : (...args) => f(first, ...args);
+    // const products = [
+    //   15000, 20000, 25000, 30000, 35000,
+    // ];
+
+    const products = [
+      { name: '반팔티', price: 15000 },
+      { name: '긴팔티', price: 20000 },
+      { name: '핸드폰케이스', price: 15000 },
+      { name: '후드티', price: 30000 },
+      { name: '바지', price: 25000 },
+    ];
+
+    /**
+     * for ...of 반복가능한 객체 (=iterator protocol)
+     * Array, Map, Set, String, TypedArray, arguments ...
+     */
+    // const filter = (f, iter) => {
+    //   const result = [];
+    //   it = iter[Symbol.iterator]();
+    //   for (a of it) {
+    //     if (f(a)) {
+    //       result.push(a);
+    //     }
+    //   }
+    //   return result;
+    // }
+
+    // const map = (f, iter) => {
+    //   const result = [];
+    //   it = iter[Symbol.iterator]();
+    //   for (a of iter) {
+    //     result.push(f(a));
+    //   }
+    //   return result;
+    // }
+
+    // const reduce = (fn, acc, iter) => {
+    //   if (!iter) {
+    //     iter = acc[Symbol.iterator]();
+    //     acc = iter.next().value;
+    //   }
+    //   for (a of iter) {
+    //     acc = fn(acc, a);
+    //   }
+    //   return acc;
+    // }
+
+    // go(
+    //   add(0, 1),
+    //   a => a + 1,
+    //   a => a + 10,
+    //   a => a + 100,
+    //   log,
+    // );
+
+    // go(
+    //   products,
+    //   products => filter(p => p.price >= 20000, products),
+    //   products => map(p => p.price, products),
+    //   prices => reduce(add, prices),
+    //   log,
+    // );
+
+    const filter = curry((f, iter) => {
+      const result = [];
+      it = iter[Symbol.iterator]();
+      for (a of it) {
+        if (f(a)) {
+          result.push(a);
+        }
+      }
+      return result;
+    })
+
+    const map = curry((f, iter) => {
+      const result = [];
+      it = iter[Symbol.iterator]();
+      for (a of iter) {
+        result.push(f(a));
+      }
+      return result;
+    })
+
+    const reduce = curry((fn, acc, iter) => {
+      if (!iter) {
+        iter = acc[Symbol.iterator]();
+        acc = iter.next().value;
+      }
+      for (a of iter) {
+        acc = fn(acc, a);
+      }
+      return acc;
+    })
+
+    const add = (a, b) => a + b;
+    const log = (input) => console.log(input);
+
+    const go = (...args) => reduce((a, f) => f(a), args);
+    const pipe = (f, ...fs) => (...as) => go(f(...as), ...fs);
+
+    const totalPrice = pipe(
+      map(p => p.price),
+      reduce(add),
+    );
+
+    const baseTotalPrice = conditions => pipe(
+      filter(conditions),
+      totalPrice,
+    );
+
+    go(
+      products,
+      filter(p => p.price >= 20000),
+      totalPrice,
+      log,
+    );
+
+    go(
+      products,
+      baseTotalPrice(p => p.price < 20000),
+      log,
+    );
+
+    // const pipe = (...fs) => (a) => go(a, ...fs);
+
+    const f = pipe(
+      (a, b) => a + b,
+      a => a + 1,
+      a => a + 10,
+      a => a + 100,
+    );
+
+    log(f(0, 1));
+
+    const multiply = curry((a, b) => a * b);
+    log(multiply(1)(2));
+
+    const multiply3 = multiply(2);
+    log(multiply3(3))
+    log(multiply3(4))
+    log(multiply3(5))
+
+
+
+  </script>
+</html>

@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  background: #fff;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.container .block {
+  position: relative;
+  width: 5vw;
+  height: 5vw;
+  background: url('./assets/image.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+  transform-style: preserve-3d;
+}

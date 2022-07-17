@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <title>Image Scroll Zoom Out</title>
+  </head>
+  <body>
+    <div id="header"></div>
+    <section>
+      <h2>Image Scroll Zoom Out</h2>
+      <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero odio eum obcaecati ipsa laborum error debitis eaque. Maiores reprehenderit totam excepturi molestiae corrupti, ullam labore temporibus eum obcaecati! Voluptates, labore. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam nisi perspiciatis in eveniet odit corporis iure quos totam dolores, architecto, quam inventore voluptatem accusamus repudiandae dignissimos veniam eius cum aliquid! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab esse perferendis eaque eligendi magnam? Modi nihil tempora sed temporibus pariatur doloremque quidem sapiente recusandae esse eligendi. Labore ducimus quo eius? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Unde quibusdam illum eligendi, minus accusantium delectus molestiae neque, fugiat quos atque doloribus? Quos, minima eligendi repellat sequi reiciendis deleniti nesciunt impedit.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam, suscipit aut, aspernatur repellat provident accusantium in tenetur expedita amet praesentium nemo? Quibusdam placeat iure accusantium quos vero soluta quis praesentium? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quidem quae tempore doloribus vitae quod suscipit accusamus minima nihil cumque? Voluptatibus laborum, voluptates consectetur aperiam laboriosam dicta quasi quos ab possimus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae, a magni ut aut aspernatur maxime mollitia. Repellat soluta, officia quas, dignissimos excepturi aliquam magni perspiciatis beatae illum quae doloremque alias.
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia exercitationem dignissimos necessitatibus voluptate! Temporibus ipsam earum sunt quos non quidem qui debitis repellat fugiat aliquam, et autem, aperiam saepe a. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eum nemo corrupti explicabo laudantium quibusdam necessitatibus magni totam architecto id placeat, sapiente itaque labore quaerat, assumenda in aliquid repellendus pariatur non! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Excepturi itaque ipsum optio, aut amet neque incidunt nobis nostrum voluptatum. Sapiente amet officia tempore quibusdam quam? In quaerat harum laudantium fugit.
+      </p>
+    </section>
+  </body>
+  <script>
+    const bg = document.getElementById('header')
+    window.addEventListener('scroll', () => {
+      bg.style.backgroundSize = 140 - window.pageYOffset / 60 + '%'
+      bg.style.opacity = 1 - window.pageYOffset / 900
+    })
+  </script>
+</html>

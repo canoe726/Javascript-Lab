@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>Image Distortion Effect</title>
+    <link rel='stylesheet' href='style.css'>
+  </head>
+  <body>
+    <div class='container'></div>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script>
+    const container = document.querySelector('.container')
+    for (let i = 0; i <= 400; i++) {
+      const block = document.createElement('div')
+      block.classList.add('block')
+      container.appendChild(block)
+    }
+
+    let block = document.querySelectorAll('.block')
+    let animation = anime.timeline({
+      targets: block,
+      easing: 'easeInOutExpo',
+      loop: true,
+      delay: anime.stagger(10, {start: 50})
+    })
+
+    animation.add({
+      scale: 0,
+      translateX: () => {
+        return anime.random(-360, -2100)
+      },
+      translateY: () => {
+        return anime.random(-360, 2100)
+      },
+      duration: () => {
+        return anime.random(500, 3000)
+      }
+    })
+
+    animation.add({
+      scale: 1,
+      translateX: 0,
+      translateY: 0,
+      rotate: 0,
+      duration: () => {
+        return anime.random(500, 3000)
+      }
+    })
+  </script>
+</html>

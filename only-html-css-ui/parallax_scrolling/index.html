@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Parallax Scrolling</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <header>
+      <a href='#' class='logo'>Logo</a>
+      <ul>
+        <li>
+          <a href='#' class='active'>Home</a>
+        </li>
+        <li>
+          <a href='#'>About</a>
+        </li>
+        <li>
+          <a href='#'>Work</a>
+        </li>
+        <li>
+          <a href='#'>Contact</a>
+        </li>
+      </ul>
+    </header>
+    <section>
+      <img src='assets/stars.png' id='stars'/>
+      <img src='assets/moon.png' id='moon'/>
+      <img src='assets/mountains_behind.png' id='mountains_behind'/>
+      <h2 id='text'>Moon Light</h2>
+      <a href='#sec' id='btn'>Explore</a>
+      <img src='assets/mountains_front.png' id='mountains_front'/>
+    </section>
+    <div class='sec' id='sec'>
+      <h2>Parallax Scrolling Effects</h2>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore, nam, voluptatem omnis voluptatum doloribus atque neque eum dolores ut molestiae odio officiis eveniet. Sapiente nulla accusantium tempore eos illum eum.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde corporis dicta fuga nisi recusandae quisquam optio quas quibusdam repellat est odit, nulla distinctio? Iure natus quam veniam ullam ab repellendus?
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta porro animi? Aspernatur perspiciatis in asperiores corrupti? Id corrupti, nulla, repudiandae nesciunt provident esse explicabo, optio ipsum mollitia iusto inventore.
+        </br></br>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore, nam, voluptatem omnis voluptatum doloribus atque neque eum dolores ut molestiae odio officiis eveniet. Sapiente nulla accusantium tempore eos illum eum.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde corporis dicta fuga nisi recusandae quisquam optio quas quibusdam repellat est odit, nulla distinctio? Iure natus quam veniam ullam ab repellendus?
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta porro animi? Aspernatur perspiciatis in asperiores corrupti? Id corrupti, nulla, repudiandae nesciunt provident esse explicabo, optio ipsum mollitia iusto inventore.
+        </br></br>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Tempore, nam, voluptatem omnis voluptatum doloribus atque neque eum dolores ut molestiae odio officiis eveniet. Sapiente nulla accusantium tempore eos illum eum.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde corporis dicta fuga nisi recusandae quisquam optio quas quibusdam repellat est odit, nulla distinctio? Iure natus quam veniam ullam ab repellendus?
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui dicta porro animi? Aspernatur perspiciatis in asperiores corrupti? Id corrupti, nulla, repudiandae nesciunt provident esse explicabo, optio ipsum mollitia iusto inventore.
+      </p>
+    </div>
+  </body>
+  <script>
+    const stars = document.getElementById('stars')
+    const moon = document.getElementById('moon')
+    const mountainsBehind = document.getElementById('mountains_behind')
+    const text = document.getElementById('text')
+    const btn = document.getElementById('btn')
+    const mountainsFront = document.getElementById('mountains_front')
+    const header = document.querySelector('header')
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY
+      stars.style.left = scrollY * 0.25 + 'px'
+      moon.style.top = scrollY * 1.05 + 'px'
+      mountainsBehind.style.top = scrollY * 0.5 + 'px'
+      mountainsFront.style.top = scrollY * 0.1 + 'px'
+      text.style.marginRight = scrollY * 4 + 'px'
+      text.style.marginTop = scrollY * 1.5 + 'px'
+      btn.style.marginTop = scrollY * 1.5 + 'px'
+      header.style.top = scrollY * 0.5 + 'px'
+    })
+  </script>
+</html>

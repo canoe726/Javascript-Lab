@@ -1,0 +1,257 @@
+<html>
+  <head></head>
+  <body></body>
+
+  <script>
+    // iterable : 이터레이터를 리턴하는 [Symbol.iterator]()를 가진 값
+    // iterator : { value, done } 객체를 리턴하는 next()를 가진 값
+    // 이터러블/이터레이터 프로토콜 : 이터러블을 for ... of, 전개 연산자 등과 동작하도록 규약
+    // console.log('-----Arr-----')
+    const list = [1, 2, 3]
+    // let iter = list[Symbol.iterator]()
+    // while (true) {
+    //   const it = iter.next()
+    //   console.log(it)
+    //   if (it.value === undefined) {
+    //     break;
+    //   }
+    // }
+    // for (const a of list) console.log(a)
+  </script>
+
+  <script>
+    // console.log('-----Set-----')
+    const set = new Set([1, 2, 3])
+    // let iter = set[Symbol.iterator]()
+    // while (true) {
+    //   const it = iter.next()
+    //   console.log(it)
+    //   if (it.value === undefined) {
+    //     break;
+    //   }
+    // }
+    // for (const a of set) console.log(a)
+  </script>
+
+  <script>
+    // console.log('-----Map-----')
+    // const map = new Map([['a', 1], ['b', 2], ['c', 6]])
+    // let iter = map[Symbol.iterator]()
+    // while (true) {
+    //   const it = iter.next()
+    //   console.log(it)
+    //   if (it.value === undefined) {
+    //     break;
+    //   }
+    // }
+    // console.log('map keys : ', map.keys())
+    // console.log('map values : ', map.values())
+    // console.log('map entries : ', map.entries())
+    // for (const a of map) console.log(a)
+  </script>
+
+  <script>
+    const iterable = {
+      [Symbol.iterator]() {
+        let i = 3
+        return {
+          next() {
+            return i == 0 ? { value: undefined, done: true } : { value: i--, done: false }
+          },
+          [Symbol.iterator]() { return this }
+        }
+      }
+    }
+    // console.log('iterable : ', iterable)
+    // let iterator = iterable[Symbol.iterator]()
+    // console.log(iterator.next())
+    // console.log(iterator.next())
+    // console.log(iterator.next())
+    // console.log(iterator.next())
+    // const arr2 = [1, 2, 3]
+    // let iter2 = arr2[Symbol.iterator]()
+    // console.log(iter2[Symbol.iterator]() == iter2)
+    // for (const a of iterable) console.log(a)
+
+    // for (const a of document.querySelectorAll('*')) console.log(a)
+    // const all = document.querySelectorAll('*')
+    // const iter = all[Symbol.iterator]()
+    // console.log(iter.next())
+    // console.log(iter.next())
+    // console.log(iter.next())
+    // console.log(iter.next())
+  </script>
+
+  <script>
+    // console.clear()
+    // const a = [1, 2]
+    // // a[Symbol.iterator] = null
+    // console.log([...a, ...list, ...set, ...map])
+  </script>
+
+  <script>
+    // 제너레이터 : 이터레이터이자 이터러블을 생성하는 함수
+    // function * gen () {
+    //   yield 1
+    //   if (false) yield 2
+    //   yield 3
+    //   return 100
+    // }
+    // let iter = gen() // well-formed iterator
+    // console.log(iter[Symbol.iterator]() === iter)
+    // console.log(iter.next())
+    // console.log(iter.next())
+    // console.log(iter.next())
+    // console.log(iter.next())
+
+    // for (const a of gen()) console.log(a)
+  </script>
+
+  <script>
+    function * infinity (i) {
+      while (true) yield i++
+    }
+
+    function * limit (l, iter) {
+      for (a of iter) {
+        yield a
+        if (a == l) return
+      }
+    }
+
+    function * odd (n) {
+      for (const a of limit(n, infinity(1))) {
+        if (a % 2 == 1) yield a
+      }
+    }
+    // let iter = odd(10)
+    // console.log(iter.next())
+    // console.log(iter.next())
+    // console.log(iter.next())
+    // console.log(iter.next())
+    // console.log(iter.next())
+    // console.log(iter.next())
+
+    // for (const a of odd(30)) console.log(a)
+    // console.log([...odd(10), ...odd(20)])
+    // const [head, ...tail] = odd(5)
+    // console.log(head, tail)
+  </script>
+
+  <script>
+    const products = [
+      { name: '반팔티', price: 15000 },
+      { name: '긴팔티', price: 20000 },
+      { name: '핸드폰케이스', price: 15000 },
+      { name: '후드티', price: 30000 },
+      { name: '바지', price: 25000 },
+    ]
+
+    const map = (f, iter) => {
+      let res = []
+      for (const a of iter) {
+        res.push(f(a))
+      }
+      return res
+    }
+
+    // let names = products.map(item => item.name)
+    // console.log(names)
+    // let names = _map(item => item.name, products)
+    // console.log(names)
+    // let prices = _map(item => item.price, products)
+    // console.log(prices)
+    // let all = document.querySelectorAll('*')
+    // console.log(all[Symbol.iterator]().next())
+    // console.log(all.map(el => el.node))
+    // console.log(_map(item => item.nodeName, all))
+
+    function * gen () {
+      yield 3;
+      yield 4;
+      yield 5;
+    }
+    // console.log(_map(a => a * a, gen()))
+
+    // let m = new Map()
+    // m.set('a', 10)
+    // m.set('b', 20)
+    // console.log(_map(([k, a]) => [k, a * 2], m))
+
+    const filter = (f, iter) => {
+      let res = []
+      for (a of iter) {
+        if (f(a)) {
+          res.push(a)
+        }
+      }
+      return res
+    }
+    // console.log(filter(item => item.price >= 20000, products))
+    // console.log(filter(a => a > 10, [1, 11, 9, 8, 20]))
+
+    // const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    const reduce = (fn, acc, iter) => {
+      if (!iter) {
+        iter = acc[Symbol.iterator]()
+        acc = iter.next().value
+      }
+      for (a of iter) {
+        acc = fn(acc, a)
+      }
+      return acc
+    }
+
+    const add = (a, b) => a + b
+    const minus = (a, b) => a - b
+    const mul = (a, b) => a * b
+
+    // console.log(reduce(
+    //   (total_price, product) => total_price + product.price,
+    //   1,
+    //   products))
+
+    console.log(
+      reduce(
+        add,
+        0,
+        map(
+          product => product.price,
+          filter(
+            product => product.price > 20000,
+            products
+          )
+        )
+      )
+    )
+
+    console.log(
+      reduce(
+        add,
+        0,
+        filter(
+          price => price > 20000,
+          map(
+            product => product.price,
+            products
+          )
+        )
+      )
+    )
+
+    console.log(
+      reduce(
+        add,
+        map(
+          product => product.price,
+          filter(
+            product => product.price > 20000,
+            products
+          )
+        )
+      )
+    )
+
+  </script>
+
+</html>
