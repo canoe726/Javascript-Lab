@@ -6,6 +6,7 @@
 
     const add = (a, b) => a + b;
 
+    /** range */
     const range = l => {
       let i = -1;
       let res = [];
@@ -28,12 +29,50 @@
         yield i;
       }
     }
-    let list = L.range(4);
-    log(list);
-    log(list.next());
-    log(list.next());
-    log(list.next());
-    log(reduce(add, list));
+    // let list = L.range(4);
+    // log(list);
+    // log(list.next());
+    // log(list.next());
+    // log(list.next());
+    // log(reduce(add, list));
+
+    function test(name, time, f) {
+      console.time(name);
+      while (time--) f();
+      console.timeEnd(name);
+    }
+
+    // test('range', 10, () => reduce(add, range(100000)));
+    // test('L.range', 10, () => reduce(add, L.range(100000)));
+
+
+    /** take */
+    const take = curry((l, iter) => {
+      let res = [];
+      for (const a of iter) {
+        res.push(a);
+        if (res.length == l) {
+          return res;
+        }
+      }
+      return res;
+    });
+    // console.time();
+    // log(take(5, range(100000000)));
+    // console.timeEnd();
+
+    // console.time();
+    // log(take(5, L.range(Infinity)));
+    // console.timeEnd();
+
+    console.time();
+    go(
+      range(100000),
+      take(5),
+      reduce(add),
+      log,
+    )
+    console.timeEnd();
 
   </script>
 </html>
