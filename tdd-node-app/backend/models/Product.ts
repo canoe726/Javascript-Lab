@@ -1,7 +1,7 @@
 // https://mongoosejs.com/docs/typescript.html
 import { model, Schema } from "mongoose";
 
-interface IProduct {
+export interface IProduct {
   name: string;
   description: string;
   price: number;

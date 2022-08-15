@@ -5,8 +5,10 @@ const productController = (req: Request, res: Response) => {
   res.send('안녕하세요!');
 }
 
-const createProduct = () => {
-  Product.create();
+const createProduct = (req: Request, res: Response, next: any) => {
+  const { body } = req;
+
+  Product.create(body);
 }
 
 export { productController, createProduct };
