@@ -7,10 +7,9 @@ const productController = (req: Request, res: Response) => {
 
 const createProduct = (req: Request, res: Response, next: any) => {
   const { body } = req;
-
-  Product.create(body);
+  const createdProduct = Product.create(body);
   
-  res.status(201).send();
+  res.status(201).json(createdProduct);
 }
 
 export { productController, createProduct };

@@ -7,7 +7,7 @@ import { createProduct } from "../../controller/productController";
 import { Product } from '../../models/Product';
 import { newProduct } from '../dummy/newProduct';
 
-Product.create = jest.fn();
+const ProductCreate = Product.create = jest.fn();
 
 let req: httpMocks.MockRequest<e.Request<ParamsDictionary, any, any, QueryString.ParsedQs, Record<string, any>>>,
     res: httpMocks.MockResponse<e.Response<any, Record<string, any>>>,
@@ -31,7 +31,7 @@ describe("Product controller create", () => {
   it('should call ProductModel.create', () => {
     createProduct(req, res, next);
 
-    expect(Product.create).toBeCalledWith(newProduct);
+    expect(ProductCreate).toBeCalledWith(newProduct);
   })
 
   it('should return 201 response code', () => {
@@ -39,5 +39,12 @@ describe("Product controller create", () => {
     
     expect(res.statusCode).toBe(201);
     expect(res._isEndCalled()).toBeTruthy();
+  })
+
+  it('should return json body in response', () => {
+    ProductCreate.mockReturnValue(newProduct);
+
+    createProduct(req, res, next);
+    expect(res._getJSONData()).toStrictEqual(newProduct);
   })
 })
