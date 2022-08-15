@@ -9,6 +9,8 @@ const createProduct = (req: Request, res: Response, next: any) => {
   const { body } = req;
 
   Product.create(body);
+  
+  res.status(201).send();
 }
 
 export { productController, createProduct };
