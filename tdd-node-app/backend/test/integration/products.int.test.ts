@@ -14,10 +14,11 @@ describe(("products integration test"), () => {
   });
 
   it("should return 500 on POST /api/products", async () => {
-    const { statusCode } = await request(app)
+    const { statusCode, body } = await request(app)
       .post("/api/products")
       .send({ name: "phone" });
 
     expect(statusCode).toBe(500);
+    expect(body).toStrictEqual({ message: "Product validation failed: description: Path `description` is required." });
   });
 });
