@@ -21,3 +21,6 @@ app.use('/api/products', productRoutes);
 
 app.listen(PORT);
 console.log(`Running on ${PORT}`);
+
+export { app };
+

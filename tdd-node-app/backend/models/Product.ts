@@ -10,17 +10,17 @@ export interface IProduct {
 const productSchema = new Schema<IProduct>({
   name: {
     type: String,
-    required: true,
+    required: true
   },
   description: {
     type: String,
-    required: true,
+    required: true
   },
   price: {
-    type: Number,
+    type: Number
   }
-})
+});
 
-const Product = model('Product', productSchema);
+const Product = model("Product", productSchema);
 
 export { Product };
