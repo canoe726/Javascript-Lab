@@ -10,4 +10,8 @@ const getProducts = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { getProducts };
+const getProductById = async (req: Request, res: Response, next: NextFunction) => {
+  await Product.findById(req.params.productId);
+};
+
+export { getProducts, getProductById };
