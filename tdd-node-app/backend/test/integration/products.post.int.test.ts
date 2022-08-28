@@ -2,7 +2,7 @@ import request from "supertest";
 import { newProduct } from "../../dummy/newProduct";
 import { app } from "../../server";
 
-describe(("products integration test"), () => {
+describe(("POST products integration test"), () => {
   it("POST /api/products", async () => {
     const { statusCode, body } = await request(app)
       .post("/api/products")
