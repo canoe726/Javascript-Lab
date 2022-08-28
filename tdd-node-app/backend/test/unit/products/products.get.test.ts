@@ -42,4 +42,13 @@ describe("Product controller get", () => {
     await getProducts(req, res, next);
     expect(res._getJSONData()).toStrictEqual(allProduct);
   });
+
+  it("should handle errors", async () => {
+    const errorMessage = { message: "Error finding product data" };
+    const rejectedPromise = Promise.reject(errorMessage);
+
+    ProductGet.mockReturnValue(rejectedPromise);
+    await getProducts(req, res, next);
+    expect(next).toHaveBeenCalledWith(errorMessage);
+  });
 });
