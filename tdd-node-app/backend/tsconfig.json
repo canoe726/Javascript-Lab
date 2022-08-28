@@ -17,7 +17,7 @@
   "include": [
     "lib/**/*",
     "test/**/*"
-  ],
+, "dummy"  ],
   "exclude": [
     "node_modules"
   ]

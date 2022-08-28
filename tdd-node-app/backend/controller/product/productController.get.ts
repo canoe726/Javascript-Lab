@@ -1,7 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
+import { Product } from "../../models/Product";
 
-const getProduct = (req: Request, res: Response) => {
-  res.send("안녕하세요!");
+const getProducts = async (req: Request, res: Response, next: NextFunction) => {
+  const allProducts = await Product.find({});
+  res.status(200).json(allProducts);
 };
 
-export { getProduct };
+export { getProducts };

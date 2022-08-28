@@ -1,6 +1,6 @@
 import request from "supertest";
+import { newProduct } from "../../dummy/newProduct";
 import { app } from "../../server";
-import { newProduct } from "../dummy/newProduct";
 
 describe(("products integration test"), () => {
   it("POST /api/products", async () => {
