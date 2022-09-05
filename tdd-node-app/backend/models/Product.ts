@@ -2,6 +2,7 @@
 import { model, Schema } from "mongoose";
 
 export interface IProduct {
+  _id?: number;
   name: string;
   description: string;
   price: number;
