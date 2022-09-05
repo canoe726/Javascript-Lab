@@ -5,6 +5,7 @@ import httpMocks from "node-mocks-http";
 import QueryString from "qs";
 import { getProductById, getProducts } from "../../../controller/product/productController.get";
 import { allProduct } from "../../../dummy/products/allProduct";
+import { newProduct } from "../../../dummy/products/newProduct";
 import { Product } from "../../../models/Product";
 
 const ProductGet = Product.find = jest.fn();
@@ -66,5 +67,31 @@ describe("Product controller get by Id", () => {
 
     await getProductById(req, res, next);
     expect(ProductGetById).toBeCalledWith(TEST_PRODUCT_ID);
+  });
+
+  it("should return json body and response code 200", async () => {
+    ProductGetById.mockReturnValue(newProduct);
+    await getProductById(req, res, next);
+
+    expect(res.statusCode).toBe(200);
+    expect(res._getJSONData()).toStrictEqual(newProduct);
+    expect(res._isEndCalled()).toBeTruthy();
+  });
+
+  it("should return 404 when item does not exist", async () => {
+    ProductGetById.mockReturnValue(null);
+    await getProductById(req, res, next);
+
+    expect(res.statusCode).toBe(404);
+    expect(res._isEndCalled()).toBeTruthy();
+  });
+
+  it("should handle errors", async () => {
+    const errorMessage = { message: "error" };
+    const rejectedPromise = Promise.reject(errorMessage);
+
+    ProductGetById.mockReturnValue(rejectedPromise);
+    await getProductById(req, res, next);
+    expect(next).toHaveBeenCalledWith(errorMessage);
   });
 });

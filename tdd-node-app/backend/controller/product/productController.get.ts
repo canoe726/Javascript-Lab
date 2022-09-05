@@ -11,7 +11,17 @@ const getProducts = async (req: Request, res: Response, next: NextFunction) => {
 };
 
 const getProductById = async (req: Request, res: Response, next: NextFunction) => {
-  await Product.findById(req.params.productId);
+  const product = await Product.findById(req.params.productId);
+
+  try {
+    if (product) {
+      res.status(200).json(product);
+    } else {
+      res.status(404).send();
+    }
+  } catch (error) {
+    next(error);
+  }
 };
 
 export { getProducts, getProductById };

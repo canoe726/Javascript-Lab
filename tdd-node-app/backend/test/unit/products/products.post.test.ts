@@ -4,7 +4,7 @@ import "jest";
 import httpMocks from "node-mocks-http";
 import QueryString from "qs";
 import { createProduct } from "../../../controller/product/productController.post";
-import { newProduct } from "../../../dummy/newProduct";
+import { newProduct } from "../../../dummy/products/newProduct";
 import { Product } from "../../../models/Product";
 
 const ProductCreate = Product.create = jest.fn();
