@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "types": [
+      "jest",
+      "node",
+    ],
+    "target": "es2018",
+    "strict": true,
+    "strictNullChecks": true,
+    "module": "commonjs",
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "rootDir": ".",
+    "esModuleInterop": true,
+  },
+  "include": [
+    "lib/**/*",
+    "test/**/*",
+    "dummy"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
