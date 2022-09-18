@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "types": [
+      "jest",
+      "node",
+    ],
+    "target": "es2018",
+    "strict": true,
+    "strictNullChecks": true,
+    "module": "commonjs",
+    "outDir": "dist",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "rootDir": ".",
+    "esModuleInterop": true,
+  },
+  "include": [
+    "packages/**/lib/**/*",
+    "packages/**/src/**/*",
+    "packages/test/**/*",
+    "packages/**/dummy"
+  ],
+  "exclude": [
+    "node_modules",
+    "packages/**/node_modules",
+    "**/dist/**/*"
+  ]
+}
