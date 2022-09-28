@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@app/base_ui/src/components/Button";
 import "./styles/global.css";
 
 const Header = () => {
@@ -8,6 +9,11 @@ const Header = () => {
 
       <div className="">
         <p>Interface</p>
+
+        <Button
+          primary={true}
+          label='Button'
+        ></Button>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "@app/backend",
   "version": "1.0.0",
   "description": "make api by tdd",
   "main": "server.ts",
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1",
+    "lodash": "^4.17.21",
     "mongoose": "^6.5.1",
     "node-mocks-http": "^1.11.0",
     "supertest": "^6.2.4"
