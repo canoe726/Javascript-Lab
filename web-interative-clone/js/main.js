@@ -74,6 +74,7 @@
         videoImageCount: 960,
         imageSequence: [0, 959],
         
+        canvas_opacity_in: [0, 1, { start: 0, end: 0.1 }],
         canvas_opacity_out: [1, 0, { start: 0.9, end: 1 }],
 
         messageOne_opacity_in: [0, 1, { start: 0.15, end: 0.2 }],
@@ -109,9 +110,18 @@
       objects: {
         container: document.querySelector('#scroll-section-3'),
         canvasCaption: document.querySelector('.canvas-caption'),
+        canvas: document.querySelector('.image-blend-canvas'),
+        context: document.querySelector('.image-blend-canvas').getContext('2d'),
+        imagesPath: [
+          '../assets/images/blend-image-1.jpg',
+          '../assets/images/blend-image-2.jpg',
+        ],
+        images: [],
       },
       values: {
-
+        rect1X: [0, 0, { start: 0, end: 0 }],
+        rect2X: [0, 0, { start: 0, end: 0 }],
+        rectStartY: 0,
       }
     },
   ];
@@ -128,6 +138,12 @@
       imgElement = new Image();
       imgElement.src = `../assets/scene002/IMG_${7027 + index}.JPG`;
       sceneInfo[2].objects.videoImages.push(imgElement);
+    }
+
+    for (let index = 0; index < sceneInfo[3].objects.imagesPath.length; index++) {
+      imgElement = new Image();
+      imgElement.src = sceneInfo[3].objects.imagesPath[index];
+      sceneInfo[3].objects.images.push(imgElement);
     }
   }
 
@@ -243,6 +259,12 @@
         const scene2Sequence = Math.round(calcValues(values.imageSequence, currentYOffset));
         objects.context.drawImage(objects.videoImages[scene2Sequence], 0, 0);
 
+        if (scrollRatio <= 0.5) {
+          objects.canvas.style.opacity = calcValues(values.canvas_opacity_in, currentYOffset);
+        } else {
+          objects.canvas.style.opacity = calcValues(values.canvas_opacity_out, currentYOffset);
+        }
+
         if (scrollRatio <= 0.25) {
           objects.messageOne.style.opacity = calcValues(values.messageOne_opacity_in, currentYOffset);
           objects.messageOne.style.transform = `translate3d(0, ${calcValues(values.messageOne_translateY_out, currentYOffset)}%, 0)`;
@@ -271,10 +293,52 @@
           objects.pinThree.style.transform = `scaleY(${calcValues(values.pinThree_scaleY, currentYOffset)})`;
         }
 
-        objects.canvas.style.opacity = calcValues(values.canvas_opacity_out, currentYOffset);
         break;
 
       case 3:
+        const widthRatio = window.innerWidth / objects.canvas.width;
+        const heightRatio = window.innerHeight / objects.canvas.height;
+        let canvasScaleRatio;
+
+        if (widthRatio <= heightRatio) {
+          canvasScaleRatio = heightRatio;
+        } else {
+          canvasScaleRatio = widthRatio;
+        }
+        objects.canvas.style.transform = `scale(${canvasScaleRatio})`
+        objects.context.fillStyle = 'white';
+        objects.context.drawImage(objects.images[0], 0, 0);
+
+        const recalculatedInnerWidth = document.body.offsetWidth / canvasScaleRatio;
+
+        if (!values.rectStartY) {
+          // values.rectStartY = objects.canvas.getBoundingClientRect().top;
+          values.rectStartY = objects.canvas.offsetTop + (objects.canvas.height - objects.canvas.height * canvasScaleRatio) / 2;
+          values.rect1X[2].start = (window.innerHeight / 2) / scrollHeight;
+          values.rect2X[2].start = (window.innerHeight / 2) / scrollHeight;
+          values.rect1X[2].end = values.rectStartY / scrollHeight;
+          values.rect2X[2].end = values.rectStartY / scrollHeight;
+        }
+
+        const whiteRectWidth = recalculatedInnerWidth * 0.15;
+        values.rect1X[0] = (objects.canvas.width - recalculatedInnerWidth) / 2;
+        values.rect1X[1] = values.rect1X[0] - whiteRectWidth;
+        values.rect2X[0] = values.rect1X[0] + recalculatedInnerWidth - whiteRectWidth;
+        values.rect2X[1] = values.rect2X[0] + whiteRectWidth; 
+
+        objects.context.fillRect(
+          parseInt(calcValues(values.rect1X, currentYOffset)),
+          0,
+          parseInt(whiteRectWidth),
+          objects.canvas.height,
+        );
+        objects.context.fillRect(
+          parseInt(calcValues(values.rect2X, currentYOffset)),
+          0,
+          parseInt(whiteRectWidth),
+          objects.canvas.height,
+        );
+
         break;
     }
   }
@@ -306,15 +370,15 @@
     }
   }
   
+  setCanvasImages();
+  window.addEventListener('resize', setLayout);
   window.addEventListener('load', () => {
     setLayout();
     sceneInfo[0].objects.context.drawImage(sceneInfo[0].objects.videoImages[0], 0, 0);
   });
-  window.addEventListener('resize', setLayout);
   window.addEventListener('scroll', () => {
     yOffset = window.scrollY;
     scrollLoop();
   });
-  setCanvasImages();
 
 })();
