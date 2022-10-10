@@ -42,6 +42,13 @@ a {
   border-bottom: 1px solid #ddd;
 }
 
+.local-nav-sticky .local-nav {
+  position: fixed;
+  top: 0;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: saturate(180%) blur(15px);
+}
+
 .global-nav-links,
 .local-nav-links {
   display: flex;
@@ -148,6 +155,7 @@ a {
 
 .mid-message {
   max-width: 1024px;
+  width: 1000px;
   margin: 0 auto;
   padding: 0 1rem;
   font-size: 2rem;
@@ -160,7 +168,7 @@ a {
 
 .canvas-caption {
   max-width: 1024px;
-  margin: 0 auto;
+  margin: -8em auto 0;
   padding: 0 1rem;
   color: #888;
   font-size: 1.2rem;
@@ -200,13 +208,14 @@ a {
   left: 50%;
 }
 
-.image-blend-canvas {
-}
-
 #scroll-section-3 {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.image-blend-canvas.sticky {
+  position: fixed;
 }
 
 @media (min-width: 1024px) {
@@ -219,6 +228,7 @@ a {
   }
 
   .description {
+    padding: 0;
     font-size: 2rem;
   }
 
@@ -248,10 +258,12 @@ a {
   }
 
   .mid-message {
+    padding: 0;
     font-size: 4vw;
   }
 
   .canvas-caption {
+    padding: 0;
     font-size: 2rem;
   }
 }

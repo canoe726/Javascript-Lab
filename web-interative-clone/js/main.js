@@ -121,6 +121,10 @@
       values: {
         rect1X: [0, 0, { start: 0, end: 0 }],
         rect2X: [0, 0, { start: 0, end: 0 }],
+        blendHeight: [0, 0, { start: 0, end: 0 }],
+        canvas_scale: [0, 0, { start: 0, end: 0 }],
+        canvasCaption_opacity: [0, 1, { start: 0, end: 0 }],
+        canvasCaption_translateY: [20, 0, { start: 0, end: 0 }],
         rectStartY: 0,
       }
     },
@@ -144,6 +148,14 @@
       imgElement = new Image();
       imgElement.src = sceneInfo[3].objects.imagesPath[index];
       sceneInfo[3].objects.images.push(imgElement);
+    }
+  }
+
+  function checkMenu() {
+    if (yOffset > 44) {
+      document.body.classList.add('local-nav-sticky');
+    } else {
+      document.body.classList.remove('local-nav-sticky');
     }
   }
 
@@ -293,9 +305,50 @@
           objects.pinThree.style.transform = `scaleY(${calcValues(values.pinThree_scaleY, currentYOffset)})`;
         }
 
+        if (scrollRatio > 0.9) {
+          const objects = sceneInfo[3].objects;
+          const values = sceneInfo[3].values;
+
+          const widthRatio = window.innerWidth / objects.canvas.width;
+          const heightRatio = window.innerHeight / objects.canvas.height;
+          let canvasScaleRatio;
+
+          if (widthRatio <= heightRatio) {
+            canvasScaleRatio = heightRatio;
+          } else {
+            canvasScaleRatio = widthRatio;
+          }
+          objects.canvas.style.transform = `scale(${canvasScaleRatio})`
+          objects.context.fillStyle = 'white';
+          objects.context.drawImage(objects.images[0], 0, 0);
+
+          const recalculatedInnerWidth = document.body.offsetWidth / canvasScaleRatio;
+
+          const whiteRectWidth = recalculatedInnerWidth * 0.15;
+          values.rect1X[0] = (objects.canvas.width - recalculatedInnerWidth) / 2;
+          values.rect1X[1] = values.rect1X[0] - whiteRectWidth;
+          values.rect2X[0] = values.rect1X[0] + recalculatedInnerWidth - whiteRectWidth;
+          values.rect2X[1] = values.rect2X[0] + whiteRectWidth; 
+
+          objects.context.fillRect(
+            values.rect1X[0],
+            0,
+            parseInt(whiteRectWidth),
+            objects.canvas.height,
+          );
+          objects.context.fillRect(
+            values.rect2X[0],
+            0,
+            parseInt(whiteRectWidth),
+            objects.canvas.height,
+          );
+        }
+
         break;
 
       case 3:
+        let step = 0;
+
         const widthRatio = window.innerWidth / objects.canvas.width;
         const heightRatio = window.innerHeight / objects.canvas.height;
         let canvasScaleRatio;
@@ -339,6 +392,58 @@
           objects.canvas.height,
         );
 
+        if (scrollRatio < values.rect1X[2].end) {
+          step = 1;
+          objects.canvas.classList.remove('sticky')
+        } else {
+          step = 2;
+
+          values.blendHeight[0] = 0;
+          values.blendHeight[1] = objects.canvas.height;
+          values.blendHeight[2].start = values.rect1X[2].end
+          values.blendHeight[2].end = values.blendHeight[2].start + 0.2
+
+          const blendHeight = calcValues(values.blendHeight, currentYOffset);
+          objects.context.drawImage(
+            objects.images[1],
+            0,
+            objects.canvas.height - blendHeight,
+            objects.canvas.width,
+            blendHeight,
+            0,
+            objects.canvas.height - blendHeight,
+            objects.canvas.width,
+            blendHeight,
+          );
+
+          objects.canvas.classList.add('sticky')
+          objects.canvas.style.top = `${-((objects.canvas.height - objects.canvas.height * canvasScaleRatio) / 2)}px`;
+
+          if (scrollRatio > values.blendHeight[2].end) {
+            values.canvas_scale[0] = canvasScaleRatio;
+            values.canvas_scale[1] = document.body.offsetWidth / (1.5 * (objects.canvas.width));
+            values.canvas_scale[2].start = values.blendHeight[2].end;
+            values.canvas_scale[2].end = values.canvas_scale[2].start + 0.2;
+            
+            objects.canvas.style.transform = `scale(${calcValues(values.canvas_scale, currentYOffset)})`;
+            objects.canvas.style.marginTop = 0;
+          }
+
+          if (scrollRatio > values.canvas_scale[2].end && values.canvas_scale[2].end > 0) {
+            objects.canvas.classList.remove('sticky')
+            objects.canvas.style.marginTop = `${scrollHeight * 0.4}px`;
+
+            values.canvasCaption_opacity[2].start = values.canvas_scale[2].end;
+            values.canvasCaption_opacity[2].end = values.canvasCaption_opacity[2].start + 0.1;
+
+            values.canvasCaption_translateY[2].start = values.canvasCaption_opacity[2].start;
+            values.canvasCaption_translateY[2].end = values.canvasCaption_opacity[2].end;
+
+            objects.canvasCaption.style.opacity = calcValues(values.canvasCaption_opacity, currentYOffset);
+            objects.canvasCaption.style.transform = `translate3d(0, ${calcValues(values.canvasCaption_translateY, currentYOffset)}%, 0)`;
+          }
+        }
+
         break;
     }
   }
@@ -379,6 +484,7 @@
   window.addEventListener('scroll', () => {
     yOffset = window.scrollY;
     scrollLoop();
+    checkMenu();
   });
 
 })();
