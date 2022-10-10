@@ -21,6 +21,10 @@ a {
   text-decoration: none;
 }
 
+.container {
+  overflow-x: hidden;
+}
+
 .global-nav {
 	position: absolute;
 	top: 0;
@@ -46,6 +50,7 @@ a {
   position: fixed;
   top: 0;
   background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: saturate(180%) blur(15px);
   backdrop-filter: saturate(180%) blur(15px);
 }
 
@@ -168,7 +173,7 @@ a {
 
 .canvas-caption {
   max-width: 1024px;
-  margin: -8em auto 0;
+  margin: -24rem auto 0;
   padding: 0 1rem;
   color: #888;
   font-size: 1.2rem;
@@ -195,6 +200,11 @@ a {
 #show-scene-2 #scroll-section-2 .sticky-elem,
 #show-scene-3 #scroll-section-3 .sticky-elem {
   display: block;
+  will-change: transform, opacity;
+}
+
+.scroll-effect-end .sticky-elem {
+  display: none !important;
 }
 
 .sticky-elem-canvas {
@@ -216,6 +226,70 @@ a {
 
 .image-blend-canvas.sticky {
   position: fixed;
+}
+
+body.before-load {
+  overflow: hidden;
+}
+
+.before-load .container {
+  display: none;
+}
+
+.before-load .loading {
+  opacity: 1;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  opacity: 0;
+  background-color: white;
+  transition: 0.5s;
+}
+
+@keyframes loading-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-circle-anim {
+  0% {
+    stroke-dashoffset: 157;
+  }
+  75% {
+    stroke-dashoffset: -147;
+  }
+  100% {
+    stroke-dashoffset: -157;
+  }
+}
+
+.loading-circle {
+  width: 54px;
+  height: 54px;
+  animation: loading-spin 3s infinite;
+}
+
+.loading-circle circle {
+  stroke: black;
+  stroke-width: 4;
+  stroke-dasharray: 157; /* getTotalLength()로 stroke 길이 얻기 가능 */
+  stroke-dashoffset: 0;
+  animation: loading-circle-anim 1s infinite;
+  fill: none;
+}
+
+.normal-content {
+  margin-bottom: 10rem;
 }
 
 @media (min-width: 1024px) {
@@ -263,6 +337,7 @@ a {
   }
 
   .canvas-caption {
+    margin-top: -8rem;
     padding: 0;
     font-size: 2rem;
   }
