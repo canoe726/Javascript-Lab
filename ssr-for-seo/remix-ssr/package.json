@@ -36,6 +36,7 @@
     "@remix-run/server-runtime": "^1.7.3",
     "bcryptjs": "^2.4.3",
     "isbot": "^3.5.3",
+    "marked": "^4.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tiny-invariant": "^1.2.0"
@@ -51,6 +52,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/bcryptjs": "^2.4.2",
     "@types/eslint": "^8.4.6",
+    "@types/marked": "^4.0.7",
     "@types/node": "^18.7.18",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",

@@ -1,28 +1,22 @@
 import React from 'react'
 import logo from './logo.svg'
 import { PageContextProvider } from './usePageContext'
-import type { PageContext } from './types'
-import './PageShell.css'
 import { Link } from './Link'
+import type { PageContext } from './types'
 
 export { PageShell }
 
-function PageShell({ children, pageContext }: { children: React.ReactNode; pageContext: PageContext }) {
+function PageShell({ pageContext, children }: { pageContext: PageContext; children: React.ReactNode }) {
   return (
     <React.StrictMode>
       <PageContextProvider pageContext={pageContext}>
         <Layout>
           <Sidebar>
             <Logo />
-            <Link className="navitem" href="/">
-              Home
-            </Link>
-            <Link className="navitem" href="/about">
-              About
-            </Link>
-            <Link className="navitem" href="/star-wars">
-              StarWars
-            </Link>
+            <Link href="/">Welcome</Link>
+            <Link href="/markdown">Markdown</Link>
+            <Link href="/star-wars">Data Fetching</Link>
+            <Link href="/hello/alice">Routing</Link>
           </Sidebar>
           <Content>{children}</Content>
         </Layout>
@@ -53,8 +47,8 @@ function Sidebar({ children }: { children: React.ReactNode }) {
         flexShrink: 0,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center',
-        lineHeight: '1.8em'
+        lineHeight: '1.8em',
+        borderRight: '2px solid #eee'
       }}
     >
       {children}
@@ -64,15 +58,17 @@ function Sidebar({ children }: { children: React.ReactNode }) {
 
 function Content({ children }: { children: React.ReactNode }) {
   return (
-    <div
-      style={{
-        padding: 20,
-        paddingBottom: 50,
-        borderLeft: '2px solid #eee',
-        minHeight: '100vh'
-      }}
-    >
-      {children}
+    <div id="page-container">
+      <div
+        id="page-content"
+        style={{
+          padding: 20,
+          paddingBottom: 50,
+          minHeight: '100vh'
+        }}
+      >
+        {children}
+      </div>
     </div>
   )
 }
@@ -86,7 +82,7 @@ function Logo() {
       }}
     >
       <a href="/">
-        <img src={logo} height={64} width={64} alt="logo" />
+        <img src={logo} height={64} width={64} />
       </a>
     </div>
   )
