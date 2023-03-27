@@ -1,0 +1,50 @@
+<html>
+  <head></head>
+  <body></body>
+  <script>
+    const origin1 = {}
+    const origin2 = {
+      'root': {
+        layer: {
+          children: null,
+        }
+      }
+    }
+    const origin3 = {
+      'root': {
+        layer: {
+          children: {
+            'root-child1': {
+              layer: {
+                children: null,
+              }
+            },
+            'root-child2': {
+              layer: {
+                children: {
+                  'root-grand-child1': {
+                    layer: {
+                      children: null,
+                    }
+                  }
+                },
+              }
+            }
+          }
+        }
+      }
+    }
+
+    function appendObjectById(origin, id, child) {
+      
+    }
+
+    const nextObject1 = appendObjectById(origin1, null, {
+      'root-child1': {
+        layer: {
+          children: null,
+        }
+      }
+    })
+  </script>
+</html>
