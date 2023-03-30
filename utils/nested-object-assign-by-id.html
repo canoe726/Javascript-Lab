@@ -1,11 +1,14 @@
 <html>
   <head></head>
   <body></body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
   <script>
+    // dep_[:depth]-child_[:index]-type_[:type]
     const origin1 = []
     const origin2 = [
       {
-        id: 'root',
+        id: 'canvas',
         design: {},
         layer: {},
         children: [],
@@ -13,22 +16,22 @@
     ]
     const origin3 = [
       {
-        id: 'root',
+        id: 'canvas',
         design: {},
         layer: {},
         children: [
           {
-            id: 'dep-1-child-1',
+            id: 'dep_1-child_0-type_text',
             design: {},
             layer: {},
             children: [
               {
-                id: 'dep-2-child-1',
+                id: 'dep_2-child_0-type_rectangle',
                 design: {},
                 layer: {},
                 children: [
                   {
-                    id: 'dep-3-child-1',
+                    id: 'dep_3-child_0-type_text',
                     design: {},
                     layer: {},
                     children: [],
@@ -36,7 +39,7 @@
                 ],
               },
               {
-                id: 'dep-2-child-2',
+                id: 'dep_2-child_1-type_line',
                 design: {},
                 layer: {},
                 children: [],
@@ -44,13 +47,13 @@
             ],
           },
           {
-            id: 'dep-1-child-2',
+            id: 'dep_1-child_1-type_text',
             design: {},
             layer: {},
             children: [],
           },
           {
-            id: 'dep-1-child-3',
+            id: 'dep_1-child_2-type_triangle',
             design: {},
             layer: {},
             children: [],
@@ -59,19 +62,64 @@
       }
     ]
 
-    function appendLayerChildrenObjectById(origin, id, child) {
+    function recurse(map, steps) {
+      for (let index = 0; index < steps.length; index++) {
+        const step = steps[index]
+        map[step.id] = step
+
+        if ('children' in step) {
+          recurse(map, step.children)
+        }
+      }
+    }
+
+    function findObjectById(origin, id) {
       if (id) {
         let map = {}
-
-        function recurse(steps) {
-
-        }
-
-        recurse(origin)
-
-        // map[id].children.push(child)
-
+        recurse(map, origin)
         
+        if (map[id]) {
+          const findObject = _.cloneDeep(map[id])
+          map = null
+
+          return findObject
+        } else {
+          return null;
+        }
+      } else {
+        return null
+      }
+    }
+
+    function appendChildObjectById(origin, id, child) {
+      if (id) {
+        const nextOrigin = _.cloneDeep(origin)
+        let map = {}
+
+        recurse(map, nextOrigin)
+
+        map[id].children.push(child)
+        map = null
+
+        return nextOrigin
+      } else {
+        return origin;
+      }
+    }
+
+    function updateObjectById(origin, id, child) {
+      if (id) {
+        const nextOrigin = _.cloneDeep(origin)
+        const nextChild = _.cloneDeep(child)
+        let map = {}
+
+        recurse(map, nextOrigin)
+
+        map[id] = nextChild
+        console.log('map : ', map)
+        // map = null
+
+        return nextOrigin
       } else {
         return origin;
       }
@@ -89,23 +137,73 @@
       newChildObject,
     )
     const nextObject2 = appendChildObjectById(
-      origin1,
-      'root',
+      origin2,
+      'canvas',
       newChildObject,
     )
     const nextObject3 = appendChildObjectById(
-      origin1,
-      'dep-2-child-2',
+      origin3,
+      'dep_2-child_1-type_line',
       newChildObject,
     )
     const nextObject4 = appendChildObjectById(
-      origin1,
-      'dep-3-child-1',
+      origin3,
+      'dep_3-child_0-type_text',
       newChildObject,
     )
-    console.log('nextObject1 : ', nextObject1)
-    console.log('nextObject2 : ', nextObject2)
-    console.log('nextObject3 : ', nextObject3)
-    console.log('nextObject4 : ', nextObject4)
-  </script>
+    // console.log('nextObject1 : ', nextObject1)
+    // console.log('nextObject2 : ', nextObject2)
+    // console.log('nextObject3 : ', nextObject3)
+    // console.log('nextObject4 : ', nextObject4)
+
+    const findObject1 = findObjectById(
+      origin3,
+      'dep_3-child_0-type_text',
+    )
+    const findObject2 = findObjectById(
+      origin3,
+      'dep_2-child_1-type_line',
+    )
+    const findObject3 = findObjectById(
+      origin3,
+      'dep_4-child_1-type_line',
+    )
+    // console.log('findObject1 : ', findObject1)
+    // console.log('findObject2 : ', findObject2)
+    // console.log('findObject3 : ', findObject3)
+
+    const updatedObject1 = updateObjectById(
+      origin3,
+      'dep_1-child_0-type_text',
+      {
+        id: 'updated-child',
+        design: {},
+        layer: {},
+        children: [],
+      },
+    )
+    const updatedObject2 = updateObjectById(
+      origin3,
+      'dep_3-child_0-type_text',
+      {
+        id: 'updated-child',
+        design: {},
+        layer: {},
+        children: [],
+      },
+    )
+    const updatedObject3 = updateObjectById(
+      origin3,
+      'dep_5-child_1-type_line',
+      {
+        id: 'updated-child',
+        design: {},
+        layer: {},
+        children: [],
+      },
+    )
+    console.log('updatedObject1 : ', updatedObject1)
+    // console.log('updatedObject2 : ', updatedObject2)
+    // console.log('updatedObject3 : ', updatedObject3)
+</script>
 </html>
