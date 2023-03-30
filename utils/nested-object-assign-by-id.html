@@ -2,49 +2,110 @@
   <head></head>
   <body></body>
   <script>
-    const origin1 = {}
-    const origin2 = {
-      'root': {
-        layer: {
-          children: null,
-        }
+    const origin1 = []
+    const origin2 = [
+      {
+        id: 'root',
+        design: {},
+        layer: {},
+        children: [],
       }
-    }
-    const origin3 = {
-      'root': {
-        layer: {
-          children: {
-            'root-child1': {
-              layer: {
-                children: null,
-              }
-            },
-            'root-child2': {
-              layer: {
-                children: {
-                  'root-grand-child1': {
-                    layer: {
-                      children: null,
-                    }
-                  }
-                },
-              }
-            }
-          }
+    ]
+    const origin3 = [
+      {
+        id: 'root',
+        design: {},
+        layer: {},
+        children: [
+          {
+            id: 'dep-1-child-1',
+            design: {},
+            layer: {},
+            children: [
+              {
+                id: 'dep-2-child-1',
+                design: {},
+                layer: {},
+                children: [
+                  {
+                    id: 'dep-3-child-1',
+                    design: {},
+                    layer: {},
+                    children: [],
+                  },
+                ],
+              },
+              {
+                id: 'dep-2-child-2',
+                design: {},
+                layer: {},
+                children: [],
+              },
+            ],
+          },
+          {
+            id: 'dep-1-child-2',
+            design: {},
+            layer: {},
+            children: [],
+          },
+          {
+            id: 'dep-1-child-3',
+            design: {},
+            layer: {},
+            children: [],
+          },
+        ],
+      }
+    ]
+
+    function appendLayerChildrenObjectById(origin, id, child) {
+      if (id) {
+        let map = {}
+
+        function recurse(steps) {
+
         }
+
+        recurse(origin)
+
+        // map[id].children.push(child)
+
+        
+      } else {
+        return origin;
       }
     }
 
-    function appendObjectById(origin, id, child) {
-      
+    const newChildObject = {
+      id: 'new-child',
+      design: {},
+      layer: {},
+      children: [],
     }
-
-    const nextObject1 = appendObjectById(origin1, null, {
-      'root-child1': {
-        layer: {
-          children: null,
-        }
-      }
-    })
+    const nextObject1 = appendChildObjectById(
+      origin1,
+      null,
+      newChildObject,
+    )
+    const nextObject2 = appendChildObjectById(
+      origin1,
+      'root',
+      newChildObject,
+    )
+    const nextObject3 = appendChildObjectById(
+      origin1,
+      'dep-2-child-2',
+      newChildObject,
+    )
+    const nextObject4 = appendChildObjectById(
+      origin1,
+      'dep-3-child-1',
+      newChildObject,
+    )
+    console.log('nextObject1 : ', nextObject1)
+    console.log('nextObject2 : ', nextObject2)
+    console.log('nextObject3 : ', nextObject3)
+    console.log('nextObject4 : ', nextObject4)
   </script>
 </html>
