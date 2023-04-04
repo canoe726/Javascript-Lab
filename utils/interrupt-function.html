@@ -1,0 +1,104 @@
+<html>
+  <head></head>
+  <body></body>
+  <script>
+    // In ES6 Promise can't cancel
+    /**
+     * https://stackoverflow.com/questions/29478751/cancel-a-vanilla-ecmascript-6-promise-chain
+     * https://tech.kakao.com/2023/01/11/promise-cancelation-in-javascript/
+     * https://stackoverflow.com/questions/30233302/promise-is-it-possible-to-force-cancel-a-promise
+     * https://github.com/petkaantonov/bluebird
+     * */
+
+    // priority : Sync > Async (microTaskQueue > (macro)taskQueue)
+    // (macro)taskQueue : setTimeout, setInterval, setImmediate, requestAnimationFrame, I/O, UI Rendering
+    // microTaskQueue : process.nextTick, Promise, Object.observe, MutationObserver
+
+    function foo () {
+      const promise = new Promise((resolve, reject) => {
+        let count = 0
+
+        console.log('start count')
+        for (let i = 0; i < 3000000000; i++) {
+          count += 1
+        }
+        console.log('end count')
+
+        resolve(count)
+      })
+
+      return promise
+    }
+
+    async function abortTimer (ms) {
+      await new Promise((resolve, reject) => {
+        console.log('start abort')
+
+        setTimeout(() => {
+          console.log('end abort : ', ms)
+          reject(`AbortTimer called : ${ms}`)
+        }, ms)
+      })
+    }
+
+    async function main() {
+      async function fooJob() {
+        console.time('foo')
+        const response =  await foo()
+        console.timeEnd('foo')
+
+        return response
+      }
+
+      const result = await Promise.race([
+        // abortTimer(100),
+        abortTimer(500),
+        fooJob(),
+      ])
+      .then((response) => {
+        // console.log('Race Success : ', response)
+        return response
+      })
+      .catch((error) => {
+        // console.log('Race Error : ', error)
+        return error
+      })
+
+      console.log('result : ', result)
+    }
+
+    main()
+
+    async function test() {
+      const result = await new Promise(async (resolve, reject) => {
+        const timer = setTimeout(() => {
+          // not working before end of foo()
+          console.log('called2')
+          resolve = undefined
+          reject(new Error('Timeout Error'))
+        }, 1000)
+
+        foo()
+          .then((value) => {
+            if (resolve) {
+              clearTimeout(timer)
+              resolve(value)
+            } else {
+              console.log('Completed after timeout')
+            }
+          })
+          .catch((error) => {
+            if (resolve) {
+              clearTimeout(timer)
+              reject(error)
+            } else {
+              console.error('Processing message failed after timeout', error);
+            }
+          })
+      })
+
+      console.log('main : ', result)
+      return result;
+    }
+  </script>
+</html>
