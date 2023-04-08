@@ -52,7 +52,7 @@
 
       const result = await Promise.race([
         // abortTimer(100),
-        abortTimer(500),
+        abortTimer(1000),
         fooJob(),
       ])
       .then((response) => {
