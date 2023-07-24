@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import IntervalTree from './utils/IntervalTree';
 
 function App() {
+  const [mount, setMount] = useState(false)
+
   useEffect(() => {
+    if (mount) {
     // 10개의 사각형 정보 (예시)
     const rectangles = [
       { x1: 50, y1: 50, x2: 150, y2: 150 },
       { x1: 10, y1: 10, x2: 20, y2: 20 },
-      { x1: 180, y1: 30, x2: 220, y2: 80 },
+      { x1: 180, y1: 30, x2: 220, y2: 110 },
       // 다른 사각형 정보를 추가해주세요.
     ];
     
@@ -22,9 +25,10 @@ function App() {
     for (const rect of rectangles) {
       tree.insert(rect.x1, rect.y1, rect.x2, rect.y2);
     }
+    console.log('tree : ', tree)
     
     // 새로 그려진 사각형의 좌표를 이용하여 겹치는 사각형들을 찾음
-    const isOverlapping = tree.isOverlapping(newRectangle.x1, newRectangle.y1, newRectangle.x2, newRectangle.y2);
+    const isOverlapping = tree.findOverlappingNodes(newRectangle.x1, newRectangle.y1, newRectangle.x2, newRectangle.y2);
     
     // 결과 출력
     console.log('isOverlapping : ', isOverlapping)
@@ -35,7 +39,10 @@ function App() {
     //   console.log('겹치지 않음');
     //   // 겹치지 않는 사각형이 있다면 여기에서 처리하거나 해당 사각형을 표시할 수 있습니다.
     // }
-  }, [])
+  } else {
+    setMount(true)
+  }
+  }, [mount])
 
   return (
     <div className="App">
