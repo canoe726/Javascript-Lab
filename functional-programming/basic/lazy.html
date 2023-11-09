@@ -1,0 +1,43 @@
+<html>
+  <head></head>
+  <body></body>
+  <script type="module">
+    import {
+      curry,
+      go,
+      pipe,
+      map,
+      filter,
+      reduce,
+      log,
+      range,
+      L,
+    } from "../lib/curryUtils.js";
+
+    go(
+      L.range(10),
+      L.map((n) => n + 10),
+      L.filter((n) => n % 2),
+      L.take(2),
+      log
+    );
+
+    // const L = {};
+    // L.map = function* (f, iter) {
+    //   for (const a of iter) yield f(a);
+    // };
+    // L.filter = function* (f, iter) {
+    //   for (const a of iter) {
+    //     if (f(a)) {
+    //       yield a;
+    //     }
+    //   }
+    // };
+
+    // const it = L.map((a) => a + 10, [1, 2, 3]);
+    // const it2 = L.filter((a) => a >= 2, [1, 2, 3]);
+
+    // console.log([...it]);
+    // console.log([...it2]);
+  </script>
+</html>
