@@ -1,7 +1,8 @@
-const { Mutex } = require('async-mutex')
+// const { Mutex } = require('async-mutex')
 
 let balance = 0
-const mutex = new Mutex()
+// const mutex = new Mutex()
+let mutex = Promise.resolve()
 
 const randomDelay = () => new Promise((resolve) => setTimeout(resolve, Math.random() * 100))
 
@@ -16,29 +17,30 @@ async function saveBalance(value) {
 }
 
 async function sellGrapes() {
-  const release = await mutex.acquire()
-  try {
-    const balance = await loadBalance()
-    console.log(`sellGrapes - balance loaded : ${balance}`)
-    const newBalance = balance + 50
-    await saveBalance(newBalance)
-    console.log(`sellGrapes - balance updated : ${newBalance}`)
-  } finally {
-    release()
-  }
+  // const release = await mutex.acquire()
+  mutex = mutex
+    .then(async () => {
+      const balance = await loadBalance()
+      console.log(`sellGrapes - balance loaded : ${balance}`)
+      const newBalance = balance + 50
+      await saveBalance(newBalance)
+      console.log(`sellGrapes - balance updated : ${newBalance}`)
+    })
+    .catch(() => {})
+  return mutex
 }
 
 async function sellOlives() {
-  const release = await mutex.acquire()
-  try {
-    const balance = await loadBalance()
-    console.log(`sellOlives - balance loaded : ${balance}`)
-    const newBalance = balance + 50
-    await saveBalance(newBalance)
-    console.log(`sellOlives - balance updated : ${newBalance}`)
-  } finally {
-    release()
-  }
+  mutex = mutex
+    .then(async () => {
+      const balance = await loadBalance()
+      console.log(`sellOlives - balance loaded : ${balance}`)
+      const newBalance = balance + 50
+      await saveBalance(newBalance)
+      console.log(`sellOlives - balance updated : ${newBalance}`)
+    })
+    .catch(() => {})
+  return mutex
 }
 
 async function main() {
