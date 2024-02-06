@@ -29,7 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "nodemon --watch src --exec 'npx' 'ts-node' server/server.ts"
+    "server": "nodemon server/server.ts"
   },
   "eslintConfig": {
     "extends": [
@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@types/core-js": "^2.5.8",
     "@types/node": "^20.11.16",
     "@types/request": "^2.48.12",
     "nodemon": "^3.0.3"
