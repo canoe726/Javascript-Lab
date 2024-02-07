@@ -1,0 +1,38 @@
+html,
+body,
+#__next {
+  /* prevent mobile pull to refresh, bounce effect */
+  overscroll-behavior: none;
+  overscroll-behavior-y: none;
+  overscroll-behavior-x: none;
+}
+
+/* Page Transition Start */
+#stack-navagation-root, .mobile-stack, .mobile-stack > div {
+  overflow: hidden;
+}
+
+.stack-page-root {
+  overflow: auto;
+  will-change: transform;
+  background-color: white;
+}
+
+.page-transition-push-enter {
+  transform: translate3d(100%, 0%, 0);
+}
+
+.page-transition-push-enter-active {
+  transition: transform 0.275s ease;
+  transform: translate3d(0%, 0%, 0);
+}
+
+.page-transition-pop-enter {
+  transform: translate3d(0%, 0%, 0);
+}
+
+.page-transition-pop-enter-active {
+  transition: transform 0.275s ease;
+  transform: translate3d(100%, 0%, 0);
+}
+/* Page Transition End */
