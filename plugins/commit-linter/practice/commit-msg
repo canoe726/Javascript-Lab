@@ -1,0 +1,104 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# 커밋 컨벤션
+#
+# 0. 검사 예외 조건 (자동 생성, 최초 커밋)
+# - Merge branch*, Merge pull request*, initial*
+#
+# 1. 접두사는 강제됩니다.
+#
+# 2. 맨 마지막 글자 '.' 마침표 금지
+#
+# 3. 커밋 접두사 (규칙: '접두사' + '콜론' + ' ')
+# - feat: 새로운 기능 추가
+# - docs: 단순 문서의 수정 (주석, 타입 등)
+# - fix: 버그 수정
+# - build: 빌드 시스템 혹은 외부 디펜던시를 수정 한 경우 (package.json, xxx.config.xx)
+# - ci: CI (지속 통합) 파일 또는 스크립트 수정 (.yml)
+# - perf: 퍼포먼스 관련해서 코드를 수정한 경우
+# - refac: 버그를 수정하거나 리팩토링 한 경우
+# - test: 테스트 코드 추가 혹은 수정
+#
+# 4. 접미사는 [#(이슈번호)] 입니다. 
+
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+
+COMMIT_MSG_FILE=$1
+HEAD_COMMIT_MSG=`head -n1 ${COMMIT_MSG_FILE}`
+
+# 커밋 메시지 상태
+#
+# 1. 초기 상태
+# - need_check
+#
+# 2. 성공
+# - auto_merge : 깃랩 자동 커밋 생성 메시지 인 경우
+# - initial : 최초 커밋
+# - clear
+#
+# 3. 실패
+# - lint_error_* : 예외 사항에 걸려서 오류 처리된 경우
+STATUS="need_check"
+
+if [[ $HEAD_COMMIT_MSG =~ ^(Merge branch) ]] ||
+   [[ $HEAD_COMMIT_MSG =~ ^(Merge pull request) ]]; then
+  STATUS="auto_merge"
+fi
+
+if [[ $HEAD_COMMIT_MSG =~ ^(initial) ]]; then
+  STATUS="initial"
+fi
+
+if [ $STATUS == "need_check" ]; then
+  if [[ $HEAD_COMMIT_MSG =~ (\.)$ ]]; then
+    STATUS="lint_error_1"
+  fi
+
+  if [[ ! $HEAD_COMMIT_MSG =~ ^(feat: ) ]] &&
+     [[ ! $HEAD_COMMIT_MSG =~ ^(docs: ) ]] &&
+     [[ ! $HEAD_COMMIT_MSG =~ ^(fix: ) ]] &&
+     [[ ! $HEAD_COMMIT_MSG =~ ^(build: ) ]] &&
+     [[ ! $HEAD_COMMIT_MSG =~ ^(ci: ) ]] &&
+     [[ ! $HEAD_COMMIT_MSG =~ ^(perf: ) ]] &&
+     [[ ! $HEAD_COMMIT_MSG =~ ^(refac: ) ]] &&
+     [[ ! $HEAD_COMMIT_MSG =~ ^(test: ) ]]; then
+    STATUS="lint_error_2"
+  fi
+
+  if [[ $BRANCH_NAME =~ ^(feature) ]] ||
+     [[ $BRANCH_NAME =~ ^(bug) ]] ||
+     [[ $BRANCH_NAME =~ ^(hotfix) ]]; then
+    if [[ ! $HEAD_COMMIT_MSG =~ ( \[IN-[0-9]+\])$ ]]; then
+      STATUS="lint_error_3"
+    fi
+  fi
+
+  if [[ ! $STATUS =~ ^(lint_error) ]]; then
+    STATUS="clear"
+  fi
+fi
+
+if [[ $STATUS =~ ^(lint_error) ]]; then
+  if [[ $STATUS == "lint_error_1" ]]; then
+    echo "[Error] Commit_Lint_#1 : 문장 마지막에 존재하는 (\.) 마침표 문자를 제거해주세요."
+  fi
+
+  if [[ $STATUS == "lint_error_2" ]]; then
+    echo "[Error] Commit_Lint_#2 : 접두사 형태가 일치하는지 확인하세요. 띄어쓰기를 주의해야 합니다. (feat: , docs: , fix: , build: , ci: , perf: , refac: , test: )"
+  fi
+
+  if [[ $STATUS == "lint_error_3" ]]; then
+    echo "[Error] Commit_Lint_#3 : 어랏 이슈 번호가 접미사로 포함되어 있는지 확인하세요. 띄어쓰기를 주의해야 합니다. ( [IN-XXXX])"
+  fi
+
+  exit 1
+elif [[ $STATUS == "auto_merge" ]]; then
+  echo "[Pass] (EBC) commit lint! (Automatically generated commit message from GitLab)"
+elif [[ $STATUS == "initial" ]]; then
+  echo "[Pass] (EBC) commit lint! (Initial commit)"
+elif [[ $STATUS == "clear" ]]; then
+  echo "[Pass] (EBC) commit lint!"
+fi
+
+exit 0

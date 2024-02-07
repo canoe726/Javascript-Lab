@@ -1,0 +1,33 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# @docs: https://webstone.tistory.com/79
+#
+# 1. 브랜치명
+#
+# prefix/ticket-name
+#
+# 2. 커밋 메시지에 브랜치명 규칙에 기반한 이슈번호 자동 생성
+#
+# ... commit-msg git-hooks 참고 ...
+#
+# 접미사 [(이슈번호)] 자동 생성
+
+BRANCH_NAME=$(git symbolic-ref --short HEAD)
+
+if [[ $BRANCH_NAME =~ ^(feature) ]] ||
+   [[ $BRANCH_NAME =~ ^(bug) ]] ||
+   [[ $BRANCH_NAME =~ ^(hotfix) ]]; then
+
+  ISSUE_NAME=`echo $BRANCH_NAME | cut -d '/' -f2`
+
+  COMMIT_MSG_FILE=`cat $1`
+
+  if [[ -n $ISSUE_NAME ]]; then
+      echo "$COMMIT_MSG_FILE [$ISSUE_NAME]" > $1
+
+    echo "commit msg : $1"
+  fi
+fi
+
+exit 0

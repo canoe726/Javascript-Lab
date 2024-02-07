@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if [[ $(git rev-parse --abbrev-ref HEAD) = develop ]]
+then
+    echo "hello world"
+fi
+
+
+branch_name=($(git rev-parse --abbrev-ref HEAD))
+
+echo "branch name : $branch_name"
+
+if ["$branch_name" = develop]
+then
+    echo "___push not allowed"
+else
+    echo "not equal"
+fi
