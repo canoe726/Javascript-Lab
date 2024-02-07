@@ -26,3 +26,15 @@ npx husky init
 
 - commit-msg: 커밋 전 메시지 유효성 검사
 - prepare-commit-msg: 브랜치 명 검사
+
+4. 참고 문서
+
+https://typicode.github.io/husky/#/
+
+https://ohgyun.com/746
+
+https://git-scm.com/book/ko/v2/Git%EB%A7%9E%EC%B6%A4-Git-Hooks
+
+https://techblog.woowahan.com/2530/
+
+https://library.gabia.com/contents/8492/
