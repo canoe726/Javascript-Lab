@@ -1,9 +1,12 @@
 import './App.css'
 import logo from './logo.svg'
 
-import 'core-js/actual'
-
 function App() {
+  /**
+   * URL.canParse 브라우저 API 는 Chrome 117 버전에는 없음
+   */
+  console.log('URL.canParse: ', (URL as any)?.canParse('https://www.example.com'))
+
   return (
     <div className="App">
       <header className="App-header">
