@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      html,
+      body {
+        box-sizing: border-box;
+        height: 800px;
+      }
+
+      #main {
+        width: 300px;
+        height: 300px;
+        background-color: lightgray;
+      }
+
+      #main .item {
+        width: 100px;
+        height: 20px;
+        background-color: blue;
+      }
+
+      #main #main-unsubscribe {
+        margin-top: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <div class="item">item1</div>
+      <button id="main-unsubscribe" class="true">main unsubscribe</button>
+    </div>
+  </body>
+  <script>
+    function Observer() {
+      this.handlers = []
+
+      this.subscribe = function (callback) {
+        this.handlers.push(callback)
+      }
+
+      this.unsubscribe = function (callback) {
+        this.handlers = this.handlers.filter(function (item) {
+          if (item !== callback) {
+            return item
+          }
+        })
+      }
+
+      this.notify = function (obj, thisObj) {
+        const scope = thisObj || window
+        this.handlers.forEach(function (handler) {
+          handler.call(scope, obj)
+        })
+      }
+    }
+
+    const mainElement = document.querySelector('#main')
+    const itemElement = document.querySelector('.item')
+    const unsubscribeButton = document.querySelector('#main-unsubscribe')
+
+    function mainHandler() {
+      console.log('mouse cursor is located in #main')
+    }
+
+    function addMainEventListener() {
+      const mainObserver = new Observer()
+
+      mainObserver.subscribe(mainHandler)
+
+      window.addEventListener('mousemove', (ev) => {
+        const posX = ev.clientX
+        const posY = ev.clientY
+        const { x, y, width, height } = mainElement.getClientRects()[0]
+
+        if (posX >= x && posX <= width + x && posY >= y && posY <= height + y) {
+          mainObserver.notify()
+        }
+      })
+
+      unsubscribeButton.addEventListener('click', (ev) => {
+        const className = ev.target.className
+
+        if (className === 'true') {
+          mainObserver.unsubscribe(mainHandler)
+          ev.target.className = 'false'
+          ev.target.innerText = 'main subscribe'
+        } else {
+          mainObserver.subscribe(mainHandler)
+          ev.target.className = 'true'
+          ev.target.innerText = 'main unsubscribe'
+        }
+      })
+    }
+
+    function main() {
+      addMainEventListener()
+    }
+
+    main()
+  </script>
+</html>
