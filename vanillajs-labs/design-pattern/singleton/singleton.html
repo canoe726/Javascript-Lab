@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body></body>
+  <script>
+    let instance
+
+    class Counter {
+      counter = 0
+
+      constructor() {
+        if (instance) {
+          throw new Error('Create only once')
+        }
+        instance = this
+      }
+
+      getInstance() {
+        return this
+      }
+
+      getCount() {
+        return this.counter
+      }
+
+      increment() {
+        return this.counter++
+      }
+
+      decrement() {
+        return this.counter--
+      }
+    }
+
+    const counter = Object.freeze(new Counter())
+  </script>
+</html>
