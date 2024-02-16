@@ -4,5 +4,72 @@
   <body>
     <div id="app"></div>
   </body>
-  <script></script>
+  <script>
+    /**
+     * @document
+     * https://en.wikipedia.org/wiki/UTF-8
+     **/
+    function getByteSize(s) {
+      const str = s.toString()
+      let byteSize = 0
+      let char = ''
+
+      for (let i = 0; !isNaN(str.charCodeAt(i)); i++) {
+        char = str.charCodeAt(i)
+        console.log('char: ', str[i], char, char >> 11, char >> 7)
+
+        if (char >> 11) {
+          byteSize += 3
+        } else if (char >> 7) {
+          byteSize += 2
+        } else {
+          byteSize += 1
+        }
+      }
+
+      return byteSize
+    }
+
+    function PostingFlyWeight(id, title, description) {
+      this.id = id
+      this.title = title
+      this.description = description
+    }
+
+    const PostingFlyWeightFactory = (function () {
+      const postings = {}
+
+      return {
+        get: function (id, title, description) {
+          const key = `${id}_${title}`
+          if (key in postings) {
+            return postings[key]
+          }
+          return new PostingFlyWeight(id, title, description)
+        },
+        getCount: function () {
+          let count = 0
+          for (const k in postings) {
+            count += 1
+          }
+          return count
+        },
+      }
+    })()
+
+    function runMethod() {
+      PostingFlyWeightFactory.get()
+    }
+
+    function main(enableFlyweight) {
+      console.log('1 bytesize :', getByteSize('abcd')) // 1byte per a character
+      console.log('2 bytesize :', getByteSize('éñüç')) // 2byte per a character
+      console.log('3 bytesize :', getByteSize('가나다라')) // 3byte per a character
+      if (enableFlyweight) {
+        runMethod()
+      }
+    }
+
+    main()
+  </script>
 </html>
