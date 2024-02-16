@@ -67,6 +67,9 @@ function run() {
   const computers = new ComputerCollections()
 
   computers.add('Dell', 'Studio XPS', 'Intel', '5G', 'Y755P')
+  computers.add('Dell', 'Studio XPS', 'Intel', '5G', 'Y755P')
+  computers.add('Dell', 'Studio XPS', 'Intel', '5G', 'Y755P')
+
   computers.add('Dell', 'Studio XPS', 'Intel', '6G', 'X997T')
   computers.add('Dell', 'Studio XPS', 'Intel', '2G', 'U8U80')
   computers.add('Dell', 'Studio XPS', 'Intel', '2G', '0J88A')
