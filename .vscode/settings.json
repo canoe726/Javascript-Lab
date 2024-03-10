@@ -4,7 +4,7 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
   },
-  "[java]": {
-    "editor.defaultFormatter": "mwpb.java-prettier-formatter"
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
