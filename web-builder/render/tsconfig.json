@@ -1,0 +1,14 @@
+{
+  "ts-node": {
+    "esm": true
+  },
+  "compilerOptions": {
+    "module": "NodeNext",
+    "target": "ESNext",
+    "removeComments": true,
+    "sourceMap": true,
+    "moduleResolution": "NodeNext"
+  },
+  "include": ["client/**/*", "server/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts"]
+}

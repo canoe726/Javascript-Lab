@@ -2,15 +2,20 @@
   "name": "render",
   "version": "1.0.0",
   "description": "",
+  "author": "",
+  "license": "ISC",
   "type": "module",
   "main": "app.js",
-  "dependencies": {
-    "socket.io": "^4.7.4"
-  },
   "scripts": {
-    "start": "node app.js --watch",
+    "start": "ts-node app.ts --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "socket.io": "^4.7.4",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "typescript": "^5.4.3"
+  }
 }
