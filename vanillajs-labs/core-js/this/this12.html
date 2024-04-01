@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body></body>
+  <script>
+    var obj = {
+      outer: function () {
+        console.log(this)
+        var innerFunc = function () {
+          console.log(this)
+        }
+        innerFunc.call(this)
+      },
+    }
+    obj.outer()
+
+    var obj1 = {
+      outer: function () {
+        console.log(this)
+        var innerFunc = function () {
+          console.log(this)
+        }.bind(this)
+        innerFunc()
+      },
+    }
+    obj1.outer()
+
+    var obj2 = {
+      logThis: function () {
+        console.log(this)
+      },
+      logThisLater1: function () {
+        setTimeout(this.logThis, 100)
+      },
+      logThisLater2: function () {
+        setTimeout(this.logThis.bind(this), 100)
+      },
+    }
+    obj2.logThis()
+    // obj2.logThisLater1()
+    // obj2.logThisLater2()
+
+    var obj3 = {
+      outer: function () {
+        console.log(this)
+        var innerFunc = () => {
+          console.log(this)
+        }
+        innerFunc()
+      },
+    }
+    obj3.outer()
+  </script>
+</html>

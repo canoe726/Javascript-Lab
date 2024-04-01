@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body></body>
+  <script>
+    var a = 1
+
+    console.log(this === window)
+    console.log(window)
+    console.log(this.a)
+
+    var func = function (x) {
+      console.log(x, this)
+    }
+
+    var obj = {
+      method: func,
+      inner: {
+        methodB: function (x) {
+          console.log(x, this)
+        },
+      },
+    }
+
+    func(1)
+    obj.method(2)
+    obj.inner.methodB(3)
+
+    var obj1 = {
+      outer: function () {
+        console.log(this)
+        var innerFunc = function () {
+          console.log(this)
+        }
+        innerFunc()
+
+        var obj2 = {
+          innerMethod: innerFunc,
+        }
+        obj2.innerMethod()
+      },
+    }
+    obj1.outer()
+  </script>
+</html>

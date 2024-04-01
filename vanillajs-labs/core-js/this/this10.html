@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body></body>
+  <script>
+    var numbers = [10, 20, 3, 16, 45]
+    var max = (min = numbers[0])
+    numbers.forEach(function (number) {
+      if (number > max) {
+        max = number
+      }
+      if (number < min) {
+        min = number
+      }
+    })
+    console.log(max, min)
+
+    var max = Math.max.apply(null, numbers)
+    var min = Math.min.apply(null, numbers)
+    console.log(max, min)
+
+    var max = Math.max(...numbers)
+    var min = Math.min(...numbers)
+    console.log(max, min)
+  </script>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <button id="a">클릭</button>
+  </body>
+  <script>
+    setTimeout(function () {
+      console.log(this)
+    }, 300)
+    ;[1, 2, 3, 4, 5].forEach(function (x) {
+      console.log(this, x)
+    })
+    ;[1, 2, 3, 4, 5].forEach((x) => {
+      console.log(this, x)
+    })
+
+    document.body.querySelector('#a').addEventListener('click', function (e) {
+      console.log(this, e)
+    })
+  </script>
+</html>
