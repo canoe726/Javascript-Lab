@@ -5,7 +5,6 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "main": "app.js",
   "scripts": {
     "start": "ts-node app.ts --watch",
     "test": "echo \"Error: no test specified\" && exit 1"

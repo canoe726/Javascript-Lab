@@ -1,7 +1,7 @@
 export default function App() {
   return `
     <div>
-      <button>button4</button>
+      <button>button2</button>
 
       <div>hello world</div>
 

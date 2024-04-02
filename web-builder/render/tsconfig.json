@@ -9,6 +9,6 @@
     "sourceMap": true,
     "moduleResolution": "NodeNext"
   },
-  "include": ["client/**/*", "server/**/*"],
-  "exclude": ["node_modules", "**/*.test.ts"]
+  "include": ["client/**/*", "server/**/*", "app.ts"],
+  "exclude": ["node_modules"]
 }
