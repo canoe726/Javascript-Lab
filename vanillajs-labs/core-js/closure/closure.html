@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body></body>
+  <script>
+    var fruits = ['apple', 'banana', 'peach']
+    var ul = document.createElement('ul')
+
+    function handleClick(fruit) {
+      console.log(this)
+      return function () {
+        alert('your choice is ' + fruit)
+      }
+    }
+
+    fruits.forEach(function (fruit) {
+      var li = document.createElement('li')
+      li.innerHTML = fruit
+      li.addEventListener('click', handleClick(fruit))
+
+      ul.appendChild(li)
+    })
+
+    document.body.appendChild(ul)
+  </script>
+</html>
