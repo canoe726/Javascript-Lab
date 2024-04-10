@@ -1,10 +1,16 @@
 const express = require('express')
 const path = require('path')
+const cookieParser = require('cookie-parser')
 const bodyParse = require('body-parser')
 const { create } = require('express-handlebars')
+const expressSession = require('express-session')
 
 const handlers = require('./lib/handlers/handlers')
-const weatherMiddleware = require('./lib/weather')
+const { email } = require('./lib/handlers/email')
+const credentials = require('./.credentials.json')
+
+const weatherMiddleware = require('./middlewares/weather')
+const flashMiddleware = require('./middlewares/flash')
 
 const PORT = process.env.PORT || 3000
 
@@ -25,19 +31,32 @@ app.set('view engine', 'handlebars')
 app.set('views', './views')
 app.disable('x-powered-by')
 
-app.use(weatherMiddleware)
 app.use(express.static(path.join(__dirname, '/public')))
 app.use(bodyParse.urlencoded({ extended: true }))
 app.use(bodyParse.json())
+app.use(cookieParser(credentials.cookieSecret))
+app.use(
+  expressSession({
+    name: 'express-sid',
+    resave: false,
+    saveUninitialized: false,
+    secret: credentials.cookieSecret,
+  }),
+)
+
+app.use(weatherMiddleware)
+app.use(flashMiddleware)
 
 app.get('/', handlers.home)
 app.get('/about', handlers.about)
 app.get('/greeting', handlers.greeting)
 app.get('/section-test', handlers.sectionTest)
 app.get('/newsletter', handlers.newsletter)
+app.post('/newsletter', handlers.newsletterSubmit)
 app.post('/api/newsletter-signup', handlers.api.newsletterSignup)
-// app.post('/newsletter-signup/process', handlers.newsletterSignupProcess)
-// app.get('/newsletter-signup-thank-you', handlers.newsletterThankYou)
+// app.get('/smtp', (req, res) => {
+// email.sendEmail()
+// })
 
 app.use(handlers.notFound)
 app.use(handlers.serverError)

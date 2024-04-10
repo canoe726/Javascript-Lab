@@ -5,6 +5,15 @@
     {{{_sections.head}}}
   </head>
   <body>
+    {{#if flash}}
+      <div class='alert' alert- {{flash.type}}>
+        <button type='button' class='close' data-dismiss="'alert" aria-hidden='true'>
+          X
+        </button>
+        <strong>{{flash.intro}}</strong>
+        {{{flash.message}}}
+      </div>
+    {{/if}}
     {{{body}}}
   </body>
   <script>

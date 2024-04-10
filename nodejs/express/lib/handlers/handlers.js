@@ -1,6 +1,13 @@
+const { mailTransport } = require('../../app')
 const fortune = require('../fortune')
 
-exports.home = (req, res) => res.render('home')
+exports.home = (req, res) => {
+  res.clearCookie('monster')
+
+  res.cookie('monster', 'nom nom')
+  res.cookie('signed_monster', 'nom nom', { signed: true })
+  res.render('home')
+}
 
 exports.about = (req, res) => res.render('about', { fortune: fortune.getFortune() })
 
@@ -17,6 +24,22 @@ exports.newsletter = (req, res) =>
     csrf: 'CSRF token goes here',
   })
 
+exports.newsletterSubmit = (req, res) => {
+  const name = req.body.name
+  const email = req.body.email
+
+  if (email === 'test') {
+    req.session.flash = {
+      type: 'danger',
+      intro: 'Validation error',
+      message: 'The email address you entered was not valid',
+    }
+    return res.redirect(303, '/newsletter')
+  }
+}
+
+exports.newsletterThankYou = (req, res) => res.render('newsletter-signup-thank-you')
+
 exports.api = {
   newsletterSignup: (req, res) => {
     console.log('Form (from querystring): ', req.query.form)
@@ -27,8 +50,6 @@ exports.api = {
     // res.redirect(303, '/newsletter-signup-thank-you')
   },
 }
-
-exports.newsletterThankYou = (req, res) => res.render('newsletter-signup-thank-you')
 
 exports.notFound = (req, res) => res.render('404')
 
