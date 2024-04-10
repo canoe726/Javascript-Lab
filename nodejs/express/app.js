@@ -13,10 +13,12 @@ app.set('views', './views')
 
 app.get('/', handlers.home)
 app.get('/about', handlers.about)
+app.get('/greeting', handlers.greeting)
 
+app.use(express.static(path.join(__dirname, '/public')))
 app.use(handlers.notFound)
 app.use(handlers.serverError)
-app.use(express.static(path.join(__dirname, '/public')))
+app.disable('x-powered-by')
 
 if (require.main === module) {
   app.listen(port, () => {
