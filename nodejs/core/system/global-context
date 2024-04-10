@@ -1,0 +1,11 @@
+global
+var test = "this really isn't global, as we know global"
+gl = global
+gl
+var http = require('http')
+gl
+var mod1 = require('./mod1.js')
+mod1.setGlobal(34)
+var val = mod1.returnGlobal()
+val
+var val = mod1.returnGlobal()
