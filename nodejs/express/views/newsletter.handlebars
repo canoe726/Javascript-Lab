@@ -1,0 +1,36 @@
+<h2>Sign up for our newsletter</h2>
+<div id='newsletterSignupFormContainer'>
+  <form
+    class='form-horizontal'
+    role='form'
+    id='newsletterSignupForm'
+    {{! action='/newsletter-signup/process?form=newsletter' }}
+    method='POST'
+  >
+    <input type='hidden' name='_csrf' value='{{csrf}}' />
+
+    <div class='form-group'>
+      <label for='fieldName' class='col-sm-2'>Name</label>
+      <input type='text' class='form-control' id='fieldName' name='name' />
+    </div>
+
+    <div class='form-group'>
+      <label for='fieldEmail' class='col-sm-2'>Email</label>
+      <input type='text' class='form-control' id='fieldEmail' name='email' />
+    </div>
+
+    <button type='submit'>submit</button>
+  </form>
+</div>
+
+<script>
+  let containerForm = document.getElementById('newsletterSignupForm')
+  containerForm.addEventListener('submit', function(event) { event.preventDefault(); const form =
+  event.target; const body = JSON.stringify({ _csrf: form.elements._csrf.value, name:
+  form.elements.name.value, email: form.elements.email.value, }); let container =
+  document.getElementById('newsletterSignupFormContainer'); const headers = {'Content-Type':
+  'application/json'}; fetch('/api/newsletter-signup', { method: 'post', body, headers,
+  }).then(function (resp) { if (resp.status < 200 || resp.status >= 300) { throw new Error('Request
+  failed') } return resp.json() }).then(function(json) { container.innerHTML = `<b>Thank you!</b>`
+  }).catch(function(err) { container.innerHTML = `<b>Sorry</b>` }); })
+</script>

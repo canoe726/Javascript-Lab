@@ -1,0 +1,9 @@
+<div class='weatherWidget'>
+  {{#each partials.weatherContext}}
+    <div class='location'>
+      <h3>{{location.name}}</h3>
+      <a href={{location.forecastUrl}}>{{weather}}</a>
+    </div>
+  {{/each}}
+  <small>Source from ...</small>
+</div>
