@@ -1,4 +1,5 @@
-const { mailTransport } = require('../../app')
+const path = require('path')
+const fs = require('fs')
 const fortune = require('../fortune')
 
 exports.home = (req, res) => {
@@ -25,7 +26,7 @@ exports.newsletter = (req, res) =>
   })
 
 exports.newsletterSubmit = (req, res) => {
-  const name = req.body.name
+  // const name = req.body.name
   const email = req.body.email
 
   if (email === 'test') {
@@ -48,6 +49,18 @@ exports.api = {
     console.log('Email (from hidden form field): ', req.body.email)
     res.send({ result: 'success' })
     // res.redirect(303, '/newsletter-signup-thank-you')
+  },
+  vacationPhotoContest: async (req, res, fields, files) => {
+    const dataDir = path.resolve(__dirname, '../..', 'public/images')
+    const vacationPhotoDir = path.join(dataDir, 'vacation-photos')
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir)
+    }
+    if (!fs.existsSync(vacationPhotoDir)) {
+      fs.mkdirSync(vacationPhotoDir)
+    }
+
+    // const photo = files.photo[0]
   },
 }
 

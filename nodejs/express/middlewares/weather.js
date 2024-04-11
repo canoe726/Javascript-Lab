@@ -1,6 +1,6 @@
 const getWeather = () =>
-  new Promise((res, rej) => {
-    res([
+  new Promise((resolve, reject) => {
+    resolve([
       {
         location: {
           name: 'Portland',
@@ -16,7 +16,7 @@ const getWeather = () =>
         weather: 'Scattered Showers And Thunderstorms',
       },
     ])
-    rej(new Error('failed'))
+    reject(new Error('failed'))
   })
 
 const weatherMiddleware = async (req, res, next) => {

@@ -4,7 +4,7 @@ const credentials = require('../../.credentials.json')
 const mailTransport = nodemailer.createTransport({
   auth: {
     user: credentials['msa-user'],
-    user: credentials['msa-password'],
+    password: credentials['msa-password'],
   },
 })
 
@@ -29,13 +29,14 @@ class Email {
         from,
         to,
         subject,
-        text,
+        text: message,
       })
       resMessage = 'mail sent successfully : ' + result
     } catch (err) {
       resMessage = 'could not send email : ' + err.message
     }
-    res.send(resMessage)
+    console.log(resMessage)
+    // res.send(resMessage)
   }
 }
 

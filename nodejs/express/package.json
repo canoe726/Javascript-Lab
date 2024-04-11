@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "nodemon app.js",
     "test": "jest --watch",
+    "stress": "artillery quick --count 10 -n 20 http://localhost:3000",
     "lint": "eslint app.js lib"
   },
   "author": "",
@@ -15,9 +16,12 @@
     "express": "^4.19.2",
     "express-handlebars": "^7.1.2",
     "express-session": "^1.18.0",
-    "nodemailer": "^6.9.13"
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.9.13",
+    "pm2": "^5.3.1"
   },
   "devDependencies": {
+    "artillery": "^2.0.9",
     "eslint": "^8.57.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",

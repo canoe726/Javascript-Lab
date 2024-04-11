@@ -11,6 +11,9 @@
     "ecmaVersion": "latest"
   },
   "rules": {
-    "no-console": "warn"
+    "no-console": "warn",
+    "comma-dangle": "off",
+    "space-before-function-paren": "off",
+    "no-case-declarations": "off"
   }
 }
