@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const fortune = require('../fortune')
+const { getVacations } = require('../../postgres/db')
 
 exports.home = (req, res) => {
   res.clearCookie('monster')
@@ -49,6 +50,10 @@ exports.api = {
     console.log('Email (from hidden form field): ', req.body.email)
     res.send({ result: 'success' })
     // res.redirect(303, '/newsletter-signup-thank-you')
+  },
+  vacations: async (req, res) => {
+    const vacations = await getVacations()
+    res.send(vacations)
   },
   vacationPhotoContest: async (req, res, fields, files) => {
     const dataDir = path.resolve(__dirname, '../..', 'public/images')

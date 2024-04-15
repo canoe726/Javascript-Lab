@@ -5,11 +5,26 @@ const cookieParser = require('cookie-parser')
 const bodyParse = require('body-parser')
 const { create } = require('express-handlebars')
 const expressSession = require('express-session')
+const RedisStore = require('connect-redis')
+const { createClient } = require('redis')
+const { redis } = require('./.credentials.json')
 
 const handlers = require('./lib/handlers/handlers')
 // const { email } = require('./lib/handlers/email')
 const { logging } = require('./lib/logging')
 const credentials = require('./.credentials.json')
+
+const redisClient = createClient({
+  url: redis.url,
+})
+redisClient.connect().catch(console.error)
+
+redisClient.on('connect', () => {
+  console.info('Redis connected!')
+})
+redisClient.on('error', (err) => {
+  console.error('Redis Client Error', err)
+})
 
 const weatherMiddleware = require('./middlewares/weather')
 const flashMiddleware = require('./middlewares/flash')
@@ -46,6 +61,10 @@ app.use(
     resave: false,
     saveUninitialized: false,
     secret: credentials.cookieSecret,
+    store: new RedisStore({
+      client: redisClient,
+      prefix: 'express-session:',
+    }),
   }),
 )
 app.use((req, res, next) => {
@@ -63,9 +82,7 @@ app.get('/about', handlers.about)
 app.get('/greeting', handlers.greeting)
 app.get('/section-test', handlers.sectionTest)
 app.get('/newsletter', handlers.newsletter)
-app.post('/newsletter', handlers.newsletterSubmit)
-app.post('/api/newsletter-signup', handlers.api.newsletterSignup)
-app.post('/api/vacation-photo', handlers.api.vacationPhotoContest)
+app.get('/api/vacations', handlers.api.vacations)
 app.get('/fail', (req, res) => {
   throw new Error('Nope!')
 })
@@ -77,6 +94,10 @@ app.get('/epic-fail', (req, res) => {
 // app.get('/smtp', (req, res) => {
 // email.sendEmail()
 // })
+
+app.post('/newsletter', handlers.newsletterSubmit)
+app.post('/api/newsletter-signup', handlers.api.newsletterSignup)
+app.post('/api/vacation-photo', handlers.api.vacationPhotoContest)
 
 app.use(handlers.notFound)
 app.use(handlers.serverError)
