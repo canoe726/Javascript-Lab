@@ -5,123 +5,145 @@ const cookieParser = require('cookie-parser')
 const bodyParse = require('body-parser')
 const { create } = require('express-handlebars')
 const expressSession = require('express-session')
-const RedisStore = require('connect-redis').default
-const { createClient } = require('redis')
-const { redis } = require('./.credentials.json')
-
-const handlers = require('./lib/handlers/handlers')
-// const { email } = require('./lib/handlers/email')
-const { logging } = require('./lib/logging')
 const credentials = require('./.credentials.json')
 
-const redisClient = createClient({
-  url: redis.url,
-})
-redisClient.connect().catch(console.error)
-
-redisClient.on('connect', () => {
-  console.info('Redis connected!')
-})
-redisClient.on('error', (err) => {
-  console.error('Redis Client Error', err)
-})
-
+const handlers = require('./routes/handlers')
+const { logging } = require('./lib/logging')
 const weatherMiddleware = require('./middlewares/weather')
 const flashMiddleware = require('./middlewares/flash')
+const { RedisDatabase } = require('./database/redis/redis')
 
-const PORT = process.env.PORT || 3000
+class ExpressServer {
+  app = null
+  port = process.env.PORT || 3000
+  redisDatabase = null
 
-const app = express()
-const hbs = create({
-  defaultLayout: 'main',
-  helpers: {
-    section: function (name, options) {
-      if (!this._sections) this._sections = {}
-      this._sections[name] = options.fn(this)
-      return null
-    },
-  },
-})
-
-app.engine('handlebars', hbs.engine)
-app.set('view engine', 'handlebars')
-app.set('views', './views')
-app.disable('x-powered-by')
-app.enable('trust proxy')
-
-logging(app)
-
-app.use(express.static(path.join(__dirname, '/public')))
-app.use(bodyParse.urlencoded({ extended: true }))
-app.use(bodyParse.json())
-app.use(cookieParser(credentials.cookieSecret))
-app.use(
-  expressSession({
-    name: 'express-sid',
-    resave: false,
-    saveUninitialized: false,
-    secret: credentials.cookieSecret,
-    store: new RedisStore({
-      client: redisClient,
-      prefix: 'express-session:',
-    }),
-  }),
-)
-app.use((req, res, next) => {
-  if (cluster.isWorker) {
-    console.log(`Worker ${cluster.worker.id} received request`)
+  constructor() {
+    this.app = express()
+    this.redisDatabase = new RedisDatabase()
   }
-  next()
-})
 
-app.use(weatherMiddleware)
-app.use(flashMiddleware)
+  #initTemplateEngine() {
+    const hbs = create({
+      defaultLayout: 'main',
+      helpers: {
+        section: function (name, options) {
+          if (!this._sections) this._sections = {}
+          this._sections[name] = options.fn(this)
+          return null
+        },
+      },
+    })
 
-app.get('/', handlers.home)
-app.get('/about', handlers.about)
-app.get('/greeting', handlers.greeting)
-app.get('/section-test', handlers.sectionTest)
-app.get('/newsletter', handlers.newsletter)
-app.get(
-  '/fifty-fifty',
-  (req, res, next) => {
-    if (Math.random() < 0.5) return next()
-    return res.send('sometimes this')
-  },
-  (req, res) => {
-    return res.send('and sometimes that')
-  },
-)
-app.get('/set-currency', handlers.setCurrency)
-app.get('/set-currency/:currency', handlers.setCurrencyMiddleware)
-app.get('/api/vacations', handlers.api.vacations)
-app.get('/fail', (req, res) => {
-  throw new Error('Nope!')
-})
-app.get('/epic-fail', (req, res) => {
-  process.nextTick(() => {
-    throw new Error('Nope!')
-  })
-})
-// app.get('/smtp', (req, res) => {
-// email.sendEmail()
-// })
+    this.app.engine('handlebars', hbs.engine)
+    this.app.set('view engine', 'handlebars')
+    this.app.set('views', './views')
+  }
 
-app.post('/newsletter', handlers.newsletterSubmit)
-app.post('/api/newsletter-signup', handlers.api.newsletterSignup)
-app.post('/api/vacation-photo', handlers.api.vacationPhotoContest)
+  #initLogging() {
+    logging(this.app)
+  }
 
-app.use(handlers.notFound)
-app.use(handlers.serverError)
+  #initExpressConfig() {
+    this.app.use(express.static(path.join(__dirname, '/public')))
 
-function startServer(port) {
-  app.listen(PORT, () => {
-    console.log(`Start server on ${app.get('env')} mode at http://localhost:${PORT}`)
-  })
+    this.app.disable('x-powered-by')
+    this.app.enable('trust proxy')
+  }
+
+  #initCookieConfig() {
+    this.app.use(cookieParser(credentials.cookieSecret))
+  }
+
+  #initSessionConfig() {
+    this.app.use(
+      expressSession({
+        name: 'express-sid',
+        resave: false,
+        saveUninitialized: false,
+        secret: credentials.cookieSecret,
+        store: this.redisDatabase.getRedisStore(),
+      }),
+    )
+  }
+
+  #initClusterConfig() {
+    this.app.use((req, res, next) => {
+      if (cluster.isWorker) {
+        console.log(`Worker ${cluster.worker.id} received request`)
+      }
+      next()
+    })
+  }
+
+  #initIntegrateThirdParty() {
+    this.app.use(bodyParse.urlencoded({ extended: true }))
+    this.app.use(bodyParse.json())
+  }
+
+  #startWorker() {
+    const worker = cluster.fork()
+    console.log(`CLUSTER: Worker ${worker.id} started`)
+  }
+
+  initialize() {
+    this.#initTemplateEngine()
+    this.#initLogging()
+    this.#initExpressConfig()
+    this.#initCookieConfig()
+    this.#initSessionConfig()
+    this.#initClusterConfig()
+    this.#initIntegrateThirdParty()
+  }
+
+  useMiddlewares() {
+    this.app.use(weatherMiddleware)
+    this.app.use(flashMiddleware)
+  }
+
+  startServer(port) {
+    const PORT = port ?? this.port
+
+    this.app.listen(PORT, () => {
+      console.log(`Start server on ${this.app.get('env')} mode at http://localhost:${PORT}`)
+    })
+  }
+
+  start(port, mode = 'single' | 'cluster') {
+    if (mode === 'single') {
+      this.startServer(port)
+    } else {
+      if (cluster.isMaster) {
+        require('os').cpus().forEach(this.#startWorker)
+
+        cluster.on('disconnect', (worker) =>
+          console.log(`CLUSTER: Worker ${worker.id} disconnected from the cluster.`),
+        )
+
+        cluster.on('exit', (worker, code, signal) => {
+          console.log(`CLUSTER: Worker ${worker.id} died with exit ` + `code ${code} (${signal})`)
+          this.startWorker()
+        })
+      } else {
+        this.startServer(this.port)
+      }
+    }
+  }
+
+  addRoutes() {
+    handlers.getRoutes(this.app)
+    handlers.postRoutes(this.app)
+    handlers.exceptionRoutes(this.app)
+  }
 }
 
-if (require.main === module) {
-  startServer(PORT)
-} else {
-  module.exports = startServer
+function main() {
+  const expressServer = new ExpressServer()
+
+  expressServer.initialize()
+  expressServer.useMiddlewares()
+  expressServer.addRoutes()
+  expressServer.start(3000, 'single')
 }
+
+main()

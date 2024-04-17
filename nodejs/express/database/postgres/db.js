@@ -1,7 +1,7 @@
 const { Pool } = require('pg')
 const _ = require('lodash')
 
-const { postgresConfig } = require('../.credentials.json')
+const { postgresConfig } = require('../../.credentials.json')
 
 const pool = new Pool(postgresConfig)
 

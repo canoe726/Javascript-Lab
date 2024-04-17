@@ -1,5 +1,5 @@
 const { Client } = require('pg')
-const { postgresConfig } = require('./.credentials.json')
+const { postgresConfig } = require('../../.credentials.json')
 
 const client = new Client(postgresConfig)
 
