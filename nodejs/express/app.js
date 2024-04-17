@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 const bodyParse = require('body-parser')
 const { create } = require('express-handlebars')
 const expressSession = require('express-session')
-const RedisStore = require('connect-redis')
+const RedisStore = require('connect-redis').default
 const { createClient } = require('redis')
 const { redis } = require('./.credentials.json')
 
@@ -82,6 +82,18 @@ app.get('/about', handlers.about)
 app.get('/greeting', handlers.greeting)
 app.get('/section-test', handlers.sectionTest)
 app.get('/newsletter', handlers.newsletter)
+app.get(
+  '/fifty-fifty',
+  (req, res, next) => {
+    if (Math.random() < 0.5) return next()
+    return res.send('sometimes this')
+  },
+  (req, res) => {
+    return res.send('and sometimes that')
+  },
+)
+app.get('/set-currency', handlers.setCurrency)
+app.get('/set-currency/:currency', handlers.setCurrencyMiddleware)
 app.get('/api/vacations', handlers.api.vacations)
 app.get('/fail', (req, res) => {
   throw new Error('Nope!')
