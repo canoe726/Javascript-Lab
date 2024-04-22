@@ -122,7 +122,7 @@ class ExpressServer {
 
         cluster.on('exit', (worker, code, signal) => {
           console.log(`CLUSTER: Worker ${worker.id} died with exit ` + `code ${code} (${signal})`)
-          this.startWorker()
+          this.#startWorker()
         })
       } else {
         this.startServer(this.port)
