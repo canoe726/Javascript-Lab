@@ -4,10 +4,19 @@ const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin')
 module.exports = {
   mode: 'production',
   devtool: 'inline-source-map',
-  entry: path.resolve(__dirname, 'src/app.ts'),
+  entry: {
+    main: path.resolve(__dirname, 'src/app.ts'),
+  },
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'server.bundle.js',
+    chunkFilename: (pathData) => {
+      return pathData.chunk.name === 'main' ? '[name].js' : '[name].[contenthash].js'
+    },
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   module: {
     rules: [

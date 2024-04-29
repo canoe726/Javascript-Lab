@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "nodemon --exec ts-node ./src/app.ts",
-    "start": "node build/server.bundle.js",
+    "start": "pm2 start ecosystem.config.js",
     "webpack": "webpack",
     "build": "rm -rf build && npm run webpack"
   },
