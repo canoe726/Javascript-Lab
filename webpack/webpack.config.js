@@ -40,6 +40,8 @@ module.exports = {
       path: require.resolve('path-browserify'),
       punycode: require.resolve('punycode'),
       process: require.resolve('process/browser'),
+      'utf-8-validate': require.resolve('utf-8-validate'),
+      bufferutil: require.resolve('bufferutil'),
       querystring: require.resolve('querystring-es3'),
       stream: require.resolve('stream-browserify'),
       string_decoder: require.resolve('string_decoder'),
