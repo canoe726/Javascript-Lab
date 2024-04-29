@@ -2,6 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "scripts": {
     "dev": "nodemon --exec ts-node ./src/app.ts",
     "start": "pm2 start ecosystem.config.js",
