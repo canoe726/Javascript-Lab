@@ -1,0 +1,90 @@
+import { Email } from 'models/chatting'
+
+export const emailList: { [id: string]: Email[] } = {
+  '0': [
+    {
+      conversationId: '0',
+      createdAt: 1712160552653,
+      fromUser: false,
+      id: '0',
+      text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis error explicabo voluptatum maiores corporis tempore iusto ipsum quis, incidunt harum labore dolores molestias voluptate voluptatibus minus iste provident accusamus ut.',
+    },
+    {
+      conversationId: '0',
+      createdAt: 1712160552653,
+      fromUser: true,
+      id: '1',
+      text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis error explicabo voluptatum maiores corporis tempore iusto ipsum quis, incidunt harum labore dolores molestias voluptate voluptatibus minus iste provident accusamus ut.',
+    },
+    {
+      conversationId: '0',
+      createdAt: 1712160552653,
+      fromUser: false,
+      id: '2',
+      text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis error explicabo voluptatum maiores corporis tempore iusto ipsum quis, incidunt harum labore dolores molestias voluptate voluptatibus minus iste provident accusamus ut.',
+    },
+    {
+      conversationId: '0',
+      createdAt: 1712160552653,
+      fromUser: true,
+      id: '3',
+      text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis error explicabo voluptatum maiores corporis tempore iusto ipsum quis, incidunt harum labore dolores molestias voluptate voluptatibus minus iste provident accusamus ut.',
+    },
+    {
+      conversationId: '0',
+      createdAt: 1712160552653,
+      fromUser: true,
+      id: '4',
+      text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis error explicabo voluptatum maiores corporis tempore iusto ipsum quis, incidunt harum labore dolores molestias voluptate voluptatibus minus iste provident accusamus ut.',
+    },
+    {
+      conversationId: '0',
+      createdAt: 1712160552653,
+      fromUser: false,
+      id: '5',
+      text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis error explicabo voluptatum maiores corporis tempore iusto ipsum quis, incidunt harum labore dolores molestias voluptate voluptatibus minus iste provident accusamus ut.',
+    },
+    {
+      conversationId: '0',
+      createdAt: 1712160552653,
+      fromUser: true,
+      id: '6',
+      text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis error explicabo voluptatum maiores corporis tempore iusto ipsum quis, incidunt harum labore dolores molestias voluptate voluptatibus minus iste provident accusamus ut.',
+    },
+    {
+      conversationId: '0',
+      createdAt: 1712160552653,
+      fromUser: false,
+      id: '7',
+      text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis error explicabo voluptatum maiores corporis tempore iusto ipsum quis, incidunt harum labore dolores molestias voluptate voluptatibus minus iste provident accusamus ut.',
+    },
+    {
+      conversationId: '0',
+      createdAt: 1712160552653,
+      fromUser: true,
+      id: '8',
+      text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis error explicabo voluptatum maiores corporis tempore iusto ipsum quis, incidunt harum labore dolores molestias voluptate voluptatibus minus iste provident accusamus ut.',
+    },
+    {
+      conversationId: '0',
+      createdAt: 1712160552653,
+      fromUser: true,
+      id: '9',
+      text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis error explicabo voluptatum maiores corporis tempore iusto ipsum quis, incidunt harum labore dolores molestias voluptate voluptatibus minus iste provident accusamus ut.',
+    },
+    {
+      conversationId: '0',
+      createdAt: 1712160552653,
+      fromUser: false,
+      id: '10',
+      text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis error explicabo voluptatum maiores corporis tempore iusto ipsum quis, incidunt harum labore dolores molestias voluptate voluptatibus minus iste provident accusamus ut.',
+    },
+    {
+      conversationId: '0',
+      createdAt: 1712160552653,
+      fromUser: true,
+      id: '11',
+      text: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perferendis error explicabo voluptatum maiores corporis tempore iusto ipsum quis, incidunt harum labore dolores molestias voluptate voluptatibus minus iste provident accusamus ut.',
+    },
+  ],
+}
