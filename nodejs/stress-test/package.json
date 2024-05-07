@@ -4,7 +4,8 @@
   "description": "",
   "main": "concurrency.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "stress-test": "npx artillery run asciiart-load-test.yml"
   },
   "author": "",
   "license": "ISC",

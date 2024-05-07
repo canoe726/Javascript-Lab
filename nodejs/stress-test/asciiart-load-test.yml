@@ -3,15 +3,15 @@ config:
   # It's designed to be highly scalable
   target: http://localhost:4000
   phases:
-    - duration: 60
+    - duration: 30
       arrivalRate: 5
       rampTo: 10
       name: Warm up phase
-    - duration: 60
+    - duration: 30
       arrivalRate: 10
       rampTo: 50
       name: Ramp up load
-    - duration: 300
+    - duration: 10
       arrivalRate: 50
       name: Spike phase
   # Load & configure a couple of useful plugins

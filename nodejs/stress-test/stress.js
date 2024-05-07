@@ -18,20 +18,14 @@ pool.connect((err) => {
 
 app.get('/plus', async (req, res) => {
   try {
-    const client = await pool.connect()
+    await pool.query('BEGIN')
+    const result = await pool.query('UPDATE counter SET count = count + 1 RETURNING count')
+    const newCount = result.rows?.[0]?.count
+    await pool.query('COMMIT')
 
-    try {
-      await client.query('BEGIN')
-      const result = await client.query('UPDATE counter SET count = count + 1 RETURNING count')
-      const newCount = result.rows?.[0]?.count
-      await client.query('COMMIT')
-
-      process.send({ message: '처리중...', pid: cluster.worker.process.pid })
-      console.log(`[${cluster.worker.process.pid}] Count increased to ${newCount}`)
-      res.status(200).json({ count: newCount })
-    } finally {
-      client.release()
-    }
+    process.send({ message: '처리중...', pid: cluster?.worker?.process?.pid })
+    console.log(`[${cluster?.worker?.process?.pid}] Count increased to ${newCount}`)
+    res.status(200).json({ count: newCount })
   } catch (error) {
     console.error(`Error executing query: `, error)
     res.status(500).send('Internal Server Error')
@@ -39,5 +33,10 @@ app.get('/plus', async (req, res) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`[${cluster.worker.process.pid}] Server is listening on http://localhost:${PORT}`)
+  console.log(`[${cluster?.worker?.process?.pid}] Server is listening on http://localhost:${PORT}`)
+})
+
+process.on('SIGINT', async () => {
+  await pool.end()
+  process.exit(0)
 })

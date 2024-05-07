@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'app',
-      script: './concurrency.js',
+      script: './stress.js',
       instances: 'max',
       exec_mode: 'cluster',
       listen_timeout: 50000,
