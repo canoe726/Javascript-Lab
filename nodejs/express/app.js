@@ -12,6 +12,7 @@ const { logging } = require('./lib/logging')
 const weatherMiddleware = require('./middlewares/weather')
 const flashMiddleware = require('./middlewares/flash')
 const { RedisDatabase } = require('./database/redis/redis')
+const createAuth = require('./lib/auth')
 
 class ExpressServer {
   app = null
@@ -99,6 +100,14 @@ class ExpressServer {
   useMiddlewares() {
     this.app.use(weatherMiddleware)
     this.app.use(flashMiddleware)
+
+    const auth = createAuth(this.app, {
+      baseUrl: process.env.BASE_URL ?? 'http://localhost:3000',
+      successRedirect: '/account',
+      failureRedirect: '/unauthorized',
+    })
+    auth.init()
+    auth.registerRoutes()
   }
 
   startServer(port) {
