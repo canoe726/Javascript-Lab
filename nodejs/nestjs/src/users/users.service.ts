@@ -1,26 +1,54 @@
 import { Injectable } from '@nestjs/common';
+import { EmailService } from 'src/email/email.service';
+import { v4 as uuid } from 'uuid';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UserInfoDto } from './dto/user-info.dto';
+import { UserLoginDto } from './dto/user-login.dto';
 
 @Injectable()
 export class UsersService {
-  create({ email, name, password }: CreateUserDto) {
-    return `User is created : ${email}, ${name}, ${password}`;
+  constructor(private readonly emailService: EmailService) {}
+
+  async createUser({ email, name, password }: CreateUserDto) {
+    await this.checkUserExists();
+
+    const signupVerifyToken = uuid();
+
+    await this.saveUser(name, email, password, signupVerifyToken);
+    await this.sendMemberJoinEmail(email, signupVerifyToken);
   }
 
-  findAll() {
-    return `This action returns all users`;
+  private checkUserExists() {
+    return false; // TODO:
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  private async sendMemberJoinEmail(email: string, signupVerifyToken: string) {
+    await this.emailService.sendMemberJoinVerification(
+      email,
+      signupVerifyToken,
+    );
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  private saveUser(
+    name: string,
+    email: string,
+    password: string,
+    signupVerifyToken: string,
+  ) {
+    console.log(name, email, password, signupVerifyToken);
+    return; // TODO:
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async verifyEmail(signupVerifyToken: string): Promise<string> {
+    throw new Error('Method not implemented');
+  }
+
+  async login(userLoginDto: UserLoginDto) {
+    console.log(userLoginDto);
+    return '';
+  }
+
+  async getUserInfo(userId: string): Promise<UserInfoDto> {
+    throw new Error('Method not implemented');
   }
 }
