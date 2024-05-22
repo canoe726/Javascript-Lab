@@ -2,12 +2,14 @@ import { Controller, Get, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { AppService } from './app.service';
 import { ServiceB } from './base/service-b';
+import { CommonService } from './common/common.service';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly serviceB: ServiceB,
+    private readonly commonService: CommonService,
   ) {}
 
   @Get()
@@ -19,5 +21,10 @@ export class AppController {
   @Get('/serviceB')
   getHelloC(): string {
     return this.serviceB.getHello();
+  }
+
+  @Get('/common-hello')
+  getCommonHello(): string {
+    return this.commonService.hello();
   }
 }

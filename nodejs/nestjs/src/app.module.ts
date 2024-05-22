@@ -1,30 +1,26 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import emailConfig from 'config/emailConfig';
+import { validationSchema } from 'config/validationSchema';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BaseService } from './base/base-service';
-import { ServiceA } from './base/service-a';
-import { ServiceB } from './base/service-b';
-import { EmailService } from './email/email.service';
-import { UsersController } from './users/users.controller';
+import { BaseModule } from './base/base.module';
+import { CoreModule } from './core/core.module';
 import { UsersModule } from './users/users.module';
-import { UsersService } from './users/users.service';
 
 @Module({
   imports: [
-    UsersModule,
     ConfigModule.forRoot({
-      envFilePath: ['.env'],
+      envFilePath: [`./config/env/.${'development'}.env`],
+      isGlobal: true,
+      load: [emailConfig],
+      validationSchema,
     }),
+    CoreModule,
+    BaseModule,
+    UsersModule,
   ],
-  controllers: [AppController, UsersController],
-  providers: [
-    UsersService,
-    EmailService,
-    AppService,
-    BaseService,
-    ServiceA,
-    ServiceB,
-  ],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
