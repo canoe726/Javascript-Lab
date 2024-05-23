@@ -1,4 +1,3 @@
-import { Transform } from 'class-transformer';
 import {
   IsEmail,
   IsOptional,
@@ -10,9 +9,10 @@ import {
 import { NotIn } from 'src/core/not-in';
 
 export class CreateUserDto {
-  @Transform((params) => {
-    return params.value.replace(/ /g, '').trim();
-  })
+  // @Transform((params) => {
+  //   return params.value.replace(/ /g, '').trim();
+  // })
+  @NotIn('password')
   @IsString()
   @MinLength(1)
   @MaxLength(20)
@@ -32,7 +32,6 @@ export class CreateUserDto {
   //   }
   //   return value.trim();
   // })
-  @NotIn('name')
   @IsString()
   @IsOptional()
   @Matches(/^[A-Za-z\d!@#$%^&*()]{8,30}$/)

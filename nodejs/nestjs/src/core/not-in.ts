@@ -22,7 +22,7 @@ export function NotIn(property: string, validationOptions?: ValidationOptions) {
           if (
             typeof value === 'string' &&
             typeof relatedValue === 'string' &&
-            !value.includes(relatedValue)
+            !relatedValue.includes(value)
           ) {
             return true;
           } else {
