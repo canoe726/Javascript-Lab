@@ -4,9 +4,9 @@ import emailConfig from 'config/emailConfig';
 import { validationSchema } from 'config/validationSchema';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BaseModule } from './base/base.module';
 import { CoreModule } from './core/core.module';
-import { UsersModule } from './users/users.module';
+import { BaseModule } from './services/base/base.module';
+import { UsersModule } from './services/users/users.module';
 
 @Module({
   imports: [

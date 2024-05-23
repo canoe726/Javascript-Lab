@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { EmailService } from 'src/email/email.service';
+import { EmailService } from 'src/services/email/email.service';
 import { v4 as uuid } from 'uuid';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserInfoDto } from './dto/user-info.dto';
@@ -15,7 +15,7 @@ export class UsersService {
     const signupVerifyToken = uuid();
 
     await this.saveUser(name, email, password, signupVerifyToken);
-    await this.sendMemberJoinEmail(email, signupVerifyToken);
+    // await this.sendMemberJoinEmail(email, signupVerifyToken);
   }
 
   private checkUserExists() {
