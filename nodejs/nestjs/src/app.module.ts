@@ -1,27 +1,25 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { typeORMConfig } from 'src/config/typeorm-config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import emailConfig from './config/emailConfig';
-import { validationSchema } from './config/validationSchema';
+import emailConfig from './config/email-config';
+import { TypeormConfig } from './config/typeorm-config';
 import { CoreModule } from './core/core.module';
 import { BaseModule } from './services/base/base.module';
-import { UserEntity } from './services/users/entities/user.entity';
 import { UsersModule } from './services/users/users.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env'],
+      envFilePath: `.env.${process.env.NODE_ENV || 'development'}`,
       isGlobal: true,
       load: [emailConfig],
-      validationSchema,
     }),
-    TypeOrmModule.forRoot({
-      ...typeORMConfig,
-      entities: [UserEntity],
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: TypeormConfig,
+      inject: [ConfigService],
     }),
     CoreModule,
     BaseModule,

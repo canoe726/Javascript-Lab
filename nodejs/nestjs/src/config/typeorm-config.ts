@@ -1,9 +1,13 @@
-export const typeORMConfig = {
-  type: (process.env.DB_TYPE as any) ?? 'postgres',
-  host: process.env.DB_HOST,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  entities: [__dirname + '/**/*.entity{.ts,.js}'],
-  synchronize: (process.env.DB_SYNCHRONIZE as any) ?? true,
-};
+import { ConfigService } from '@nestjs/config';
+
+export function TypeormConfig(configService: ConfigService) {
+  return {
+    type: configService.get<any>('DB_TYPE') || 'postgres',
+    host: configService.get<string>('DB_HOST'),
+    port: configService.get<number>('DB_PORT'),
+    username: configService.get<string>('DB_USERNAME'),
+    password: configService.get<string>('DB_PASSWORD'),
+    database: configService.get<string>('DB_NAME'),
+    synchronize: configService.get<boolean>('DB_SYNCHRONIZE') ?? true,
+  };
+}
