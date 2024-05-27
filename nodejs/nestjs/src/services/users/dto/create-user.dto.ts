@@ -6,7 +6,7 @@ import {
   MaxLength,
   MinLength,
 } from 'class-validator';
-import { NotIn } from 'src/core/not-in';
+import { NotIn } from 'src/core/decorator/not-in';
 
 export class CreateUserDto {
   // @Transform((params) => {
