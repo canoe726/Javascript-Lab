@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id="main"></div>
+  </body>
+  <script src="https://nsp.pay.naver.com/sdk/js/naverpay.min.js"></script>
+  <!-- <script src="http://127.0.0.1:3000/sdk/js/index.js"></script> -->
+  <script type="module">
+    import './app/src/js/index.js'
+    console.log(window.Performance)
+    // const performance = new Performance()
+
+    performance.trackLargestContentfulPaint()
+  </script>
+</html>
