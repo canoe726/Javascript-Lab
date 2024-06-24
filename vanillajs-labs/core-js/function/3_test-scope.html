@@ -1,0 +1,113 @@
+<html>
+  <head>
+    <title>Test Suite</title>
+    <style>
+      #results li.pass {
+        color: green;
+        text-decoration: none;
+      }
+      #results li.fail {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <ul id="results"></ul>
+  </body>
+
+  <script>
+    ;(function () {
+      var results
+
+      this.assert = function assert(value, desc) {
+        var li = document.createElement('li')
+        li.className = value ? 'pass' : 'fail'
+        li.appendChild(document.createTextNode(desc))
+        console.log(results)
+        results.appendChild(li)
+
+        if (!value) {
+          li.parentNode.parentNode.className = 'fail'
+        }
+        return li
+      }
+
+      this.test = function test(name, fn) {
+        results = document.getElementById('results')
+        results = assert(true, name).appendChild(document.createElement('ul'))
+        fn()
+      }
+    })()
+
+    test('|----BEFORE OUTER----|', function () {
+      assert(window.outer !== undefined, 'outer() is in scope')
+      assert(window.inner !== undefined, 'inner() is in scope')
+      assert(window.a !== undefined, 'a is in scope')
+      assert(window.b !== undefined, 'b is in scope')
+      assert(window.c !== undefined, 'c is in scope')
+    })
+
+    function outer() {
+      test('|----INSIDE OUTER, BEFORE a----|', function () {
+        assert(window.outer !== undefined, 'outer() is in scope')
+        assert(inner !== undefined, 'inner() is in scope')
+        assert(a !== undefined, 'a is in scope')
+        assert(b !== undefined, 'b is in scope')
+        assert(c !== undefined, 'c is in scope')
+      })
+
+      var a = 1
+
+      test('|----INSIDE OUTER, AFTER a----|', function () {
+        assert(window.outer !== undefined, 'outer() is in scope')
+        assert(inner !== undefined, 'inner() is in scope')
+        assert(a !== undefined, 'a is in scope')
+        assert(b !== undefined, 'b is in scope')
+        assert(c !== undefined, 'c is in scope')
+      })
+
+      function inner() {}
+
+      var b = 2
+
+      test('|----INSIDE OUTER, AFTER inner AND b----|', function () {
+        assert(window.outer !== undefined, 'outer() is in scope')
+        assert(inner !== undefined, 'inner() is in scope')
+        assert(a !== undefined, 'a is in scope')
+        assert(b !== undefined, 'b is in scope')
+        assert(c !== undefined, 'c is in scope')
+      })
+
+      if (a === 1) {
+        var c = 3
+
+        test('|----INSIDE OUTER, INSIDE if----|', function () {
+          assert(window.outer !== undefined, 'outer() is in scope')
+          assert(inner !== undefined, 'inner() is in scope')
+          assert(a !== undefined, 'a is in scope')
+          assert(b !== undefined, 'b is in scope')
+          assert(c !== undefined, 'c is in scope')
+        })
+      }
+
+      test('|----INSIDE OUTER, AFTER c----|', function () {
+        assert(window.outer !== undefined, 'outer() is in scope')
+        assert(inner !== undefined, 'inner() is in scope')
+        assert(a !== undefined, 'a is in scope')
+        assert(b !== undefined, 'b is in scope')
+        assert(c !== undefined, 'c is in scope')
+      })
+    }
+
+    outer()
+
+    test('|----AFTER outer----|', function () {
+      assert(window.outer !== undefined, 'outer() is in scope')
+      assert(window.inner !== undefined, 'inner() is in scope')
+      assert(window.a !== undefined, 'a is in scope')
+      assert(window.b !== undefined, 'b is in scope')
+      assert(window.c !== undefined, 'c is in scope')
+    })
+  </script>
+</html>

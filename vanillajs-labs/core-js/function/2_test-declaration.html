@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <title>Test Suite</title>
+    <script>
+      function isNimble() {
+        return true
+      }
+
+      console.log(typeof window.isNimble === 'function')
+      console.log(isNimble.name === 'isNimble')
+
+      var canFly = function () {
+        return true
+      }
+      console.log(typeof window.canFly === 'function')
+      console.log(canFly.name === '')
+
+      window.isDeadly = function () {
+        return true
+      }
+      console.log(typeof window.isDeadly === 'function')
+
+      function outer() {
+        console.log(typeof inner === 'function')
+
+        function inner() {}
+        console.log(typeof inner === 'function')
+        console.log(window.inner === undefined)
+      }
+
+      outer()
+      console.log(window.inner === undefined)
+
+      window.wieldSword = function swingsSword() {
+        return true
+      }
+      console.log(window.wieldSword.name === 'swingsSword')
+    </script>
+  </head>
+  <body></body>
+</html>
