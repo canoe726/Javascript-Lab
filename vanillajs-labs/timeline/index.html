@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .header {
+        width: 100%;
+        padding: 10px;
+        background-color: lightblue;
+        margin-bottom: 20px;
+      }
+
+      .item {
+        padding: 12px;
+        width: 200px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid lightcoral;
+        margin-bottom: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <p>Cart</p>
+      <span id="total-items">0</span>
+      <span id="total-price">$0</span>
+    </div>
+
+    <div class="item">
+      <div>
+        <span>Shoes</span>
+        <span>$6</span>
+      </div>
+      <button id="shoes">Buy Now</button>
+    </div>
+
+    <div class="item">
+      <div>
+        <span>Tee Shirt</span>
+        <span>$2</span>
+      </div>
+      <button id="tee-shirt">Buy Now</button>
+    </div>
+  </body>
+  <script>
+    function forEach(items, callback) {
+      for (let i = 0; i < items.length; i++) {
+        callback(items[i])
+      }
+    }
+
+    function ValueCell(initialValue) {
+      let currentValue = initialValue
+      let watchers = []
+
+      return {
+        val: function () {
+          return currentValue
+        },
+        update: function (f) {
+          let oldValue = currentValue
+          let newValue = f(oldValue)
+
+          if (oldValue !== newValue) {
+            currentValue = newValue
+            forEach(watchers, function (watcher) {
+              watcher(newValue)
+            })
+          }
+        },
+        addWatcher: function (f) {
+          watchers.push(f)
+        },
+      }
+    }
+
+    function FormulaCell(upstreamCell, f) {
+      let myCell = ValueCell(f(upstreamCell.val()))
+      upstreamCell.addWatcher(function (newUpstreamValue) {
+        myCell.update(function (currentValue) {
+          return f(newUpstreamValue)
+        })
+      })
+
+      return {
+        val: myCell.val,
+        addWatcher: myCell.addWatcher,
+      }
+    }
+
+    function Cut(num, callback) {
+      let numFinished = 0
+      return function () {
+        numFinished += 1
+
+        if (numFinished === num) {
+          callback()
+        }
+      }
+    }
+
+    function JustOnce(action) {
+      let alreadyCalled = false
+      return function (a, b, c) {
+        if (alreadyCalled) {
+          return
+        }
+        alreadyCalled = true
+        return action(a, b, c)
+      }
+    }
+
+    function DroppingQueue(max, worker) {
+      let queueItems = []
+      let working = false
+
+      function runNext() {
+        if (working || queueItems.length === 0) {
+          return
+        }
+
+        working = true
+        const item = queueItems.shift()
+        worker(item.data, function (val) {
+          working = false
+          setTimeout(item.callback, 0, val)
+          runNext()
+        })
+      }
+
+      return function (data, callback) {
+        queueItems.push({
+          data,
+          callback: callback || function () {},
+        })
+        while (queueItems.length > max) {
+          queueItems.shift()
+        }
+        setTimeout(runNext, 0)
+      }
+    }
+
+    function calcCartWorker(carts, done) {
+      calcCartTotal(carts, function (total) {
+        updateTotalDom(total)
+        done(total)
+      })
+    }
+
+    function sendAddToCartText() {
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve()
+        }, getRand())
+      }).then(() => {
+        alert('hello world')
+      })
+    }
+
+    let updateTotalQueue = DroppingQueue(1, calcCartWorker)
+    let sendAddToCartTextOnce = JustOnce(sendAddToCartText)
+
+    let shoppingCart = ValueCell([])
+    let cartTotal = FormulaCell(shoppingCart, updateTotalCountDom)
+    shoppingCart.addWatcher(addItemToCart)
+    // cartTotal.addWatcher(function (value) {
+    //   console.log('called : ', value)
+    // })
+
+    function Document() {
+      this.getTotalItems = () => {
+        return document.getElementById('total-items')
+      }
+      this.getTotalPrice = () => {
+        return document.getElementById('total-price')
+      }
+      this.getBuyShoesButton = () => {
+        return document.getElementById('shoes')
+      }
+      this.getBuyTeeShirtButton = () => {
+        return document.getElementById('tee-shirt')
+      }
+    }
+
+    function getRand() {
+      return Math.floor(Math.random() * 1000)
+    }
+
+    async function costAjax(carts, callback) {
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          const costs = carts.reduce((acc, cur) => {
+            return acc + cur.price
+          }, 0)
+
+          resolve(costs)
+        }, getRand())
+      })
+        .then((value) => {
+          callback(value)
+        })
+        .catch((error) => {
+          console.log('Error: ', error)
+        })
+    }
+
+    async function shippingAjax(carts, callback) {
+      new Promise((resolve, reject) => {
+        setTimeout(() => {
+          let shippingCost = 0
+          if (carts.length === 1) {
+            shippingCost += 2
+          }
+
+          resolve(shippingCost)
+        }, getRand())
+      })
+        .then((value) => {
+          callback(value)
+        })
+        .catch((error) => {
+          console.log('Error: ', error)
+        })
+    }
+
+    function updateTotalCountDom(carts) {
+      const doc = new Document()
+      const totalItems = doc.getTotalItems()
+
+      totalItems.innerText = carts.length
+    }
+
+    function updateTotalDom(total) {
+      const doc = new Document()
+      const totalPrice = doc.getTotalPrice()
+
+      totalPrice.innerText = `$${total}`
+    }
+
+    function calcCartTotal(carts, callback) {
+      let total = 0
+      let done = Cut(2, function () {
+        callback(total)
+      })
+
+      costAjax(carts, function (cost) {
+        total += cost
+        done()
+      })
+
+      shippingAjax(carts, function (shipping) {
+        total += shipping
+        done()
+      })
+    }
+
+    function addItem(carts, item) {
+      const newCards = carts.slice()
+      newCards.push(item)
+
+      return newCards
+    }
+
+    function addItemToCart(item) {
+      updateTotalQueue(shoppingCart.val(), function (value) {
+        console.log('callback process : ', value)
+      })
+    }
+
+    function handleBuyShoesClick() {
+      const newItem = { name: 'shoes', price: 6, quantity: 1 }
+
+      shoppingCart.update(function (cart) {
+        return addItem(cart, newItem)
+      })
+    }
+
+    function handleBuyTeeShirtClick() {
+      addItemToCart({ name: 'tee-shirt', price: 2, quantity: 1 })
+    }
+
+    window.onload = function () {
+      const doc = new Document()
+      const buyShoesButton = doc.getBuyShoesButton()
+      const buyTeeShirtButton = doc.getBuyTeeShirtButton()
+
+      buyShoesButton.addEventListener('click', handleBuyShoesClick)
+      buyTeeShirtButton.addEventListener('click', handleBuyTeeShirtClick)
+    }
+  </script>
+</html>
