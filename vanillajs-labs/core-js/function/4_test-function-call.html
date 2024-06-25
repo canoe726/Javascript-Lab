@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <title>Test Suite</title>
+    <style>
+      #results li.pass {
+        color: green;
+        text-decoration: none;
+      }
+      #results li.fail {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <ul id="results"></ul>
+  </body>
+
+  <script>
+    ;(function () {
+      var results
+
+      this.assert = function assert(value, desc) {
+        var li = document.createElement('li')
+        li.className = value ? 'pass' : 'fail'
+        li.appendChild(document.createTextNode(desc))
+        results.appendChild(li)
+
+        if (!value) {
+          li.parentNode.parentNode.className = 'fail'
+        }
+        return li
+      }
+
+      this.test = function test(name, fn) {
+        results = document.getElementById('results')
+        results = assert(true, name).appendChild(document.createElement('ul'))
+        fn()
+      }
+    })()
+
+    function creep() {
+      return this
+    }
+
+    test('creep', function () {
+      assert(creep() === window, 'creep() is window')
+    })
+
+    var sneak = creep
+    test('sneak', function () {
+      assert(sneak() === window, 'sneak() is window')
+    })
+
+    var ninja = {
+      skulk: creep,
+    }
+    test('ninja', function () {
+      assert(ninja.skulk() === ninja, 'skulk() is window')
+    })
+
+    function Ninja() {
+      this.skulk = function () {
+        return this
+      }
+    }
+
+    var ninja1 = new Ninja()
+    var ninja2 = new Ninja()
+    test('ninja1', function () {
+      assert(ninja1.skulk() === ninja1, 'ninja1')
+    })
+    test('ninja2', function () {
+      assert(ninja2.skulk() === ninja2, 'ninja2')
+    })
+  </script>
+</html>
