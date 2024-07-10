@@ -1,6 +1,7 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { AppService } from './app.service';
+import { AuthGuard } from './services/auth/AuthGuard';
 import { ServiceB } from './services/base/service-b';
 import { CommonService } from './services/common/common.service';
 
@@ -12,9 +13,9 @@ export class AppController {
     private readonly commonService: CommonService,
   ) {}
 
+  @UseGuards(AuthGuard)
   @Get()
   getHello(@Req() req: Request): string {
-    console.log(req);
     return this.appService.getHello();
   }
 
