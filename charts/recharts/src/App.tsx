@@ -42,7 +42,6 @@ function App() {
       type: 'bar',
       data,
     })
-    console.log('bigChart: ', bigChart.canvasElement?.width, bigChart.meta?.data.width)
 
     // Chart.js
     const myCtx = document.getElementById('myChart') as HTMLCanvasElement
@@ -66,7 +65,6 @@ function App() {
         },
       },
     })
-    console.log('chart: ', chart.width, chart.canvas.width)
 
     return () => {
       chart.destroy()

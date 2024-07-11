@@ -1,12 +1,20 @@
 import { v4 as uuid } from 'uuid'
+import { BarController } from './controller/BarController'
 import { clearCanvas, retinaResolution } from './core/core.canvas'
 import { ChartRenderer } from './core/core.chart'
 import { Config } from './core/core.config'
 import { Meta } from './core/core.meta'
 import { ChartConfig } from './types/config.type'
 
+function getChartController() {
+  return {
+    bar: BarController,
+  }
+}
+
 export default class BigChart {
   id = uuid()
+  controller = getChartController()
   canvasElement: HTMLCanvasElement | null
   meta: Meta | null
   ctx: CanvasRenderingContext2D | null
@@ -31,6 +39,14 @@ export default class BigChart {
       this.canvasElement.style.boxSizing = 'border-box'
     }
 
+    if (this.ctx && this.meta) {
+      const ctx = this.ctx
+      const { height } = this.meta.data
+
+      ctx.translate(0, height)
+      ctx.scale(1, -1)
+    }
+
     retinaResolution(this)
     this.render()
 
@@ -49,9 +65,11 @@ export default class BigChart {
   }
 
   render() {
-    ChartRenderer.renderXAxis(this, { showLabel: true })
-    ChartRenderer.renderYAxis(this)
-    ChartRenderer.renderGrid(this)
-    ChartRenderer.renderChart('bar')
+    const chartRenderer = new ChartRenderer(this)
+
+    chartRenderer.renderXAxis({ showLabel: true })
+    chartRenderer.renderYAxis()
+    chartRenderer.renderGrid()
+    chartRenderer.renderChart()
   }
 }

@@ -27,7 +27,6 @@ export function retinaResolution(chart: BigChart) {
 
     ctx.scale(devicePixelRatio, devicePixelRatio)
     chart.meta.setDataByKey('currentDevicePixelRatio', devicePixelRatio)
-    console.log('---set core render---')
 
     return true
   }
@@ -68,3 +67,25 @@ export function drawLine(
 
   ctx.stroke()
 }
+
+// export function drawRect(
+//   ctx: CanvasRenderingContext2D,
+//   sx: number,
+//   sy: number,
+//   dx: number,
+//   dy: number,
+//   options?: DrawLineOptions,
+// ) {
+//   ctx.beginPath()
+//   ctx.moveTo(sx, sy)
+//   ctx.lineTo(dx, dy)
+
+//   if (options?.lineWidth) {
+//     ctx.lineWidth = options?.lineWidth
+//   }
+//   if (options?.strokeStyle) {
+//     ctx.strokeStyle = options?.strokeStyle
+//   }
+
+//   ctx.stroke()
+// }

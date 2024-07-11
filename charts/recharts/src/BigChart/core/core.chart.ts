@@ -2,10 +2,16 @@ import BigChart from '../BigChart'
 import { RenderXAxisOptions } from '../types/render.type'
 import { getFloor } from '../utils/number'
 import { drawLine } from './core.canvas'
-import { Config } from './core.config'
 
 export class ChartRenderer {
-  static renderXAxis(chart: BigChart, options?: RenderXAxisOptions) {
+  chart: BigChart
+
+  constructor(chart: BigChart) {
+    this.chart = chart
+  }
+
+  renderXAxis(options?: RenderXAxisOptions) {
+    const chart = this.chart
     if (!chart.ctx || !chart.meta || !chart.config) {
       return
     }
@@ -44,7 +50,8 @@ export class ChartRenderer {
     }
   }
 
-  static renderYAxis(chart: BigChart) {
+  renderYAxis() {
+    const chart = this.chart
     if (!chart.ctx || !chart.meta || !chart.config) {
       return
     }
@@ -64,7 +71,8 @@ export class ChartRenderer {
     })
   }
 
-  static renderGrid(chart: BigChart) {
+  renderGrid() {
+    const chart = this.chart
     if (!chart.ctx || !chart.meta || !chart.config) {
       return
     }
@@ -75,7 +83,7 @@ export class ChartRenderer {
     const startXWidth = width * axisBaseStartX
     const columnWidth = getFloor((width - startXWidth) / columnGridCounts) as number
 
-    for (let i = 0; i < columnGridCounts + 1; i++) {
+    for (let i = 0; i < columnGridCounts; i++) {
       const startX = startXWidth + columnWidth * i
 
       drawLine(ctx, startX, 0, startX, height, {
@@ -84,9 +92,15 @@ export class ChartRenderer {
     }
   }
 
-  static renderChart(type: Config['type']) {
-    if (type === 'bar') {
-      //   this.renderBarChart()
+  renderChart() {
+    const chart = this.chart
+    if (!chart.ctx || !chart.meta || !chart.config) {
+      return
     }
+    const type = chart.config.type
+    const Controller = chart.controller[type]
+
+    const chartController = new Controller(chart)
+    chartController.render()
   }
 }
