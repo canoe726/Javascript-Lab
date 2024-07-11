@@ -1,8 +1,14 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import {
+  Get,
+  Injectable,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EmailService } from 'src/services/email/email.service';
 import { DataSource, Repository } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { AuthService } from '../auth/auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserInfoDto } from './dto/user-info.dto';
 import { UserLoginDto } from './dto/user-login.dto';
@@ -12,6 +18,7 @@ import { UserEntity } from './entities/user.entity';
 export class UsersService {
   constructor(
     private readonly emailService: EmailService,
+    private readonly authService: AuthService,
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
     private dataSource: DataSource,
@@ -85,6 +92,13 @@ export class UsersService {
       user.password = password;
       user.signupVerifyToken = signupVerifyToken;
 
+      console.log(
+        'userId: ',
+        user.id,
+        ' / signupVerifyToken: ',
+        signupVerifyToken,
+      );
+
       await queryRunner.manager.save(user);
       // throw new InternalServerErrorException();
       await queryRunner.commitTransaction();
@@ -114,15 +128,51 @@ export class UsersService {
   }
 
   async verifyEmail(signupVerifyToken: string): Promise<string> {
-    throw new Error('Method not implemented');
+    const user = await this.usersRepository.findOne({
+      where: { signupVerifyToken },
+    });
+
+    if (!user) {
+      throw new NotFoundException('Not exist user');
+    }
+
+    return this.authService.login({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    });
   }
 
-  async login(userLoginDto: UserLoginDto) {
-    console.log(userLoginDto);
-    return '';
+  async login({ email, password }: UserLoginDto) {
+    const user = await this.usersRepository.findOne({
+      where: { email, password },
+    });
+
+    if (!user) {
+      throw new NotFoundException('Not exist user');
+    }
+
+    return this.authService.login({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    });
   }
 
+  @Get(':id')
   async getUserInfo(userId: string): Promise<UserInfoDto> {
-    throw new Error('Method not implemented');
+    const user = await this.usersRepository.findOne({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new NotFoundException('Not exist user');
+    }
+
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    };
   }
 }

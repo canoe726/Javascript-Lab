@@ -10,6 +10,7 @@ async function bootstrap() {
       transform: true,
     }),
   );
+  // app.useGlobalGuards(new AuthGuard());
   await app.listen(3000);
 }
 bootstrap();
