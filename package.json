@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "uuid": "^10.0.0",
     "vhost": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/uuid": "^10.0.0"
   }
 }
