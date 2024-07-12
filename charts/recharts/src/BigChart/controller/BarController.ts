@@ -1,5 +1,5 @@
 import BigChart from '../BigChart'
-import { getFloor } from '../utils/number'
+import { getRandomRgbColor } from '../utils/string'
 
 export class BarController {
   chart: BigChart
@@ -9,6 +9,10 @@ export class BarController {
   }
 
   render() {
+    this.renderBar()
+  }
+
+  renderBar() {
     const chart = this.chart
     if (!chart.ctx || !chart.meta || !chart.config) {
       return
@@ -16,24 +20,25 @@ export class BarController {
 
     const ctx = chart.ctx
     const { datasets } = chart.config.data
-    const { width, height, axisBaseStartX, axisBaseStartY } = chart.meta.data
-    const columnGridCounts = chart.config.data.labels.length
-    const startXWidth = width * axisBaseStartX
-    const columnWidth = getFloor((width - startXWidth) / columnGridCounts) as number
+    const { axisBaseStartWidthX, axisBaseEndWidthX, axisBaseEndHeightY, axisHeightAmount } =
+      chart.meta.data
 
+    const columnGridCounts = chart.config.data.labels.length
+    const columnWidth = (axisBaseEndWidthX - axisBaseStartWidthX) / columnGridCounts
     const values = datasets[0].data
     const minValue = Math.min(...values)
     const maxValue = Math.max(...values)
-    const ratio = maxValue - minValue
+    const valueDiff = maxValue - minValue
 
     for (let i = 0; i < columnGridCounts; i++) {
-      const startX = startXWidth + columnWidth * i
-      const heightAmount = values[i] / ratio
-      const rectWidth = Math.floor(columnWidth * 0.6)
-      const rectHeight = Math.floor(height * heightAmount)
+      const heightAmount = values[i] / valueDiff
+      const rectWidth = columnWidth * 0.5
+      const rectHeight = axisHeightAmount * heightAmount
+      const xPos = axisBaseStartWidthX + columnWidth * i + (columnWidth - rectWidth) / 2
+      const yPos = axisBaseEndHeightY * (1 - rectHeight / axisBaseEndHeightY)
 
-      console.log(height * axisBaseStartY)
-      ctx.fillRect(startX, height * axisBaseStartY, rectWidth, rectHeight)
+      ctx.fillStyle = getRandomRgbColor()
+      ctx.fillRect(xPos, yPos, rectWidth, rectHeight)
     }
   }
 }

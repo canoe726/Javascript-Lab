@@ -39,14 +39,6 @@ export default class BigChart {
       this.canvasElement.style.boxSizing = 'border-box'
     }
 
-    if (this.ctx && this.meta) {
-      const ctx = this.ctx
-      const { height } = this.meta.data
-
-      ctx.translate(0, height)
-      ctx.scale(1, -1)
-    }
-
     retinaResolution(this)
     this.render()
 
@@ -68,7 +60,7 @@ export default class BigChart {
     const chartRenderer = new ChartRenderer(this)
 
     chartRenderer.renderXAxis({ showLabel: true })
-    chartRenderer.renderYAxis()
+    chartRenderer.renderYAxis({ showLabel: true })
     chartRenderer.renderGrid()
     chartRenderer.renderChart()
   }

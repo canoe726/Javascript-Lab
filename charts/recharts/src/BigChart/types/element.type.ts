@@ -5,8 +5,14 @@ export interface CanvasMeta {
   currentDevicePixelRatio?: number
   axisBaseStartX: number
   axisBaseEndX: number
+  axisBaseStartWidthX: number
+  axisBaseEndWidthX: number
+  axisWidthAmount: number
   axisBaseStartY: number
   axisBaseEndY: number
+  axisBaseStartHeightY: number
+  axisBaseEndHeightY: number
+  axisHeightAmount: number
   axisBaseStrokeStyle: string
   gridStrokeStyle: string
 }
