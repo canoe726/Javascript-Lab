@@ -2,13 +2,13 @@ import { Chart, registerables } from 'chart.js/auto'
 import { useEffect } from 'react'
 import BigChart from './BigChart/BigChart'
 
-const SIZE = 50
+const SIZE = 500000
 const data = {
   labels: Array.from({ length: SIZE }, (_, index) => `${index}`),
   datasets: [
     {
       label: 'My First Dataset 3',
-      data: Array.from({ length: SIZE }, () => Math.floor(Math.random() * 100)),
+      data: Array.from({ length: SIZE }, () => Math.floor(Math.random() * 10000)),
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(255, 159, 64, 0.2)',
@@ -45,36 +45,32 @@ function App() {
 
     // Chart.js
     const myCtx = document.getElementById('myChart') as HTMLCanvasElement
-    const chart = new Chart(myCtx, {
+    const bigChart2 = new BigChart(myCtx, {
       type: 'bar',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [
-          {
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
+      data,
     })
+    // const chart = new Chart(myCtx, {
+    //   type: 'bar',
+    //   data: data,
+    //   options: {
+    //     scales: {
+    //       y: {
+    //         beginAtZero: true,
+    //       },
+    //     },
+    //   },
+    // })
 
     return () => {
-      chart.destroy()
       bigChart.destroy()
+      bigChart2.destroy()
+      // chart.destroy()
     }
   }, [])
 
   return (
     <div className="App" style={{ padding: '24px' }}>
-      <div style={{ width: '900px' }}>
+      <div style={{ width: '1200px' }}>
         <canvas
           id="chart"
           style={{
@@ -85,7 +81,7 @@ function App() {
         />
       </div>
 
-      <div style={{ width: '1000px' }}>
+      <div style={{ width: '1200px' }}>
         <canvas
           id="myChart"
           style={{

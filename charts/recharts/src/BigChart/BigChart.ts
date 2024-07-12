@@ -61,7 +61,7 @@ export default class BigChart {
 
     chartRenderer.renderXAxis({ showLabel: true })
     chartRenderer.renderYAxis({ showLabel: true })
-    chartRenderer.renderGrid()
+    // chartRenderer.renderGrid()
     chartRenderer.renderChart()
   }
 }

@@ -1,25 +1,8 @@
 import BigChart from '../BigChart'
 import { RenderXAxisOptions } from '../types/render.type'
 import { getFontMeasure } from '../utils/canvas'
-import { getFloor } from '../utils/number'
+import { getFloor, getMax } from '../utils/number'
 import { drawLine } from './core.canvas'
-
-function roundUpToNearestUnit(value: number) {
-  // Define the possible units we want to round up to
-  const units = [1, 2, 5, 10]
-
-  // Find the appropriate unit
-  let selectedUnit = units[units.length - 1] // Default to the largest unit
-  for (let unit of units) {
-    if (value <= unit) {
-      selectedUnit = unit
-      break
-    }
-  }
-
-  // Round up to the nearest selected unit
-  return Math.ceil(value / selectedUnit) * selectedUnit
-}
 
 export class ChartRenderer {
   chart: BigChart
@@ -52,14 +35,16 @@ export class ChartRenderer {
     if (options?.showLabel) {
       const labels = chart.config.data.labels
       const columnGridCounts = labels.length
-      const columnWidth = getFloor(
-        (axisBaseEndWidthX - axisBaseStartWidthX) / columnGridCounts,
-      ) as number
+      const divide = 10000
+      const columnWidth = (axisBaseEndWidthX - axisBaseStartWidthX) / columnGridCounts
 
       for (let i = 0; i < columnGridCounts; i++) {
+        if (i % divide !== 0) {
+          continue
+        }
+
         const label = `${Number(labels[i]) + 1}`
         const { fontWidth, fontHeight } = getFontMeasure(ctx.measureText(label))
-
         const xPos =
           axisBaseStartWidthX +
           columnWidth * i +
@@ -104,7 +89,7 @@ export class ChartRenderer {
       const datasets = chart.config.data.datasets
       const values = datasets[0].data
 
-      const maxValue = Math.max(...values)
+      const maxValue = getMax(values)
       const divide = 10
       const units = Math.ceil(Math.floor(maxValue / divide))
 
@@ -137,10 +122,10 @@ export class ChartRenderer {
 
     const ctx = chart.ctx
     const {
+      height,
       axisBaseStartWidthX,
       axisBaseEndWidthX,
       axisBaseStartHeightY,
-      axisBaseEndHeightY,
       axisBaseStrokeStyle,
     } = chart.meta.data
     const columnGridCounts = chart.config.data.labels.length
@@ -149,7 +134,7 @@ export class ChartRenderer {
     for (let i = 1; i <= columnGridCounts; i++) {
       const xPos = axisBaseStartWidthX + columnWidth * i
 
-      drawLine(ctx, xPos, axisBaseStartHeightY, xPos, axisBaseEndHeightY, {
+      drawLine(ctx, xPos, axisBaseStartHeightY, xPos, height * 0.96, {
         fillStyle: axisBaseStrokeStyle,
       })
     }

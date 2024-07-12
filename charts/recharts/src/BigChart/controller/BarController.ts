@@ -1,4 +1,5 @@
 import BigChart from '../BigChart'
+import { getMax, getMin } from '../utils/number'
 import { getRandomRgbColor } from '../utils/string'
 
 export class BarController {
@@ -9,10 +10,10 @@ export class BarController {
   }
 
   render() {
-    this.renderBar()
+    this.renderBarRect()
   }
 
-  renderBar() {
+  renderBarRect() {
     const chart = this.chart
     if (!chart.ctx || !chart.meta || !chart.config) {
       return
@@ -26,13 +27,13 @@ export class BarController {
     const columnGridCounts = chart.config.data.labels.length
     const columnWidth = (axisBaseEndWidthX - axisBaseStartWidthX) / columnGridCounts
     const values = datasets[0].data
-    const minValue = Math.min(...values)
-    const maxValue = Math.max(...values)
+    const minValue = getMin(values)
+    const maxValue = getMax(values)
     const valueDiff = maxValue - minValue
 
     for (let i = 0; i < columnGridCounts; i++) {
       const heightAmount = values[i] / valueDiff
-      const rectWidth = columnWidth * 0.5
+      const rectWidth = columnWidth * 1
       const rectHeight = axisHeightAmount * heightAmount
       const xPos = axisBaseStartWidthX + columnWidth * i + (columnWidth - rectWidth) / 2
       const yPos = axisBaseEndHeightY * (1 - rectHeight / axisBaseEndHeightY)
