@@ -23,7 +23,6 @@ export class AppController {
 
   @Get()
   getHello(@User() user: UserEntity, @Req() req: Request): string {
-    console.log(user);
     return this.appService.getHello();
   }
 

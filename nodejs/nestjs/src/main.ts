@@ -1,5 +1,6 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -9,7 +10,7 @@ async function bootstrap() {
         ? ['error', 'warn', 'log']
         : ['error', 'warn', 'log', 'verbose', 'debug'],
   });
-  // app.useLogger(app.get(MyLogger))
+  app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   // app.use(LoggerMiddleware)
   app.useGlobalPipes(
     new ValidationPipe({

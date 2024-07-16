@@ -3,13 +3,15 @@ import {
   Controller,
   Get,
   Headers,
+  Inject,
+  InternalServerErrorException,
   Param,
   Post,
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { WINSTON_MODULE_NEST_PROVIDER, WinstonLogger } from 'nest-winston';
 import { AuthGuard } from '../auth/auth-guard';
-import { AuthService } from '../auth/auth.service';
 import { ClassRolesGuard } from '../role/role-guard.class';
 import { HandlerRolesGuard } from '../role/role-guard.handler';
 import { Roles } from '../role/role.decorator';
@@ -24,8 +26,9 @@ import { UsersService } from './users.service';
 @Controller('users')
 export class UsersController {
   constructor(
+    @Inject(WINSTON_MODULE_NEST_PROVIDER)
+    private readonly logger: WinstonLogger,
     private readonly usersService: UsersService,
-    private readonly authService: AuthService,
   ) {}
 
   @UseGuards(HandlerRolesGuard)
@@ -39,6 +42,7 @@ export class UsersController {
 
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
+    this.printLoggerServiceLog(createUserDto);
     await this.usersService.createUser(createUserDto);
   }
 
@@ -61,5 +65,19 @@ export class UsersController {
     @Param('id') userId: string,
   ): Promise<UserInfoDto> {
     return await this.usersService.getUserInfo(userId);
+  }
+
+  private printLoggerServiceLog(dto: any) {
+    try {
+      throw new InternalServerErrorException('test');
+    } catch (e) {
+      this.logger.error('error : ', JSON.stringify(dto), e.stack);
+    }
+
+    this.logger.error('level: error : ', JSON.stringify(dto));
+    this.logger.warn('level: warn : ', JSON.stringify(dto));
+    this.logger.log('level: log : ', JSON.stringify(dto));
+    this.logger.verbose('level: verbose : ', JSON.stringify(dto));
+    this.logger.debug('level: debug : ', JSON.stringify(dto));
   }
 }
