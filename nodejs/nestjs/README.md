@@ -10,4 +10,5 @@ DB_PORT=5432
 DB_USERNAME=admin
 DB_PASSWORD=........
 DB_NAME=postgres
+NODE_ENV=development
 ```

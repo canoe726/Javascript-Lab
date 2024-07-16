@@ -6,6 +6,7 @@ import { AppService } from './app.service';
 import emailConfig from './config/email-config';
 import { TypeormConfig } from './config/typeorm-config';
 import { CoreModule } from './core/core.module';
+import { LoggerModule } from './core/logger/my-logger.module';
 import { LoggerMiddleware } from './core/middleware/logger.middleware';
 import { AuthModule } from './services/auth/auth.module';
 import { BaseModule } from './services/base/base.module';
@@ -24,10 +25,11 @@ import { UsersModule } from './services/users/users.module';
       useFactory: TypeormConfig,
       inject: [ConfigService],
     }),
+    LoggerModule,
     CoreModule,
     BaseModule,
-    UsersModule,
     AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

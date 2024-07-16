@@ -10,6 +10,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth-guard';
 import { AuthService } from '../auth/auth.service';
+import { ClassRolesGuard } from '../role/role-guard.class';
+import { HandlerRolesGuard } from '../role/role-guard.handler';
 import { Roles } from '../role/role.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserInfoDto } from './dto/user-info.dto';
@@ -17,6 +19,7 @@ import { UserLoginDto } from './dto/user-login.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { UsersService } from './users.service';
 
+@UseGuards(ClassRolesGuard)
 @Roles('admin')
 @Controller('users')
 export class UsersController {
@@ -25,6 +28,8 @@ export class UsersController {
     private readonly authService: AuthService,
   ) {}
 
+  @UseGuards(HandlerRolesGuard)
+  @Roles('admin')
   @Get()
   async getUser() {
     return {

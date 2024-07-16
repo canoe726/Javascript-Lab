@@ -12,7 +12,6 @@ import { User } from './services/auth/auth-user.decorator';
 import { UserEntity } from './services/auth/dto/auth-user.dto';
 import { ServiceB } from './services/base/service-b';
 import { CommonService } from './services/common/common.service';
-import { UsersService } from './services/users/users.service';
 
 @Controller()
 export class AppController {
@@ -20,10 +19,8 @@ export class AppController {
     private readonly appService: AppService,
     private readonly serviceB: ServiceB,
     private readonly commonService: CommonService,
-    private readonly usersService: UsersService,
   ) {}
 
-  @UseGuards(AuthGuard)
   @Get()
   getHello(@User() user: UserEntity, @Req() req: Request): string {
     console.log(user);
