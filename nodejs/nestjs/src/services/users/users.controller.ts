@@ -8,14 +8,16 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from '../auth/auth-guard';
 import { AuthService } from '../auth/auth.service';
-import { AuthGuard } from '../auth/AuthGuard';
+import { Roles } from '../role/role.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserInfoDto } from './dto/user-info.dto';
 import { UserLoginDto } from './dto/user-login.dto';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { UsersService } from './users.service';
 
+@Roles('admin')
 @Controller('users')
 export class UsersController {
   constructor(

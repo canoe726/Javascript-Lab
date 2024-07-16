@@ -5,20 +5,26 @@ import {
   WsArgumentsHost,
 } from '@nestjs/common/interfaces';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  // constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
+    request.user = {
+      name: 1,
+      email: 'example@gmail.com',
+    };
+
     return this.validateRequest(request);
   }
 
   private validateRequest(request: any) {
-    const jwtString = request.headers.authorization.split('Bearer ')[1];
+    const jwtString = request.headers.authorization?.split('Bearer ')[1];
     // this.authService.verify(jwtString);
 
     return true;
