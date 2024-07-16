@@ -5,12 +5,13 @@ import {
   Headers,
   Inject,
   InternalServerErrorException,
+  Logger,
+  LoggerService,
   Param,
   Post,
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { WINSTON_MODULE_NEST_PROVIDER, WinstonLogger } from 'nest-winston';
 import { AuthGuard } from '../auth/auth-guard';
 import { ClassRolesGuard } from '../role/role-guard.class';
 import { HandlerRolesGuard } from '../role/role-guard.handler';
@@ -26,8 +27,7 @@ import { UsersService } from './users.service';
 @Controller('users')
 export class UsersController {
   constructor(
-    @Inject(WINSTON_MODULE_NEST_PROVIDER)
-    private readonly logger: WinstonLogger,
+    @Inject(Logger) private readonly logger: LoggerService,
     private readonly usersService: UsersService,
   ) {}
 

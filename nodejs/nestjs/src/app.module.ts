@@ -1,11 +1,6 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {
-  WinstonModule,
-  utilities as nestWinstonModuleUtilities,
-} from 'nest-winston';
-import * as winston from 'winston';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -30,19 +25,6 @@ import { UsersModule } from './services/users/users.module';
       imports: [ConfigModule],
       useFactory: TypeormConfig,
       inject: [ConfigService],
-    }),
-    WinstonModule.forRoot({
-      transports: [
-        new winston.transports.Console({
-          level: process.env.NODE_ENV === 'production' ? 'info' : 'silly',
-          format: winston.format.combine(
-            winston.format.timestamp(),
-            nestWinstonModuleUtilities.format.nestLike('MyApp', {
-              prettyPrint: true,
-            }),
-          ),
-        }),
-      ],
     }),
     LoggerModule,
     CoreModule,
