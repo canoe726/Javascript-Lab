@@ -13,6 +13,7 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { CommandBus } from '@nestjs/cqrs';
 import { ErrorInterceptor } from 'src/core/interceptor/error.interceptor';
 import { CreateUserDto } from 'src/dto/user/create-user.dto';
 import { UserInfoDto } from 'src/dto/user/user-info.dto';
@@ -22,6 +23,7 @@ import { AuthGuard } from '../auth/auth-guard';
 import { ClassRolesGuard } from '../role/role-guard.class';
 import { HandlerRolesGuard } from '../role/role-guard.handler';
 import { Roles } from '../role/role.decorator';
+import { CreateUserCommand } from './cqrs/create-users.command';
 import { UsersService } from './users.service';
 
 @UseGuards(ClassRolesGuard)
@@ -31,6 +33,7 @@ export class UsersController {
   constructor(
     @Inject(Logger) private readonly logger: LoggerService,
     private readonly usersService: UsersService,
+    private commandBus: CommandBus,
   ) {}
 
   @UseGuards(HandlerRolesGuard)
@@ -45,7 +48,11 @@ export class UsersController {
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
     this.printLoggerServiceLog(createUserDto);
-    await this.usersService.createUser(createUserDto);
+
+    const { name, email, password } = createUserDto;
+    const command = new CreateUserCommand(name, email, password);
+
+    await this.commandBus.execute(command);
   }
 
   @Post('/email-verify')
