@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import emailConfig from './config/email-config';
 import { TypeormConfig } from './config/typeorm-config';
 import { CoreModule } from './core/core.module';
+import { ExceptionModule } from './core/filter/exception.module';
 import { LoggerModule } from './core/logger/my-logger.module';
 import { LoggerMiddleware } from './core/middleware/logger.middleware';
 import { AuthModule } from './services/auth/auth.module';
@@ -31,6 +32,7 @@ import { UsersModule } from './services/users/users.module';
     BaseModule,
     AuthModule,
     UsersModule,
+    ExceptionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

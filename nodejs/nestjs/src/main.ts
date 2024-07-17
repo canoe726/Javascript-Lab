@@ -50,6 +50,7 @@ async function bootstrap() {
   });
   // app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   // app.use(LoggerMiddleware)
+  // app.useGlobalFilters(new HttpExceptionFilter())
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,

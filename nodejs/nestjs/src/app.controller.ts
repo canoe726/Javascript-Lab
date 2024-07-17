@@ -1,12 +1,16 @@
 import {
   Controller,
   Get,
+  Param,
   Req,
+  UseFilters,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { AppService } from './app.service';
+import { BadRequestException } from './core/exception';
+import { HttpExceptionFilter } from './core/filter/http-exception.filter';
 import { AuthGuard } from './services/auth/auth-guard';
 import { User } from './services/auth/auth-user.decorator';
 import { UserEntity } from './services/auth/dto/auth-user.dto';
@@ -24,6 +28,22 @@ export class AppController {
   @Get()
   getHello(@User() user: UserEntity, @Req() req: Request): string {
     return this.appService.getHello();
+  }
+
+  @UseFilters(HttpExceptionFilter)
+  @Get('/error')
+  error() {
+    throw new Error('test');
+
+    return 'success';
+  }
+
+  @Get('/error/:id')
+  errorById(@Param('id') id: string): string {
+    if (+id < 1) {
+      throw new BadRequestException('0보다 커야함', 'id format exception');
+    }
+    return 'success';
   }
 
   @UseGuards(AuthGuard)
