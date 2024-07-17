@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { BatchModule } from './batch/batch.module';
 import emailConfig from './config/email-config';
 import { TypeormConfig } from './config/typeorm-config';
 import { CoreModule } from './core/core.module';
@@ -30,6 +31,7 @@ import { UsersModule } from './services/users/users.module';
     }),
     LoggerModule,
     LoggingModule,
+    BatchModule,
     CoreModule,
     BaseModule,
     AuthModule,
