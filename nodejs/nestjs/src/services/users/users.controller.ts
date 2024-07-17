@@ -52,7 +52,7 @@ export class UsersController {
     const { name, email, password } = createUserDto;
     const command = new CreateUserCommand(name, email, password);
 
-    await this.commandBus.execute(command);
+    return await this.commandBus.execute(command);
   }
 
   @Post('/email-verify')
