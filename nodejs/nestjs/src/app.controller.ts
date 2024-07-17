@@ -1,19 +1,16 @@
 import {
   Controller,
   Get,
-  InternalServerErrorException,
   Param,
   Req,
   UseFilters,
   UseGuards,
-  UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { AppService } from './app.service';
 import { BadRequestException } from './core/exception';
 import { HttpExceptionFilter } from './core/filter/http-exception.filter';
-import { ErrorInterceptor } from './core/interceptor/error.interceptor';
 import { UserEntity } from './dto/auth/auth-user.dto';
 import { AuthGuard } from './services/auth/auth-guard';
 import { User } from './services/auth/auth-user.decorator';
@@ -53,12 +50,6 @@ export class AppController {
   @Get('/username')
   getHello2(@User('name') name: string): string {
     return name;
-  }
-
-  @UseInterceptors(ErrorInterceptor)
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    throw new InternalServerErrorException();
   }
 
   @UseGuards(AuthGuard)

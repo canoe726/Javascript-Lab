@@ -11,7 +11,9 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { ErrorInterceptor } from 'src/core/interceptor/error.interceptor';
 import { CreateUserDto } from 'src/dto/user/create-user.dto';
 import { UserInfoDto } from 'src/dto/user/user-info.dto';
 import { UserLoginDto } from 'src/dto/user/user-login.dto';
@@ -58,12 +60,14 @@ export class UsersController {
     return await this.usersService.login(userLoginDto);
   }
 
+  @UseInterceptors(ErrorInterceptor)
   @UseGuards(AuthGuard)
   @Get(':id')
   async getUserInfo(
     @Headers() headers,
     @Param('id') userId: string,
   ): Promise<UserInfoDto> {
+    // throw new InternalServerErrorException();
     return await this.usersService.getUserInfo(userId);
   }
 

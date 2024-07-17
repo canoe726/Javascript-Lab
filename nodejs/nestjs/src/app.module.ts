@@ -2,6 +2,8 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { HttpModule } from '@nestjs/axios';
+import { TerminusModule } from '@nestjs/terminus';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BatchModule } from './batch/batch.module';
@@ -12,6 +14,7 @@ import { ExceptionModule } from './core/filter/exception.module';
 import { LoggingModule } from './core/logger/logging.module';
 import { LoggerModule } from './core/logger/my-logger.module';
 import { LoggerMiddleware } from './core/middleware/logger.middleware';
+import { HealthCheckController } from './health-check/health-check.controller';
 import { AuthModule } from './services/auth/auth.module';
 import { BaseModule } from './services/base/base.module';
 import { UsersController } from './services/users/users.controller';
@@ -29,6 +32,8 @@ import { UsersModule } from './services/users/users.module';
       useFactory: TypeormConfig,
       inject: [ConfigService],
     }),
+    TerminusModule,
+    HttpModule,
     LoggerModule,
     LoggingModule,
     BatchModule,
@@ -38,8 +43,11 @@ import { UsersModule } from './services/users/users.module';
     UsersModule,
     ExceptionModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, HealthCheckController],
+  providers: [
+    AppService,
+    // DogHealthIndicator
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
