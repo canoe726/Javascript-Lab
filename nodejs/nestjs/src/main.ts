@@ -7,6 +7,7 @@ import {
 import * as winston from 'winston';
 import * as winstonDaily from 'winston-daily-rotate-file';
 import { AppModule } from './app.module';
+import { TransformInterceptor } from './core/interceptor/transform.interceptor';
 
 const winstonDailyRotateOption = (level: string) => {
   return {
@@ -48,15 +49,16 @@ async function bootstrap() {
       ],
     }),
   });
+  app.useGlobalInterceptors(new TransformInterceptor());
   // app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
   // app.use(LoggerMiddleware)
   // app.useGlobalFilters(new HttpExceptionFilter())
+  // app.useGlobalGuards(new AuthGuard());
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
     }),
   );
-  // app.useGlobalGuards(new AuthGuard());
   await app.listen(3000);
 }
 bootstrap();
