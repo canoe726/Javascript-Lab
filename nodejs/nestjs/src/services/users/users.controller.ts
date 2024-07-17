@@ -12,14 +12,14 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
+import { CreateUserDto } from 'src/dto/user/create-user.dto';
+import { UserInfoDto } from 'src/dto/user/user-info.dto';
+import { UserLoginDto } from 'src/dto/user/user-login.dto';
+import { VerifyEmailDto } from 'src/dto/user/verify-email.dto';
 import { AuthGuard } from '../auth/auth-guard';
 import { ClassRolesGuard } from '../role/role-guard.class';
 import { HandlerRolesGuard } from '../role/role-guard.handler';
 import { Roles } from '../role/role.decorator';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UserInfoDto } from './dto/user-info.dto';
-import { UserLoginDto } from './dto/user-login.dto';
-import { VerifyEmailDto } from './dto/verify-email.dto';
 import { UsersService } from './users.service';
 
 @UseGuards(ClassRolesGuard)

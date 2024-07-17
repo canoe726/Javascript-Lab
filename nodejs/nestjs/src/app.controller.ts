@@ -14,9 +14,9 @@ import { AppService } from './app.service';
 import { BadRequestException } from './core/exception';
 import { HttpExceptionFilter } from './core/filter/http-exception.filter';
 import { ErrorInterceptor } from './core/interceptor/error.interceptor';
+import { UserEntity } from './dto/auth/auth-user.dto';
 import { AuthGuard } from './services/auth/auth-guard';
 import { User } from './services/auth/auth-user.decorator';
-import { UserEntity } from './services/auth/dto/auth-user.dto';
 import { ServiceB } from './services/base/service-b';
 import { CommonService } from './services/common/common.service';
 
