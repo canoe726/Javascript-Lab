@@ -1,7 +1,7 @@
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { EmailService } from 'src/services/email/email.service';
-import { TestEvent } from './test.event';
-import { UserCreatedEvent } from './user-created.event';
+import { TestEvent } from '../domain/test.event';
+import { UserCreatedEvent } from '../domain/user-created.event';
 
 @EventsHandler(UserCreatedEvent, TestEvent)
 export class UserEventsHandlers

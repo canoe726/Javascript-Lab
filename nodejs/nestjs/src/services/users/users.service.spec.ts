@@ -12,7 +12,17 @@ describe('UsersService', () => {
     service = module.get<UsersService>(UsersService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  describe('create', () => {
+    it('should create user', () => {
+      // Given
+      // When
+      // Then
+    });
+
+    it('should throw error when user already exist', () => {
+      // Given
+      // When
+      // Then
+    });
   });
 });

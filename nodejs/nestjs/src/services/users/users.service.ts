@@ -5,14 +5,14 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from 'src/dto/user/create-user.dto';
 import { UserInfoDto } from 'src/dto/user/user-info.dto';
-import { UserLoginDto } from 'src/dto/user/user-login.dto';
-import { UserEntity } from 'src/dto/user/user.entity';
 import { EmailService } from 'src/services/email/email.service';
 import { DataSource, Repository } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import { AuthService } from '../auth/auth.service';
+import { UserEntity } from './infra/db/entity/user.entity';
+import { CreateUserDto } from './interface/dto/create-user.dto';
+import { UserLoginDto } from './interface/dto/user-login.dto';
 
 @Injectable()
 export class UsersService {

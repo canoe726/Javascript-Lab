@@ -1,13 +1,18 @@
-import { Injectable, UnprocessableEntityException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from 'src/dto/user/create-user.dto';
-import { UserEntity } from 'src/dto/user/user.entity';
 import { Repository } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import { IUserRepository } from '../domain/repository/user-repository';
+import { TestEvent } from '../domain/test.event';
+import { UserCreatedEvent } from '../domain/user-created.event';
+import { UserEntity } from '../infra/db/entity/user.entity';
+import { CreateUserDto } from '../interface/dto/create-user.dto';
 import { CreateUserCommand } from './create-users.command';
-import { TestEvent } from './test.event';
-import { UserCreatedEvent } from './user-created.event';
 
 @Injectable()
 @CommandHandler(CreateUserCommand)
@@ -15,6 +20,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   constructor(
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>,
+    @Inject('UserRepository') private userRepository: IUserRepository,
     private eventBus: EventBus,
   ) {}
 
@@ -27,9 +33,9 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
   }
 
   async createUser({ email, name, password }: CreateUserDto) {
-    const userExist = await this.checkUserExists(email);
-    if (userExist) {
-      // TODO: exception handler
+    const user = await this.userRepository.findByEmail(email);
+    // const userExist = await this.checkUserExists(email);
+    if (user) {
       throw new UnprocessableEntityException(
         '해당 이메일로는 가입할 수 없습니다.',
       );

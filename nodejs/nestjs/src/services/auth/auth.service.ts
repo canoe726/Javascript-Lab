@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
-import { UserEntity } from 'src/dto/user/user.entity';
 import { SignInDto } from '../../dto/auth/sign-in.dto';
+import { UserEntity } from '../users/infra/db/entity/user.entity';
 
 @Injectable()
 export class AuthService {

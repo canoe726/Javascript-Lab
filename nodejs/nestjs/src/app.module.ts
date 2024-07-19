@@ -17,7 +17,7 @@ import { LoggerMiddleware } from './core/middleware/logger.middleware';
 import { HealthCheckController } from './health-check/health-check.controller';
 import { AuthModule } from './services/auth/auth.module';
 import { BaseModule } from './services/base/base.module';
-import { UsersController } from './services/users/users.controller';
+import { UsersController } from './services/users/interface/users.controller';
 import { UsersModule } from './services/users/users.module';
 
 @Module({

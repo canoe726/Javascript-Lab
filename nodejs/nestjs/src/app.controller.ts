@@ -2,12 +2,10 @@ import {
   Controller,
   Get,
   Param,
-  Req,
   UseFilters,
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { AppService } from './app.service';
 import { BadRequestException } from './core/exception';
 import { HttpExceptionFilter } from './core/filter/http-exception.filter';
@@ -26,7 +24,7 @@ export class AppController {
   ) {}
 
   @Get()
-  getHello(@User() user: UserEntity, @Req() req: Request): string {
+  getHello(): string {
     return this.appService.getHello();
   }
 
@@ -34,8 +32,6 @@ export class AppController {
   @Get('/error')
   error() {
     throw new Error('test');
-
-    return 'success';
   }
 
   @Get('/error/:id')
