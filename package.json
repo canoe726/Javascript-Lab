@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "ulid": "^2.3.0",
     "vhost": "^3.0.2"
   }
 }

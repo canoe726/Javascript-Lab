@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Connection } from 'nodemailer/lib/mailer';
-import { Repository } from 'typeorm';
+import { Connection, Repository } from 'typeorm';
 import { IUserRepository } from '../../../domain/repository/user-repository';
 import { User } from '../../../domain/user';
 import { UserFactory } from '../../../domain/user.factory';
@@ -35,11 +34,21 @@ export class UserRepository implements IUserRepository {
   }
 
   async save(
+    id: string,
     name: string,
     email: string,
     password: string,
     signupVerifyToken: string,
   ): Promise<void> {
-    //
+    await this.connection.transaction(async (manager) => {
+      const user = new UserEntity();
+      user.id = id;
+      user.name = name;
+      user.email = email;
+      user.password = password;
+      user.signupVerifyToken = signupVerifyToken;
+
+      await manager.save(user);
+    });
   }
 }

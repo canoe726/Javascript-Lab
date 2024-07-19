@@ -27,8 +27,6 @@ export class UserFactory {
     password: string,
     signupVerifyToken: string,
   ) {
-    console.log('reconstitute');
-
     return new User(id, name, email, password, signupVerifyToken);
   }
 }
