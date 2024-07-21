@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Memoization</title>
+    <style>
+      #results li.pass {
+        color: green;
+        text-decoration: none;
+      }
+      #results li.fail {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="results"></ul>
+  </body>
+  <script type="text/javascript">
+    ;(function () {
+      var results
+
+      this.assert = function assert(value, desc) {
+        var li = document.createElement('li')
+        li.className = value ? 'pass' : 'fail'
+        li.appendChild(document.createTextNode(desc))
+        results.appendChild(li)
+
+        if (!value) {
+          li.parentNode.parentNode.className = 'fail'
+        }
+        return li
+      }
+
+      this.test = function test(name, fn) {
+        results = document.getElementById('results')
+        results = assert(true, name).appendChild(document.createElement('ul'))
+        fn()
+      }
+    })()
+
+    function isPrime(value) {
+      if (!isPrime.answer) {
+        isPrime.answer = {}
+      }
+
+      if (isPrime.answer[value] !== null && isPrime.answer[value] !== undefined) {
+        return isPrime.answer[value]
+      }
+
+      var prime = value != 1
+      for (var i = 2; i < value; i++) {
+        if (value % i === 0) {
+          prime = false
+          break
+        }
+      }
+      return (isPrime.answer[value] = prime)
+    }
+
+    function getElements(name) {
+      if (!getElements.cache) {
+        getElements.cache = {}
+      }
+      return (getElements.cache[name] =
+        getElements.cache[name] || document.getElementsByTagName(name))
+    }
+
+    test('isPrime', function () {
+      assert(isPrime(5), '5 is Prime number')
+      console.log(isPrime.answer)
+      assert(isPrime.answer[5], 'returned cached value!')
+    })
+  </script>
+</html>
