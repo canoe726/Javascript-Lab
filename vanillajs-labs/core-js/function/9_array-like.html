@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Memoization</title>
+    <style>
+      #results li.pass {
+        color: green;
+        text-decoration: none;
+      }
+      #results li.fail {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="results"></ul>
+    <input id="first" />
+    <input id="second" />
+  </body>
+  <script type="text/javascript">
+    ;(function () {
+      var results
+
+      this.assert = function assert(value, desc) {
+        var li = document.createElement('li')
+        li.className = value ? 'pass' : 'fail'
+        li.appendChild(document.createTextNode(desc))
+        results.appendChild(li)
+
+        if (!value) {
+          li.parentNode.parentNode.className = 'fail'
+        }
+        return li
+      }
+
+      this.test = function test(name, fn) {
+        results = document.getElementById('results')
+        results = assert(true, name).appendChild(document.createElement('ul'))
+        fn()
+      }
+    })()
+
+    var elems = {
+      length: 0,
+      add: function (elem) {
+        Array.prototype.push.call(this, elem)
+      },
+      gather: function (id) {
+        this.add(document.getElementById(id))
+      },
+    }
+
+    elems.gather('first')
+    test('first', function () {
+      assert(elems.length === 1 && elems[0].nodeType, 'length check')
+    })
+
+    elems.gather('second')
+    test('second', function () {
+      assert(elems.length === 2 && elems[1].nodeType, 'length check')
+    })
+
+    console.log('elems: ', elems)
+  </script>
+</html>

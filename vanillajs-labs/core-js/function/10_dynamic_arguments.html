@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Memoization</title>
+    <style>
+      #results li.pass {
+        color: green;
+        text-decoration: none;
+      }
+      #results li.fail {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="results"></ul>
+  </body>
+  <script type="text/javascript">
+    ;(function () {
+      var results
+
+      this.assert = function assert(value, desc) {
+        var li = document.createElement('li')
+        li.className = value ? 'pass' : 'fail'
+        li.appendChild(document.createTextNode(desc))
+        results.appendChild(li)
+
+        if (!value) {
+          li.parentNode.parentNode.className = 'fail'
+        }
+        return li
+      }
+
+      this.test = function test(name, fn) {
+        results = document.getElementById('results')
+        results = assert(true, name).appendChild(document.createElement('ul'))
+        fn()
+      }
+    })()
+
+    function smallest(array) {
+      return Math.min.apply(Math, array)
+    }
+
+    function largest(array) {
+      return Math.max.apply(Math, array)
+    }
+
+    function merge(root) {
+      for (var i = 1; i < arguments.length; i++) {
+        for (var key in arguments[i]) {
+          root[key] = arguments[i][key]
+        }
+      }
+      return root
+    }
+
+    function multiMax(multi) {
+      const restMax = Math.max.apply(Math, Array.prototype.slice.call(arguments, 1))
+
+      return multi * restMax
+    }
+
+    function myTest() {}
+    function myTest2(a, b) {}
+
+    /**
+     * @description
+     * function overloading
+     */
+    function addMethod(object, name, fn) {
+      var old = object[name]
+      object[name] = function () {
+        if (fn.length === arguments.length) {
+          return fn.apply(this, arguments)
+        } else if (typeof old === 'function') {
+          return old.apply(this, arguments)
+        }
+      }
+    }
+
+    function isFunction(fn) {
+      return Object.prototype.toString.call(fn) === '[object Function]'
+    }
+
+    test('Math', () => {
+      assert(smallest([0, 1, 2, 3]) === 0, 'find Min')
+      assert(largest([0, 1, 2, 3]) === 3, 'find Max')
+    })
+
+    test('Merge', () => {
+      let merged = merge({ name: 'Batou' }, { city: 'Nilhama' })
+
+      assert(merge.name === 'Batou', 'name exist')
+      assert(merge.city === 'Nilhama', 'city exist')
+    })
+
+    test('multi', () => {
+      assert(multiMax(3, 1, 2, 3) === 9, 'multi max')
+    })
+
+    test('length in function', () => {
+      assert(myTest.length === 0, 'no parameters')
+      assert(myTest2.length === 2, 'has 2 parameters')
+    })
+
+    test('function override', () => {
+      var ninja = {}
+      addMethod(ninja, 'whatever', function () {
+        return 0
+      })
+      addMethod(ninja, 'whatever', function (a) {
+        return a + 1
+      })
+      addMethod(ninja, 'whatever', function (a, b) {
+        return a * b
+      })
+
+      assert(ninja['whatever']() === 0, 'is zero')
+      assert(ninja['whatever'](1) === 2, 'plus one')
+      assert(ninja['whatever'](2, 3) === 6, 'multiply two')
+    })
+
+    test('is function', () => {
+      function ninja() {}
+
+      assert(typeof ninja === 'function', 'type is function') // cross browsing issue occurred
+      assert(isFunction(ninja), 'ninja is function')
+    })
+  </script>
+</html>
