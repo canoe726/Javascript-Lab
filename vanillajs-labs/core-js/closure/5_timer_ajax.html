@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Memoization</title>
+    <style>
+      #results li.pass {
+        color: green;
+        text-decoration: none;
+      }
+      #results li.fail {
+        color: red;
+      }
+      #box {
+        width: 24px;
+        height: 24px;
+        position: fixed;
+        background-color: red;
+      }
+      #box2 {
+        width: 20px;
+        height: 20px;
+        position: fixed;
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="results"></ul>
+    <div id="testSubject"></div>
+    <button type="button" id="testButton">Go!</button>
+    <div id="box"></div>
+    <div id="box2"></div>
+  </body>
+  <script type="text/javascript">
+    ;(function () {
+      var results
+
+      this.assert = function assert(value, desc) {
+        var li = document.createElement('li')
+        li.className = value ? 'pass' : 'fail'
+        li.appendChild(document.createTextNode(desc))
+        results.appendChild(li)
+
+        if (!value) {
+          li.parentNode.parentNode.className = 'fail'
+        }
+        return li
+      }
+
+      this.test = function test(name, fn) {
+        results = document.getElementById('results')
+        results = assert(true, name).appendChild(document.createElement('ul'))
+        fn()
+      }
+    })()
+
+    const testButtonElement = document.getElementById('testButton')
+    testButtonElement.addEventListener('click', function () {
+      var elem = document.getElementById('testSubject')
+      elem.innerHTML = '로딩중...'
+
+      new Promise((res, rej) => {
+        setTimeout(() => {
+          res(`fetch completed!`)
+        }, 2000)
+      }).then((res) => {
+        elem.innerHTML = res
+      })
+    })
+
+    function animateIt(elementId) {
+      var elem = document.getElementById(elementId)
+      var tick = 0
+
+      var timer = setInterval(function () {
+        if (tick < 100) {
+          elem.style.left = elem.style.top = tick + 'px'
+          tick++
+        } else {
+          clearInterval(timer)
+
+          test('animate', () => {
+            assert(tick === 100, 'closure access tick variable')
+            assert(elem, 'closure access elem')
+            assert(timer, 'closure access timer')
+          })
+        }
+      }, 10)
+    }
+    animateIt('box')
+    animateIt('box2')
+  </script>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Memoization</title>
+    <style>
+      #results li.pass {
+        color: green;
+        text-decoration: none;
+      }
+      #results li.fail {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="results"></ul>
+  </body>
+  <script type="text/javascript">
+    ;(function () {
+      var results
+
+      this.assert = function assert(value, desc) {
+        var li = document.createElement('li')
+        li.className = value ? 'pass' : 'fail'
+        li.appendChild(document.createTextNode(desc))
+        results.appendChild(li)
+
+        if (!value) {
+          li.parentNode.parentNode.className = 'fail'
+        }
+        return li
+      }
+
+      this.test = function test(name, fn) {
+        results = document.getElementById('results')
+        results = assert(true, name).appendChild(document.createElement('ul'))
+        fn()
+      }
+    })()
+
+    function Ninja() {
+      var feints = 0
+
+      this.getFeints = function () {
+        return feints
+      }
+      this.feint = function () {
+        feints++
+      }
+    }
+
+    var ninja = new Ninja()
+    ninja.feint()
+
+    test('ninja', () => {
+      assert(ninja.getFeints() === 1, 'get inner variable')
+      assert(ninja.feints === undefined, "can't get private variable")
+    })
+  </script>
+</html>
