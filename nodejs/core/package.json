@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "async": "^3.2.5",
+    "mime": "^4.0.4",
     "step": "^1.0.0"
   }
 }
