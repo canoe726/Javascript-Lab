@@ -10,7 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "async": "^3.2.5",
+    "connect": "^3.7.0",
+    "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.1.0",
     "mime": "^4.0.4",
+    "morgan": "^1.10.0",
+    "serve-favicon": "^2.5.0",
+    "serve-static": "^1.15.0",
     "step": "^1.0.0"
   }
 }
