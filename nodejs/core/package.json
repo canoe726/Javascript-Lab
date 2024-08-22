@@ -13,6 +13,8 @@
     "connect": "^3.7.0",
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.1.0",
+    "crossroads": "^0.12.2",
+    "http-proxy": "^1.18.1",
     "mime": "^4.0.4",
     "morgan": "^1.10.0",
     "serve-favicon": "^2.5.0",
