@@ -1,0 +1,32 @@
+doctype html
+html(lang="en")
+  head
+    title Zowie! Top scores
+    meta(charset="utf-8")
+    script(type="text/javascript", src="dashboard.js")
+    link(rel="stylesheet", href="main.css")
+  body
+    table
+      caption Submit
+        tr
+          th Score 
+          th Name 
+          th Date 
+        tr
+          td input
+
+    <br/>
+
+    table 
+      caption Zowie! Top Scores! 
+        tr
+          th Score 
+          th Name 
+          th Date 
+          if scores.length 
+            each score in scores
+              if score 
+                tr 
+                  td #{score.score}
+                  td #{score.first_name} #{score.last_name}
+                  td #{score.date}

@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^22.7.4",
+    "net": "^1.0.2",
+    "pug": "^3.0.3",
     "redis": "^4.7.0"
   }
 }
