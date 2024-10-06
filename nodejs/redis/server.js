@@ -1,6 +1,4 @@
 const net = require('net')
-const fs = require('fs')
-const pug = require('pug')
 const redis = require('redis')
 
 const username = 'default'
@@ -14,22 +12,22 @@ const server = net.createServer(async function (conn) {
   const client = redis.createClient({
     url: `redis://${username}:${password}@${host}`,
   })
-  await client.connect()
   client.on('error', function (err) {
     console.log('redis error: ', err)
   })
-  // client.select(dbNumber)
+  await client.connect()
 
   conn.on('data', function (data) {
     console.log(`${data}`)
 
+    client.hSet('test', 'first_name', 'love')
+    client.zAdd('Zowie!', {
+      score: 10000,
+      value: 'test',
+    })
     // try {
     //   const obj = JSON.parse(data)
     //   console.log('obj: ', obj)
-
-    //   client.hSet(obj?.member, 'first_name', obj?.first_name, redis.print)
-
-    //   client.zAdd('Zowie!', parseInt(obj?.score), obj?.member)
 
     //   renderDashboard(conn)
     // } catch (err) {
