@@ -2,12 +2,10 @@ var createError = require('http-errors')
 var express = require('express')
 var path = require('path')
 var cookieParser = require('cookie-parser')
+var cookieSession = require('cookie-session')
 var logger = require('morgan')
 var bodyParser = require('body-parser')
 var methodOverride = require('method-override')
-
-var indexRouter = require('./routes/index')
-var usersRouter = require('./routes/users')
 
 var app = express()
 
@@ -16,11 +14,8 @@ const errorHandler = (err, req, res, next) => {
   res.render('error', { error: err })
 }
 
-export const errorAsyncController = (fn) => {
-  return (req, res, next) => {
-    fn(req, res, next).catch(next)
-  }
-}
+var indexRouter = require('./routes/index')
+var usersRouter = require('./routes/users')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -30,6 +25,13 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
+app.use(
+  cookieSession({
+    name: 'session',
+    keys: ['express-server'],
+    maxAge: 24 * 60 * 60 * 1000,
+  }),
+)
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(bodyParser())
 app.use(methodOverride())
