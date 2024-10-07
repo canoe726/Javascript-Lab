@@ -7,11 +7,11 @@ const password = 'ro66JS2NFNWmrtY72mZhYgd78ZLA1hSK'
 const host = 'redis-10301.c257.us-east-1-3.ec2.redns.redis-cloud.com:10301'
 
 // 더미 데이터 (테스트용)
-const scoresData = [
-  { score: 1500, first_name: 'John', last_name: 'Doe', date: '2023-10-01' },
-  { score: 1400, first_name: 'Jane', last_name: 'Smith', date: '2023-10-02' },
-  { score: 1350, first_name: 'Jack', last_name: 'Sparrow', date: '2023-10-03' },
-]
+// const scoresData = [
+//   { score: 1500, first_name: 'John', last_name: 'Doe', date: '2023-10-01' },
+//   { score: 1400, first_name: 'Jane', last_name: 'Smith', date: '2023-10-02' },
+//   { score: 1350, first_name: 'Jack', last_name: 'Sparrow', date: '2023-10-03' },
+// ]
 
 const getRedisClient = async () => {
   const redisClient = redis.createClient({
@@ -21,20 +21,17 @@ const getRedisClient = async () => {
     console.log('redis error: ', err)
   })
   await redisClient.connect()
-
   return redisClient
 }
 
 const server = net.createServer(async function (conn) {
-  console.log('dashboard connected')
-
+  console.log('dashboard html is connected')
   const redisClient = await getRedisClient()
-
   const scores = await redisClient.zRange('Zowie!', 0, 5, {
-    BY: 'SCORE',
     REV: true,
   })
-  console.log('scores: ', scores)
+  const response = await Promise.allSettled(scores.map((scoreKey) => redisClient.hGetAll(scoreKey)))
+  const scoresData = response.filter((res) => res.status === 'fulfilled').map((res) => res.value)
 
   const compiledFunction = pug.compileFile('./dashboard.pug')
   const html = compiledFunction({ scores: scoresData })
@@ -52,5 +49,5 @@ server.on('error', function (err) {
 })
 
 server.listen(8125, function () {
-  console.log('listening on port 8125')
+  console.log('listening on port http://localhost:8125')
 })

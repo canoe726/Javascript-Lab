@@ -1,0 +1,11 @@
+GET /robots.txt HTTP
+GET /weblog HTTP
+GET /writings/fiction?page=10 HTTP
+GET /images/kite.jpg HTTP
+POST /node/145 HTTP
+GET /culture/book-reviews/silkworm HTTP
+PATCH /feed/atom/ HTTP
+GET /images/visitmologo.jpg HTTP
+GET /images/canvas.png HTTP
+GET /sites/default/files/paws.png HTTP
+GET /feeds/atom.xml HTTP
