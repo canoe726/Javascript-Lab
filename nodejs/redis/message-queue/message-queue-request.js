@@ -5,7 +5,7 @@ const client = new net.Socket()
 client.setEncoding('utf-8')
 
 client.connect('3000', function () {
-  console.log('connected to server')
+  console.log('connected to message-queue-server')
 })
 
 const logs = spawn('tail', ['-f', './access.log'])
@@ -14,10 +14,6 @@ logs.stdout.setEncoding('utf-8')
 logs.stdout.on('data', function (data) {
   const logData = data.split('\n')
 
-  // client.write(Buffer.from(`HTTP/1.1 200 OK\r\n`))
-  // client.write(Buffer.from(`Content-Type: text/html;\r\n`))
-  // client.write(Buffer.from(`\r\n`))
-
   logData?.forEach((logItem) => {
     const urlRegex = /GET\s(\S+)\sHTTP/g
     const imageRegex = /\.gif|\.png|\.jpg|\.svg/
@@ -25,11 +21,12 @@ logs.stdout.on('data', function (data) {
     const parts = urlRegex.exec(logItem)
     const tests = imageRegex.test(parts?.[1])
     if (tests && parts?.[1]) {
-      client.write(parts[1])
+      console.log('parts: ', parts?.[1])
+      client.write(`${parts[1]}\n`)
     }
   })
 
-  // client.write(Buffer.from(`\r\n`))
+  logs.kill()
 })
 
 logs.stderr.on('data', function (data) {
