@@ -1,0 +1,902 @@
+[
+  {
+    "query": "한배 치킨(주)",
+    "intent": "PLACE_NAME",
+    "description": "Animi adipisci qui architecto facilis adipisci tenetur.",
+    "created_by": "gimgyeongja@ijeongseo.com",
+    "created_at": "2021-10-29T15:24:15",
+    "updated_by": "cson@daum.net",
+    "updated_at": "2022-09-30T15:24:15"
+  },
+  {
+    "query": "김박장 고기",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Itaque nulla sapiente non commodi quod libero.",
+    "created_by": "gbae@yuhanhoesa.net",
+    "created_at": "2024-04-12T18:14:59",
+    "updated_by": "gimmyeongja@yu.net",
+    "updated_at": "2024-11-21T18:14:59"
+  },
+  {
+    "query": "(유) 최 고기",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Accusantium temporibus ea mollitia itaque fugiat.",
+    "created_by": "minjae55@naver.com",
+    "created_at": "2024-04-28T20:45:21",
+    "updated_by": "si@gmail.com",
+    "updated_at": "2024-07-09T20:45:21"
+  },
+  {
+    "query": "정김 치킨",
+    "intent": "PLACE_NAME",
+    "description": "Dolores ab quos eius sed animi.",
+    "created_by": "xheo@jusighoesa.com",
+    "created_at": "2023-12-05T06:49:35",
+    "updated_by": "baegjia@yu.kr",
+    "updated_at": "2024-07-16T06:49:35"
+  },
+  {
+    "query": "주식회사 윤황박 맛집",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Necessitatibus numquam explicabo eum eos maxime.",
+    "created_by": "junhyeogbag@daum.net",
+    "created_at": "2020-03-25T03:08:08",
+    "updated_by": "soneunji@nate.com",
+    "updated_at": "2020-10-25T03:08:08"
+  },
+  {
+    "query": "민우강 베이커리",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Sunt voluptate dolorum temporibus hic quos sint praesentium.",
+    "created_by": "gangcaeweon@munigim.org",
+    "created_at": "2023-01-21T15:27:55",
+    "updated_by": "eunju46@live.com",
+    "updated_at": "2023-03-15T15:27:55"
+  },
+  {
+    "query": "유한회사 오 베이커리",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Animi error minima voluptate eos laboriosam.",
+    "created_by": "gjang@bagjoi.org",
+    "created_at": "2022-11-06T00:01:03",
+    "updated_by": "anjeongsug@igim.com",
+    "updated_at": "2023-02-19T00:01:03"
+  },
+  {
+    "query": "김이류 카페",
+    "intent": "PLACE_NAME",
+    "description": "Dignissimos velit veritatis natus beatae eveniet unde.",
+    "created_by": "sanghungang@dreamwiz.com",
+    "created_at": "2022-04-27T16:31:54",
+    "updated_by": "yeonghyiji@ju.kr",
+    "updated_at": "2022-07-19T16:31:54"
+  },
+  {
+    "query": "(주) 최이박 카페",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Ipsam dolorum accusantium soluta eligendi eaque.",
+    "created_by": "donghyeoni@jusighoesa.com",
+    "created_at": "2022-03-24T15:53:29",
+    "updated_by": "acoe@hotmail.com",
+    "updated_at": "2022-05-12T15:53:29"
+  },
+  {
+    "query": "김한 고기",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Reiciendis rem saepe inventore eos voluptatum nam.",
+    "created_by": "gyeongsu73@naver.com",
+    "created_at": "2020-12-07T00:33:02",
+    "updated_by": "gwangsu87@nate.com",
+    "updated_at": "2021-06-02T00:33:02"
+  },
+  {
+    "query": "김장 베이커리",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Vitae voluptatem repellendus possimus laudantium vero beatae.",
+    "created_by": "gimyeongho@daum.net",
+    "created_at": "2023-04-26T23:01:25",
+    "updated_by": "van@live.com",
+    "updated_at": "2024-04-21T23:01:25"
+  },
+  {
+    "query": "(유) 김 카페",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Veniam adipisci soluta deserunt ad.",
+    "created_by": "yujingim@yu.com",
+    "created_at": "2020-06-12T05:44:57",
+    "updated_by": "gimmijeong@dreamwiz.com",
+    "updated_at": "2021-05-13T05:44:57"
+  },
+  {
+    "query": "오박김 맛집",
+    "intent": "PLACE_NAME",
+    "description": "Maiores quas libero ducimus placeat nulla.",
+    "created_by": "jeongho75@yu.net",
+    "created_at": "2020-04-22T03:02:59",
+    "updated_by": "gimeungyeong@ju.com",
+    "updated_at": "2021-03-06T03:02:59"
+  },
+  {
+    "query": "유한회사 김최송 베이커리",
+    "intent": "PLACE_NAME",
+    "description": "Vero dolores voluptas nihil vel repudiandae illum.",
+    "created_by": "jihyeongim@iigim.kr",
+    "created_at": "2022-08-25T11:23:28",
+    "updated_by": "gweonsiu@anha.kr",
+    "updated_at": "2023-06-22T11:23:28"
+  },
+  {
+    "query": "권김 고기",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Laboriosam ratione repellat blanditiis quisquam qui odit.",
+    "created_by": "si@gmail.com",
+    "created_at": "2022-01-05T23:14:29",
+    "updated_by": "migyeongbag@hotmail.com",
+    "updated_at": "2022-07-24T23:14:29"
+  },
+  {
+    "query": "이박 맛집",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Eaque placeat minima nemo tempora quas atque.",
+    "created_by": "gimjeongja@nate.com",
+    "created_at": "2024-09-06T13:07:31",
+    "updated_by": "minji56@gmail.com",
+    "updated_at": "2024-09-30T13:07:31"
+  },
+  {
+    "query": "(유) 박 카페",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Voluptas ducimus quibusdam rerum id.",
+    "created_by": "gyeongsugi@yu.com",
+    "created_at": "2023-07-11T03:15:33",
+    "updated_by": "yejingang@yunyanggo.kr",
+    "updated_at": "2024-05-16T03:15:33"
+  },
+  {
+    "query": "유한회사 김이권 치킨",
+    "intent": "PLACE_NAME",
+    "description": "Provident saepe est quam eos.",
+    "created_by": "gimjeongung@gimheo.com",
+    "created_at": "2021-02-07T08:23:43",
+    "updated_by": "sugja89@nate.com",
+    "updated_at": "2021-12-19T08:23:43"
+  },
+  {
+    "query": "김이 카페",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Possimus nihil dolore sit.",
+    "created_by": "yejii@gmail.com",
+    "created_at": "2021-06-27T08:28:07",
+    "updated_by": "sgim@jusighoesa.org",
+    "updated_at": "2022-04-15T08:28:07"
+  },
+  {
+    "query": "유한회사 이 치킨",
+    "intent": "PLACE_NAME",
+    "description": "Ipsum harum fugiat reprehenderit.",
+    "created_by": "ogwangsu@gimiseo.kr",
+    "created_at": "2025-01-18T03:06:20",
+    "updated_by": "ganggyeongsu@ii.com",
+    "updated_at": "2025-02-09T03:06:20"
+  },
+  {
+    "query": "(유) 송 치킨",
+    "intent": "PLACE_NAME",
+    "description": "Laboriosam modi inventore tempora distinctio enim.",
+    "created_by": "pbag@iibag.kr",
+    "created_at": "2023-10-01T16:57:16",
+    "updated_by": "ni@nate.com",
+    "updated_at": "2024-03-17T16:57:16"
+  },
+  {
+    "query": "(주) 김 치킨",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Inventore natus dolorum maiores mollitia facilis sunt natus.",
+    "created_by": "ujin79@gangi.com",
+    "created_at": "2024-02-08T06:38:07",
+    "updated_by": "ggim@dreamwiz.com",
+    "updated_at": "2025-01-20T06:38:07"
+  },
+  {
+    "query": "주식회사 이 맛집",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Voluptate aliquid ratione quod saepe.",
+    "created_by": "di@daum.net",
+    "created_at": "2023-04-29T16:30:16",
+    "updated_by": "ki@hanmail.net",
+    "updated_at": "2023-06-07T16:30:16"
+  },
+  {
+    "query": "주식회사 김 고기",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Eveniet quae impedit mollitia accusantium occaecati.",
+    "created_by": "jiyeoni@ju.kr",
+    "created_at": "2021-01-19T08:38:23",
+    "updated_by": "ihan@gimgim.org",
+    "updated_at": "2021-03-30T08:38:23"
+  },
+  {
+    "query": "권한 고기",
+    "intent": "PLACE_NAME",
+    "description": "Nostrum sapiente culpa reiciendis esse natus.",
+    "created_by": "juweon07@ju.com",
+    "created_at": "2023-08-27T22:20:52",
+    "updated_by": "seoyeon78@live.com",
+    "updated_at": "2024-08-06T22:20:52"
+  },
+  {
+    "query": "주식회사 김류김 카페",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Aspernatur culpa quis mollitia at odit rerum.",
+    "created_by": "seoyeong69@hotmail.com",
+    "created_at": "2020-06-22T00:34:43",
+    "updated_by": "jeongungi@live.com",
+    "updated_at": "2021-01-11T00:34:43"
+  },
+  {
+    "query": "주식회사 김최곽 베이커리",
+    "intent": "PLACE_NAME",
+    "description": "Assumenda praesentium cum dolore sunt atque.",
+    "created_by": "ihwang@yuhanhoesa.net",
+    "created_at": "2022-07-04T02:00:43",
+    "updated_by": "yejunhwang@ogim.net",
+    "updated_at": "2023-01-29T02:00:43"
+  },
+  {
+    "query": "(주) 고 고기",
+    "intent": "PLACE_NAME",
+    "description": "Reiciendis commodi aliquam saepe eaque cum.",
+    "created_by": "di@ju.net",
+    "created_at": "2022-01-26T20:39:39",
+    "updated_by": "jinu96@annam.com",
+    "updated_at": "2022-07-17T20:39:39"
+  },
+  {
+    "query": "황하 치킨",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Itaque deleniti itaque quam minima occaecati.",
+    "created_by": "doyun44@nate.com",
+    "created_at": "2022-02-02T12:16:25",
+    "updated_by": "ci@ju.com",
+    "updated_at": "2022-03-21T12:16:25"
+  },
+  {
+    "query": "(유) 이최김 카페",
+    "intent": "PLACE_NAME",
+    "description": "Perspiciatis unde quis maxime ut.",
+    "created_by": "cjang@dreamwiz.com",
+    "created_at": "2020-04-26T07:59:43",
+    "updated_by": "minjun24@daum.net",
+    "updated_at": "2020-06-06T07:59:43"
+  },
+  {
+    "query": "윤김 베이커리",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Tempore deleniti tenetur.",
+    "created_by": "seohyeongim@songi.kr",
+    "created_at": "2023-07-22T08:38:03",
+    "updated_by": "yeongceolji@jusighoesa.kr",
+    "updated_at": "2024-06-29T08:38:03"
+  },
+  {
+    "query": "허김 치킨",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Repudiandae atque rerum aut.",
+    "created_by": "xmun@ju.net",
+    "created_at": "2022-01-18T05:25:07",
+    "updated_by": "byeongceoli@yu.com",
+    "updated_at": "2022-08-05T05:25:07"
+  },
+  {
+    "query": "주식회사 권손윤 고기",
+    "intent": "PLACE_NAME",
+    "description": "Dolorem ipsa ut rem consectetur magni laborum architecto.",
+    "created_by": "hayungim@ii.kr",
+    "created_at": "2021-04-18T15:21:11",
+    "updated_by": "tcoe@yanggimgim.com",
+    "updated_at": "2021-12-05T15:21:11"
+  },
+  {
+    "query": "(주) 백 치킨",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Recusandae molestiae minima ipsa culpa sint perferendis.",
+    "created_by": "jeongja06@hanmail.net",
+    "created_at": "2021-01-19T05:19:43",
+    "updated_by": "baejieun@jusighoesa.kr",
+    "updated_at": "2021-06-06T05:19:43"
+  },
+  {
+    "query": "주식회사 문이김 카페",
+    "intent": "PLACE_NAME",
+    "description": "Sapiente nulla aliquam accusantium debitis.",
+    "created_by": "ganggeonu@hanmail.net",
+    "created_at": "2023-05-17T09:12:12",
+    "updated_by": "yujinca@nate.com",
+    "updated_at": "2023-08-04T09:12:12"
+  },
+  {
+    "query": "이김 맛집",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Voluptas non soluta quisquam accusamus.",
+    "created_by": "ogsun54@ju.kr",
+    "created_at": "2024-06-13T15:21:19",
+    "updated_by": "jieun92@hotmail.com",
+    "updated_at": "2024-12-03T15:21:19"
+  },
+  {
+    "query": "유한회사 김 맛집",
+    "intent": "PLACE_NAME",
+    "description": "Ipsam odio voluptas possimus.",
+    "created_by": "gimareum@dreamwiz.com",
+    "created_at": "2022-05-20T08:51:09",
+    "updated_by": "gimyeongho@iseoi.com",
+    "updated_at": "2023-02-08T08:51:09"
+  },
+  {
+    "query": "김하 카페",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Perspiciatis quidem blanditiis.",
+    "created_by": "seonghyeonbae@naver.com",
+    "created_at": "2023-12-06T15:24:35",
+    "updated_by": "gjang@gmail.com",
+    "updated_at": "2024-06-01T15:24:35"
+  },
+  {
+    "query": "김구 고기",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Cupiditate tempora quas.",
+    "created_by": "nayeongsig@daum.net",
+    "created_at": "2022-03-19T00:34:33",
+    "updated_by": "bagcaeweon@gimyang.org",
+    "updated_at": "2022-10-13T00:34:33"
+  },
+  {
+    "query": "진박윤 치킨",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Mollitia voluptatem dicta.",
+    "created_by": "seungmin88@ju.com",
+    "created_at": "2022-02-05T08:20:13",
+    "updated_by": "hyeonjeong04@bagcoeseo.com",
+    "updated_at": "2022-06-15T08:20:13"
+  },
+  {
+    "query": "(유) 지오박 맛집",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Nisi eius quod veniam itaque cumque.",
+    "created_by": "ksin@gimgimi.com",
+    "created_at": "2023-01-28T03:48:42",
+    "updated_by": "ygweon@iiyu.org",
+    "updated_at": "2023-11-25T03:48:42"
+  },
+  {
+    "query": "(유) 임이최 베이커리",
+    "intent": "PLACE_NAME",
+    "description": "Voluptates quod voluptas pariatur a explicabo.",
+    "created_by": "gimjiu@ju.kr",
+    "created_at": "2020-10-14T04:49:14",
+    "updated_by": "yeongsuni@nate.com",
+    "updated_at": "2021-02-20T04:49:14"
+  },
+  {
+    "query": "유한회사 김 베이커리",
+    "intent": "PLACE_NAME",
+    "description": "Eos quos quaerat quos.",
+    "created_by": "imyeongja@naver.com",
+    "created_at": "2021-01-01T04:13:38",
+    "updated_by": "jeongsungweon@baghongno.com",
+    "updated_at": "2021-09-13T04:13:38"
+  },
+  {
+    "query": "주식회사 백 치킨",
+    "intent": "PLACE_NAME",
+    "description": "Aspernatur sit hic.",
+    "created_by": "hgim@janggim.kr",
+    "created_at": "2024-07-28T18:40:45",
+    "updated_by": "ii@dreamwiz.com",
+    "updated_at": "2025-03-02T18:40:45"
+  },
+  {
+    "query": "김이장 맛집",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Aliquam harum et porro.",
+    "created_by": "xseo@naver.com",
+    "created_at": "2025-01-18T12:44:22",
+    "updated_by": "seongjinyang@jusighoesa.com",
+    "updated_at": "2025-06-04T12:44:22"
+  },
+  {
+    "query": "배조 맛집",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Tenetur consequatur in recusandae.",
+    "created_by": "seoyeong97@gimicoe.com",
+    "created_at": "2021-02-03T03:48:19",
+    "updated_by": "sanghun21@gimcoegim.org",
+    "updated_at": "2021-11-01T03:48:19"
+  },
+  {
+    "query": "이남 카페",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Cumque praesentium ullam.",
+    "created_by": "ujini@bagigim.org",
+    "created_at": "2022-03-07T22:03:52",
+    "updated_by": "eungyeong39@dreamwiz.com",
+    "updated_at": "2022-12-24T22:03:52"
+  },
+  {
+    "query": "김이강 카페",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Nemo quidem sit laboriosam totam.",
+    "created_by": "yejinmun@live.com",
+    "created_at": "2023-10-31T06:37:04",
+    "updated_by": "pbaeg@hanmail.net",
+    "updated_at": "2023-12-03T06:37:04"
+  },
+  {
+    "query": "(주) 박 베이커리",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Dolor perferendis illum.",
+    "created_by": "uan@daum.net",
+    "created_at": "2022-08-21T13:45:06",
+    "updated_by": "ggim@gimjangi.com",
+    "updated_at": "2022-09-16T13:45:06"
+  },
+  {
+    "query": "허이김 맛집",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Officia alias rem sunt asperiores.",
+    "created_by": "gimminseog@hotmail.com",
+    "created_at": "2021-03-08T05:22:54",
+    "updated_by": "yeongjagim@ju.com",
+    "updated_at": "2021-10-31T05:22:54"
+  },
+  {
+    "query": "유한회사 김최임 맛집",
+    "intent": "PLACE_NAME",
+    "description": "Iusto vitae ipsam tempore ratione alias.",
+    "created_by": "jaeho92@jusighoesa.com",
+    "created_at": "2023-08-02T05:34:55",
+    "updated_by": "minjaehong@daum.net",
+    "updated_at": "2024-06-08T05:34:55"
+  },
+  {
+    "query": "김장박 치킨",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Nesciunt odit neque.",
+    "created_by": "miyeong45@jogim.com",
+    "created_at": "2021-07-16T06:11:15",
+    "updated_by": "seungminbae@ju.com",
+    "updated_at": "2022-06-14T06:11:15"
+  },
+  {
+    "query": "윤권 맛집",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Aliquam adipisci optio eligendi ex similique ipsam cumque.",
+    "created_by": "junho57@naver.com",
+    "created_at": "2022-10-16T22:40:09",
+    "updated_by": "eunjigim@jusighoesa.net",
+    "updated_at": "2022-10-29T22:40:09"
+  },
+  {
+    "query": "박이이 고기",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Dolore adipisci veniam nulla.",
+    "created_by": "sanghungim@songmun.net",
+    "created_at": "2024-05-30T04:48:27",
+    "updated_by": "gimsanghun@naver.com",
+    "updated_at": "2025-03-30T04:48:27"
+  },
+  {
+    "query": "김권 카페",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Iure voluptatibus odit facilis repellendus sunt.",
+    "created_by": "yejungim@hotmail.com",
+    "created_at": "2024-04-28T21:19:01",
+    "updated_by": "di@hotmail.com",
+    "updated_at": "2024-06-12T21:19:01"
+  },
+  {
+    "query": "강김유 카페",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Perspiciatis nam eos tempora explicabo possimus.",
+    "created_by": "jaehyeon18@daum.net",
+    "created_at": "2020-10-07T11:30:46",
+    "updated_by": "hi@daum.net",
+    "updated_at": "2021-02-18T11:30:46"
+  },
+  {
+    "query": "황오오 맛집",
+    "intent": "PLACE_NAME",
+    "description": "Ex eum perferendis sed unde.",
+    "created_by": "sonjia@yuhanhoesa.kr",
+    "created_at": "2023-01-06T07:24:51",
+    "updated_by": "ogim@igim.com",
+    "updated_at": "2023-11-30T07:24:51"
+  },
+  {
+    "query": "(유) 김 베이커리",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Praesentium soluta ducimus maxime.",
+    "created_by": "zgim@dreamwiz.com",
+    "created_at": "2022-11-14T13:53:04",
+    "updated_by": "psong@live.com",
+    "updated_at": "2023-04-04T13:53:04"
+  },
+  {
+    "query": "박김 고기",
+    "intent": "PLACE_NAME",
+    "description": "Ea natus eaque sunt.",
+    "created_by": "jeongsigyun@daum.net",
+    "created_at": "2021-01-09T08:29:45",
+    "updated_by": "cunjai@gimgimgim.net",
+    "updated_at": "2021-06-23T08:29:45"
+  },
+  {
+    "query": "(주) 김이김 맛집",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Laboriosam ullam reiciendis suscipit libero consequuntur.",
+    "created_by": "jongsu50@yugimgim.com",
+    "created_at": "2024-10-09T19:31:37",
+    "updated_by": "fsim@jusighoesa.com",
+    "updated_at": "2025-09-04T19:31:37"
+  },
+  {
+    "query": "최남 고기",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Ab quos exercitationem doloremque ipsam consequuntur.",
+    "created_by": "hyeonjeong06@sonigim.com",
+    "created_at": "2023-01-02T17:10:38",
+    "updated_by": "hyeonjiyun@live.com",
+    "updated_at": "2023-07-10T17:10:38"
+  },
+  {
+    "query": "(주) 홍한이 맛집",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Necessitatibus omnis quas sunt alias rerum.",
+    "created_by": "gimdoyun@jusighoesa.kr",
+    "created_at": "2024-11-28T20:59:02",
+    "updated_by": "jangminseog@hanmail.net",
+    "updated_at": "2025-08-06T20:59:02"
+  },
+  {
+    "query": "김김 고기",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Quae odit sapiente.",
+    "created_by": "gangyeongho@gmail.com",
+    "created_at": "2020-12-22T18:42:52",
+    "updated_by": "subin51@seogim.com",
+    "updated_at": "2021-05-08T18:42:52"
+  },
+  {
+    "query": "(유) 지 고기",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Impedit incidunt animi neque unde.",
+    "created_by": "gyeongsug11@daum.net",
+    "created_at": "2023-04-10T11:53:01",
+    "updated_by": "misug86@baggimyun.kr",
+    "updated_at": "2023-09-12T11:53:01"
+  },
+  {
+    "query": "(유) 이 맛집",
+    "intent": "PLACE_NAME",
+    "description": "Et sapiente eligendi dignissimos deleniti voluptatem nemo saepe.",
+    "created_by": "junseogim@gmail.com",
+    "created_at": "2024-10-08T02:06:11",
+    "updated_by": "yejunmin@jusighoesa.com",
+    "updated_at": "2025-01-19T02:06:11"
+  },
+  {
+    "query": "(주) 백 카페",
+    "intent": "PLACE_NAME",
+    "description": "Ratione assumenda est voluptates cupiditate.",
+    "created_by": "ybag@gimjeongjo.com",
+    "created_at": "2023-04-26T02:42:06",
+    "updated_by": "iseo@jusighoesa.net",
+    "updated_at": "2024-02-19T02:42:06"
+  },
+  {
+    "query": "유한회사 김 치킨",
+    "intent": "PLACE_NAME",
+    "description": "Et placeat nihil soluta.",
+    "created_by": "hyeonui@gmail.com",
+    "created_at": "2024-11-21T06:51:23",
+    "updated_by": "gimgyeonghyi@hanmail.net",
+    "updated_at": "2025-10-26T06:51:23"
+  },
+  {
+    "query": "김박이 베이커리",
+    "intent": "PLACE_NAME",
+    "description": "Libero sit aliquam alias corporis asperiores delectus.",
+    "created_by": "iyunseo@daum.net",
+    "created_at": "2021-06-14T19:40:44",
+    "updated_by": "jeonghogim@daum.net",
+    "updated_at": "2022-03-27T19:40:44"
+  },
+  {
+    "query": "유한회사 김 카페",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Cum dolor accusamus voluptates.",
+    "created_by": "cunja18@yuhanhoesa.org",
+    "created_at": "2024-08-24T14:28:52",
+    "updated_by": "yeonghoryu@ju.kr",
+    "updated_at": "2025-07-04T14:28:52"
+  },
+  {
+    "query": "(주) 장박임 맛집",
+    "intent": "PLACE_NAME",
+    "description": "Sapiente corrupti sit hic nobis maxime.",
+    "created_by": "ii@heoha.kr",
+    "created_at": "2021-08-12T15:42:42",
+    "updated_by": "siubag@naver.com",
+    "updated_at": "2022-02-18T15:42:42"
+  },
+  {
+    "query": "(주) 김 카페",
+    "intent": "PLACE_NAME",
+    "description": "Dignissimos pariatur ratione cupiditate.",
+    "created_by": "sunog56@hotmail.com",
+    "created_at": "2022-10-09T16:48:18",
+    "updated_by": "cunja98@yuhanhoesa.com",
+    "updated_at": "2023-01-29T16:48:18"
+  },
+  {
+    "query": "김강 맛집",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Quaerat eius pariatur maiores corporis saepe blanditiis.",
+    "created_by": "ogja87@yu.kr",
+    "created_at": "2020-03-28T12:33:00",
+    "updated_by": "qju@yu.com",
+    "updated_at": "2020-07-13T12:33:00"
+  },
+  {
+    "query": "주식회사 박김김 고기",
+    "intent": "PLACE_NAME",
+    "description": "Aliquam tempora corrupti id fugit eos sequi.",
+    "created_by": "eunseoo@naver.com",
+    "created_at": "2024-10-12T07:29:24",
+    "updated_by": "minji46@ii.kr",
+    "updated_at": "2025-08-15T07:29:24"
+  },
+  {
+    "query": "김홍우 맛집",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Aperiam nemo ipsam nemo sapiente inventore.",
+    "created_by": "jcoe@live.com",
+    "created_at": "2023-03-29T00:04:18",
+    "updated_by": "lgim@bagno.kr",
+    "updated_at": "2023-05-31T00:04:18"
+  },
+  {
+    "query": "성김김 고기",
+    "intent": "PLACE_NAME",
+    "description": "Dolor cum neque vero.",
+    "created_by": "gimeunji@gmail.com",
+    "created_at": "2020-03-21T21:20:35",
+    "updated_by": "jeongsig55@jusighoesa.org",
+    "updated_at": "2020-12-12T21:20:35"
+  },
+  {
+    "query": "박홍이 카페",
+    "intent": "PLACE_NAME",
+    "description": "Ipsum iste corporis.",
+    "created_by": "bagsiu@ijeongi.com",
+    "created_at": "2022-08-07T21:32:04",
+    "updated_by": "hanminsu@gimgo.kr",
+    "updated_at": "2023-06-25T21:32:04"
+  },
+  {
+    "query": "이이안 맛집",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Consequatur repellendus non cumque eius voluptatem sed.",
+    "created_by": "yeweoncoe@naver.com",
+    "created_at": "2021-12-28T05:19:09",
+    "updated_by": "junyeong63@gmail.com",
+    "updated_at": "2022-11-22T05:19:09"
+  },
+  {
+    "query": "(주) 한 치킨",
+    "intent": "PLACE_NAME",
+    "description": "Quia ut nihil in quia esse similique.",
+    "created_by": "donghyeongweon@hanmail.net",
+    "created_at": "2024-03-18T00:58:26",
+    "updated_by": "gimmigyeong@gimiim.kr",
+    "updated_at": "2025-01-20T00:58:26"
+  },
+  {
+    "query": "(주) 이 베이커리",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Ex deleniti sequi saepe dolores excepturi.",
+    "created_by": "mijeong20@nate.com",
+    "created_at": "2023-04-16T23:29:28",
+    "updated_by": "minjae16@yu.com",
+    "updated_at": "2023-12-01T23:29:28"
+  },
+  {
+    "query": "최김김 베이커리",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Quidem commodi ullam.",
+    "created_by": "gjang@daum.net",
+    "created_at": "2022-05-24T08:33:24",
+    "updated_by": "jangmyeongsug@daum.net",
+    "updated_at": "2022-11-17T08:33:24"
+  },
+  {
+    "query": "유한회사 김 고기",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Enim provident ullam quam voluptatibus doloribus facere ut.",
+    "created_by": "jaehyeoni@hotmail.com",
+    "created_at": "2023-05-19T01:43:15",
+    "updated_by": "geonuseo@hotmail.com",
+    "updated_at": "2024-03-23T01:43:15"
+  },
+  {
+    "query": "김박김 베이커리",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Vel minus quaerat ipsam adipisci voluptates.",
+    "created_by": "yeweonbag@gmail.com",
+    "created_at": "2020-07-21T04:04:20",
+    "updated_by": "gyeongsugsong@gmail.com",
+    "updated_at": "2021-04-11T04:04:20"
+  },
+  {
+    "query": "김김 맛집",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Aspernatur fuga dolor earum.",
+    "created_by": "juweon60@jui.kr",
+    "created_at": "2022-08-23T21:21:17",
+    "updated_by": "eunji08@dreamwiz.com",
+    "updated_at": "2023-05-16T21:21:17"
+  },
+  {
+    "query": "(주) 강장심 치킨",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Accusantium consequatur nulla voluptas suscipit quisquam.",
+    "created_by": "eunyeong85@hotmail.com",
+    "created_at": "2021-07-27T18:57:24",
+    "updated_by": "gimmijeong@gimsimgim.net",
+    "updated_at": "2021-09-22T18:57:24"
+  },
+  {
+    "query": "주식회사 이 고기",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Ut impedit alias rem.",
+    "created_by": "yeji25@songiman.kr",
+    "created_at": "2021-04-01T11:44:41",
+    "updated_by": "mijeong02@jangica.com",
+    "updated_at": "2021-08-18T11:44:41"
+  },
+  {
+    "query": "유한회사 장 베이커리",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Est earum amet dolores.",
+    "created_by": "yeonghyi22@hotmail.com",
+    "created_at": "2024-01-27T00:20:32",
+    "updated_by": "subin99@ju.com",
+    "updated_at": "2024-07-03T00:20:32"
+  },
+  {
+    "query": "(유) 김 베이커리",
+    "intent": "PLACE_NAME",
+    "description": "Commodi labore doloribus cum nesciunt quae quas laboriosam.",
+    "created_by": "seongjin60@gimicoe.org",
+    "created_at": "2023-01-27T14:32:42",
+    "updated_by": "seoyeongim@ju.com",
+    "updated_at": "2023-08-22T14:32:42"
+  },
+  {
+    "query": "유한회사 윤 카페",
+    "intent": "PLACE_NAME",
+    "description": "Quia repudiandae et commodi eos explicabo saepe.",
+    "created_by": "yunseo31@bagcoeseo.net",
+    "created_at": "2023-06-24T01:52:33",
+    "updated_by": "yeweonyang@dreamwiz.com",
+    "updated_at": "2024-04-26T01:52:33"
+  },
+  {
+    "query": "(유) 이나권 카페",
+    "intent": "PLACE_NAME",
+    "description": "Eos odio enim quidem consectetur.",
+    "created_by": "eunjeongha@live.com",
+    "created_at": "2023-12-19T12:50:07",
+    "updated_by": "qbag@naver.com",
+    "updated_at": "2024-12-16T12:50:07"
+  },
+  {
+    "query": "박오남 맛집",
+    "intent": "PLACE_NAME",
+    "description": "Quae ipsum dolore voluptas magni corrupti.",
+    "created_by": "anjaehyeon@dreamwiz.com",
+    "created_at": "2021-11-12T21:48:54",
+    "updated_by": "sbag@live.com",
+    "updated_at": "2022-01-28T21:48:54"
+  },
+  {
+    "query": "김박곽 치킨",
+    "intent": "PLACE_NAME",
+    "description": "Laborum cupiditate voluptatibus reprehenderit placeat.",
+    "created_by": "gyeongsug60@ju.kr",
+    "created_at": "2021-08-26T12:10:01",
+    "updated_by": "vcoe@gmail.com",
+    "updated_at": "2022-02-23T12:10:01"
+  },
+  {
+    "query": "주식회사 박 카페",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Sapiente fugit consequuntur.",
+    "created_by": "sonjeonghyi@hanmail.net",
+    "created_at": "2024-09-21T09:34:17",
+    "updated_by": "seongmijeong@daum.net",
+    "updated_at": "2025-08-06T09:34:17"
+  },
+  {
+    "query": "유한회사 윤 카페",
+    "intent": "PLACE_NAME",
+    "description": "Ipsa culpa temporibus voluptatibus odio.",
+    "created_by": "jeonghoca@simhwanggim.kr",
+    "created_at": "2024-07-31T16:04:57",
+    "updated_by": "seongjin17@yu.kr",
+    "updated_at": "2025-02-15T16:04:57"
+  },
+  {
+    "query": "최김장 카페",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Unde exercitationem ab et.",
+    "created_by": "lgim@hotmail.com",
+    "created_at": "2024-06-10T04:43:25",
+    "updated_by": "eunseo31@yuhanhoesa.net",
+    "updated_at": "2025-01-26T04:43:25"
+  },
+  {
+    "query": "고김안 카페",
+    "intent": "PLACE_NAME",
+    "description": "Dolores rerum incidunt et vero iure sunt.",
+    "created_by": "hwangseongmin@daum.net",
+    "created_at": "2024-04-04T10:59:12",
+    "updated_by": "eunyeong63@gmail.com",
+    "updated_at": "2024-06-30T10:59:12"
+  },
+  {
+    "query": "주식회사 김 베이커리",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Aliquam corrupti fugit necessitatibus nesciunt nemo maxime.",
+    "created_by": "seongmingim@hanmail.net",
+    "created_at": "2020-06-23T05:06:11",
+    "updated_by": "seominseo@naver.com",
+    "updated_at": "2020-11-06T05:06:11"
+  },
+  {
+    "query": "(유) 주이손 치킨",
+    "intent": "LAT_LON_SEARCH",
+    "description": "Temporibus quo doloremque quo.",
+    "created_by": "zju@dreamwiz.com",
+    "created_at": "2023-02-15T08:41:51",
+    "updated_by": "eunseo14@gmail.com",
+    "updated_at": "2024-01-16T08:41:51"
+  },
+  {
+    "query": "김박 맛집",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Est vel ipsam iure ad quos.",
+    "created_by": "jeongung04@hwanggimgo.com",
+    "created_at": "2020-05-23T17:35:56",
+    "updated_by": "jia48@yuhanhoesa.com",
+    "updated_at": "2020-10-23T17:35:56"
+  },
+  {
+    "query": "(유) 이 맛집",
+    "intent": "PLACE_NAME",
+    "description": "Itaque quis maiores autem.",
+    "created_by": "hyeonjeong26@ju.net",
+    "created_at": "2022-03-28T20:00:27",
+    "updated_by": "jiweongo@nate.com",
+    "updated_at": "2023-01-01T20:00:27"
+  },
+  {
+    "query": "유한회사 양허민 맛집",
+    "intent": "RESTAURANT_SEARCH",
+    "description": "Doloremque reiciendis eos accusantium nemo cumque.",
+    "created_by": "jeongho95@dreamwiz.com",
+    "created_at": "2023-02-25T21:00:35",
+    "updated_by": "jeongjagim@daum.net",
+    "updated_at": "2023-08-15T21:00:35"
+  }
+]
